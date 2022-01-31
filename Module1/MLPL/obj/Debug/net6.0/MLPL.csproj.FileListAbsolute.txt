@@ -1,0 +1,15 @@
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\bin\Debug\net6.0\MLPL.exe
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\bin\Debug\net6.0\MLPL.deps.json
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\bin\Debug\net6.0\MLPL.runtimeconfig.json
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\bin\Debug\net6.0\MLPL.dll
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\bin\Debug\net6.0\ref\MLPL.dll
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\bin\Debug\net6.0\MLPL.pdb
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\obj\Debug\net6.0\MLPL.csproj.AssemblyReference.cache
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\obj\Debug\net6.0\MLPL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\obj\Debug\net6.0\MLPL.AssemblyInfoInputs.cache
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\obj\Debug\net6.0\MLPL.AssemblyInfo.cs
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\obj\Debug\net6.0\MLPL.csproj.CoreCompileInputs.cache
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\obj\Debug\net6.0\MLPL.dll
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\obj\Debug\net6.0\ref\MLPL.dll
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\obj\Debug\net6.0\MLPL.pdb
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Module1\MLPL\obj\Debug\net6.0\MLPL.genruntimeconfig.cache

@@ -1,0 +1,15 @@
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\bin\Debug\net6.0\HelloWorld.exe
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\bin\Debug\net6.0\HelloWorld.deps.json
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\bin\Debug\net6.0\HelloWorld.runtimeconfig.json
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\bin\Debug\net6.0\HelloWorld.dll
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\bin\Debug\net6.0\ref\HelloWorld.dll
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\bin\Debug\net6.0\HelloWorld.pdb
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\obj\Debug\net6.0\HelloWorld.csproj.AssemblyReference.cache
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\obj\Debug\net6.0\HelloWorld.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\obj\Debug\net6.0\HelloWorld.AssemblyInfoInputs.cache
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\obj\Debug\net6.0\HelloWorld.AssemblyInfo.cs
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\obj\Debug\net6.0\HelloWorld.csproj.CoreCompileInputs.cache
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\obj\Debug\net6.0\HelloWorld.dll
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\obj\Debug\net6.0\ref\HelloWorld.dll
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\obj\Debug\net6.0\HelloWorld.pdb
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\HelloWorld\obj\Debug\net6.0\HelloWorld.genruntimeconfig.cache
