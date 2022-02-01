@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "MLPL", "MLPL\MLPL.pyproj", "{9F076549-8A8D-4E06-8B32-A8A03E549C06}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F076549-8A8D-4E06-8B32-A8A03E549C06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F076549-8A8D-4E06-8B32-A8A03E549C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {29BA6FB0-0B6F-4D2E-AC59-75AED3149752}
+	EndGlobalSection
+EndGlobal
