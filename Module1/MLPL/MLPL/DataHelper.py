@@ -1,32 +1,30 @@
 import pandas as pd 
-import numpy as np
 
 class DataHelper(object):
-    def __init__(self, dataSetFilePath, hasHeader=True):
-        self.ID = 'Helper_01'
-        self.filePath = dataSetFilePath
-        if(hasHeader):
-            self.dataFrame = pd.read_csv(self.filePath)
-        else:
-            self.dataFrame = pd.read_csv(self.filePath, header=None)
+    def __init__(self):
+        pass
             
-    def printData(self):
-        print(self.dataFrame)
-    
-    def handleMissingValues(self, missingRepresentation=None):
+    def handleMissingValues(self, inputDataFrame, missingRepresentation=None):
         #Waiting on Response from discussion question
         #Write a function that, given a dataset, imputes missing
         #values with the feature (column) mean
         #For now assuming that this implies the whole column
+        #pd.to_numeric(df['s2'], errors='coerce').mean()
         
         #Get the average of the whole column 
         if(missingRepresentation != None): 
-            self.dataFrame.replace({missingRepresentation: None}, inplace=True)
-            print(self.dataFrame)
-            testMeanCol = self.dataFrame.mean(axis=0, skipna=True)
-            test2 = self.dataFrame[1].mean()
-            print(testMeanCol)
-            print(test2)
-            print(self.dataFrame.isna())
-        
+            inputDataFrame.replace({missingRepresentation: None}, inplace=True)
+
+            #self.dataFrame.replace({missingRepresentation: None}, inplace=True)
+            #self.dataFrame.apply(mean, axis=1)
+            
+            #print(self.dataFrame)
+            #print(self.dataFrame.isna())
+            
+            #mean = pd.to_numeric(self.dataFrame.iloc[:,1], errors='coerce').mean()
+            #print(mean)
+
+            #testMeanCol = self.dataFrame.mean(axis=0, skipna=False)
+            #testMeanRow = self.dataFrame.mean(axis=1, skipna=False)
+
         
