@@ -10,16 +10,28 @@ def main(dataFile: str,
          dataFileDtypConvtert = None,
          missingValuesCols: List = None,
          ordinalEncoding: Dict = None,
-         nominalOneHotColList: List = None):
+         nominalOneHotColList: List = None,
+         discretizationApply: List = None):
     
     dataSteps = []  #List that will store the steps as the data gets prepped for processing
+    dataProc = {'Raw Data': None,
+                 'Raw Data dTypes Applied': None,
+                 'Average On Features': None,
+                 'Filled Data': None,
+                 'Ordinal Encoded Data': None,
+                 'Nominal One Hot Data': None,
+                 'Discretization Equal Width': None,
+                 'Discretization Equal Freq': None}
+    
     #TODO: Update this to a dictonary
     
     raw_data = pd.read_csv(dataFile, names=dataFileHeaders)
     dataSteps.append(raw_data)
+    dataProc['Raw Data'] = pd.read_csv(dataFile, names=dataFileHeaders)
     
     raw_data_typeApplied = pd.read_csv(dataFile, names=dataFileHeaders, dtype=dataFileDtypes, converters=dataFileDtypConvtert)
     dataSteps.append(raw_data_typeApplied)
+    dataProc['Raw Data dTypes Applied'] = pd.read_csv(dataFile, names=dataFileHeaders)
     
     filled_data = raw_data_typeApplied.copy(deep=True)
     
@@ -57,8 +69,23 @@ def main(dataFile: str,
     else:
         dataSteps.append(ordinalEncoded_data)
         
+    #Apply the Discritiztion 
+    discretization_data = filled_data.copy(deep=True)
+    if(discretizationApply != None):
+        discType = discretizationApply[0]
+        numBins = discretizationApply[1]
+        for colHeader in discretizationApply[2]:
+            if discType == 'Even Width':
+                discCol = pd.qcut(x= discretization_data[colHeader], q = numBins)
+                discColCut = pd.cut(discretization_data[colHeader], numBins)
+    else:
+        discCol = None
+           
+    test = discCol   
         
-    return dataSteps
+        
+    #return dataSteps
+    return dataProc
     
     #categoial data on the mean -> if it's a stirng / yes or no just use the most coming occuring value
 
@@ -161,6 +188,11 @@ if __name__ == "__main__":
     testNomOneHotDtypeDict = {'Color': 'str','Val1': 'int','Val2': 'int'}
     testNomOneHotColList = ['Color']
     
+    #This Test sets shows Even Width Discretizaiton 
+    testDiscEWDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\discEvenWidth.data"
+    testDiscEWHeaders = ['EWCol','Val1','Val2']
+    #DiscList format is Type of Disc / Number of Bins /  List Column to apply on
+    testDiscEWDiscList = ['Even Width', 10, ['EWCol']]
     
     dfSteps_Abalone = main(abaloneDataSet, abaloneHeaders, abaloneDtypeDict)
     dfSteps_BreastCancer = main(breastCancerDataSet, breastCancerHeaders, breastCancerDtypes, breastCancerDtypeConvterts, breastCancerMissingValCols)
@@ -173,6 +205,7 @@ if __name__ == "__main__":
     dfSteps_testAvg = main(testAvgDataSet, testAvgDataHeaders, None, testAvgDtypeConvterts, testAvgMissingValCols)
     dfSteps_testOrdinal = main(testOrdinalDataSet, testOrdinalHeaders, testOrdinalDtypeDict, None, None, testOrdinalEncodingDict)
     dfSteps_testNomOneHot = main(testNomOneHotDataSet, testNomOneHotlHeaders, testNomOneHotDtypeDict, None, None, None, testNomOneHotColList)
+    dfSteps_testDicEvenWidth = main(testDiscEWDataSet, testDiscEWHeaders, None, None, None, None, None, testDiscEWDiscList)
     
     
     
