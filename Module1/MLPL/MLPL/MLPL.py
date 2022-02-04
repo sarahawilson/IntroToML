@@ -5,18 +5,56 @@ import pandas as pd
 from typing import List, Tuple, Dict;
 
 def main(dataFile: str, 
-         dataFileHeaders: List,
+         dataFileHeaders: List = None,
          dataFileDtypes: Dict = None,
-         dataFileDtypConvtert = None):
+         dataFileDtypConvtert = None,
+         missingValuesCols: List = None,
+         ordinalEncoding: Dict = None):
     
     dataSteps = []  #List that will store the steps as the data gets prepped for processing
-    raw_data = pd.read_csv(dataFile, names=dataFileHeaders, dtype=dataFileDtypes, converters=dataFileDtypConvtert)
+    raw_data = pd.read_csv(dataFile, names=dataFileHeaders)
     dataSteps.append(raw_data)
+    
+    raw_data_typeApplied = pd.read_csv(dataFile, names=dataFileHeaders, dtype=dataFileDtypes, converters=dataFileDtypConvtert)
+    dataSteps.append(raw_data_typeApplied)
+    
+    filled_data = raw_data_typeApplied.copy(deep=True)
+    
+    #Apply Transform needed for Missing Attribute Values
+    if (missingValuesCols != None):
+        mean = []
+        for col in missingValuesCols:
+            mean.append(raw_data_typeApplied[col].mean(axis=0, skipna=True))
+        dataSteps.append(mean)
+        colIndex = 0
+        for col in missingValuesCols:
+            filled_data.fillna({col: mean[colIndex]}, inplace=True)
+            colIndex = colIndex + 1
+        dataSteps.append(filled_data)
+    else:
+        dataSteps.append('No Missing Values: Mean NA')
+        dataSteps.append(filled_data)
+    
 
+    ordinalEncoded_data = filled_data.copy(deep=True)
+    #Apply Transform needed for converting Ordinal Data to Ints   
+    if (ordinalEncoding != None):
+        ordinalEncoded_data.replace(to_replace=ordinalEncoding, inplace = True)
+        #for col_header, encoding in ordinalEncoding.items():
+            #ordinalEncoded_data
+        dataSteps.append(ordinalEncoded_data)
+    else:
+        dataSteps.append('No Ordinal Encoding Applied')
+        dataSteps.append(ordinalEncoded_data)
+            
+        
+    
+        
     return dataSteps
     
     #categoial data on the mean -> if it's a stirng / yes or no just use the most coming occuring value
-    
+
+  
 def convert_StringToIntOrNaN(dataFrameColumn):
     return pd.to_numeric(dataFrameColumn, errors = 'coerce')
 
@@ -47,6 +85,8 @@ if __name__ == "__main__":
                           'Class': 'int'}
     
     breastCancerDtypeConvterts = {'Bare Nuclei': convert_StringToIntOrNaN}
+    breastCancerMissingValCols = ['Bare Nuclei']
+    #TODO: This column is an int, the mean is returning a float (?) not sure if this is okay or not
     
     
     ####################
@@ -83,19 +123,50 @@ if __name__ == "__main__":
     #Neautral = 000
     
     
+    ####################
+    # FOREST FIRE DATA
+    ####################
+    forestFireDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\ForestFires\forestfires.data"
+    
+    
+    ####################
+    # EXAMPLE TEST SETS DATA
+    ####################
+    #This Test Set shows that the missing values for an Attribute are being replaeced with the mean of all Data Points for that Attribute
+    testAvgDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\colAvg.data"
+    testAvgDataHeaders = ['Col0','Col1','Col2']
+    testAvgDtypeConvterts = {'Col0': convert_StringToIntOrNaN, 'Col2': convert_StringToIntOrNaN}
+    testAvgMissingValCols = ['Col0', 'Col2']
+    
+    
+    #This Test Set shows that Ordinal Data that comes in as strings, is having it's order perseved through ints 
+    testOrdinalDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\ordinal.data"
+    testOrdinalHeaders = ['Degree','Val1','Val2']
+    testOrdinalDtypeDict = {'Degree': 'str','Val1': 'int','Val2': 'int'}
+    
+    testOrdinalEncodingDict = {'Degree': {'HighSchool': '0', 'Bachelors': '1', 'Graduate': '2'}}
+    #Nested Dictornary {'ColHeaderName' : {Encoding Dict}, ect ect}
+    
+    #This Test set shows that the Nominal Data that comes in as strings, is having a one hot encoding applied
+    testNomOneHotDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\nominalOneHot.data"
+    testNomOneHotlHeaders = ['Color','Val1','Val2']
+    testNomOneHotDtypeDict = {'Color': 'str','Val1': 'int','Val2': 'int'}
     
     
     dfSteps_Abalone = main(abaloneDataSet, abaloneHeaders, abaloneDtypeDict)
-    dfSteps_BreastCancer = main(breastCancerDataSet, breastCancerHeaders, breastCancerDtypes, breastCancerDtypeConvterts)
+    dfSteps_BreastCancer = main(breastCancerDataSet, breastCancerHeaders, breastCancerDtypes, breastCancerDtypeConvterts, breastCancerMissingValCols)
     dfSteps_CarEval = main(carEvalDataSet, carEvalHeaders, carDtypeDict, carDtypeConvterts)
     dfSteps_CompHW = main(compHardwareDataSet, compHardwareHeader, compHardwareDtypeDict)
     dfSteps_CongVote = main(congVoteDataSet, congVoteHeaders)
+    dfSteps_ForestFire = main(forestFireDataSet)
+    
+    #Tests!
+    dfSteps_testAvg = main(testAvgDataSet, testAvgDataHeaders, None, testAvgDtypeConvterts, testAvgMissingValCols)
+    dfSteps_testOrdinal = main(testOrdinalDataSet, testOrdinalHeaders, testOrdinalDtypeDict, None, None, testOrdinalEncodingDict)
+    dfSteps_testOrdinal = main(testNomOneHotDataSet, testNomOneHotlHeaders, testNomOneHotDtypeDict, None, None, None)
     
     
-    forestFireDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\ForestFires\forestfires.data"
     
-    testAvgDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\colAvg.data"
-    testAvgDataHeaders = ['Col0','Col1','Col2']
-    df_testAvgDataSet = pd.read_csv(testAvgDataSet, names=testAvgDataHeaders)
+
 
     
