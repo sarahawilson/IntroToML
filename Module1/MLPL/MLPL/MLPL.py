@@ -9,9 +9,12 @@ def main(dataFile: str,
          dataFileDtypes: Dict = None,
          dataFileDtypConvtert = None,
          missingValuesCols: List = None,
-         ordinalEncoding: Dict = None):
+         ordinalEncoding: Dict = None,
+         nominalOneHotColList: List = None):
     
     dataSteps = []  #List that will store the steps as the data gets prepped for processing
+    #TODO: Update this to a dictonary
+    
     raw_data = pd.read_csv(dataFile, names=dataFileHeaders)
     dataSteps.append(raw_data)
     
@@ -44,11 +47,16 @@ def main(dataFile: str,
             #ordinalEncoded_data
         dataSteps.append(ordinalEncoded_data)
     else:
-        dataSteps.append('No Ordinal Encoding Applied')
+        #This is just to keep the overall list structure in tact (Might want to make this a dict)
         dataSteps.append(ordinalEncoded_data)
             
+    #nominalOneHotEncoded_data = ordinalEncoded_data.copy(deep=True)  
+    if(nominalOneHotColList != None):
+        nominalOneHotEncoded_data = pd.get_dummies(filled_data, columns = nominalOneHotColList)
+        dataSteps.append(nominalOneHotEncoded_data)
+    else:
+        dataSteps.append(ordinalEncoded_data)
         
-    
         
     return dataSteps
     
@@ -151,6 +159,7 @@ if __name__ == "__main__":
     testNomOneHotDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\nominalOneHot.data"
     testNomOneHotlHeaders = ['Color','Val1','Val2']
     testNomOneHotDtypeDict = {'Color': 'str','Val1': 'int','Val2': 'int'}
+    testNomOneHotColList = ['Color']
     
     
     dfSteps_Abalone = main(abaloneDataSet, abaloneHeaders, abaloneDtypeDict)
@@ -163,7 +172,7 @@ if __name__ == "__main__":
     #Tests!
     dfSteps_testAvg = main(testAvgDataSet, testAvgDataHeaders, None, testAvgDtypeConvterts, testAvgMissingValCols)
     dfSteps_testOrdinal = main(testOrdinalDataSet, testOrdinalHeaders, testOrdinalDtypeDict, None, None, testOrdinalEncodingDict)
-    dfSteps_testOrdinal = main(testNomOneHotDataSet, testNomOneHotlHeaders, testNomOneHotDtypeDict, None, None, None)
+    dfSteps_testNomOneHot = main(testNomOneHotDataSet, testNomOneHotlHeaders, testNomOneHotDtypeDict, None, None, None, testNomOneHotColList)
     
     
     
