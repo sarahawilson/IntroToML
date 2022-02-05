@@ -1,4 +1,6 @@
 #Sarah Wilson 
+#Programming Project #1 
+#605.649 Introduction to Machine Learning
 
 import pandas as pd
 from typing import List, Tuple, Dict;
@@ -23,7 +25,8 @@ def main(dataFile: str,
                  'Int. Step Discretization Equal Width': None,
                  'Int. Step Discretization Equal Freq': None,
                  'DataFrame Discretization Equal Width': None,
-                 'DataFrame Discretization Equal Freq': None}
+                 'DataFrame Discretization Equal Freq': None,
+                 'Tune and TrainTest Sets': None}
     
     #TODO: Update this to a dictonary
     
@@ -78,8 +81,8 @@ def main(dataFile: str,
                 discretization_data_equalWidth[colHeader] = (pd.cut(discretization_data_equalWidth[colHeader], numBins))
                 
                 #Get the Count to Display to the Console for Demonstartion
-                print('Equal Width Demo:')
-                print(discretization_data_equalWidth[colHeader].value_counts())
+                #print('Equal Width Demo:')
+                #print(discretization_data_equalWidth[colHeader].value_counts())
                 
             if discType == 'Equal Frequency':
                 #Intermediate Form for debug and verification
@@ -90,15 +93,15 @@ def main(dataFile: str,
                 
                 #Get the Count to Display to the Console for Demonstartion
                 
-                print('Equal Frequency Demo:')
-                print(discretization_data_equalFrequency[colHeader].value_counts())
+                #print('Equal Frequency Demo:')
+                #print(discretization_data_equalFrequency[colHeader].value_counts())
                 
                 
         if discType == 'Equal Width':
             dataProc['Int. Step Discretization Equal Width'] = discEqualWidthCats
         if discType == 'Equal Frequnecy':
             dataProc['Int. Step Discretization Equal Freq'] = discEqualFreqCats
-                
+                          
     return dataProc
     
     #categoial data on the mean -> if it's a stirng / yes or no just use the most coming occuring value
@@ -107,7 +110,63 @@ def main(dataFile: str,
 def convert_StringToIntOrNaN(dataFrameColumn):
     return pd.to_numeric(dataFrameColumn, errors = 'coerce')
 
+def create_Tune_TrainTest(overallDataFrame):
+    tempOverDataSet = overallDataFrame.copy(deep=True)
+    #Used to created to seperate data frames (Tune and TrainTest) from the overall data frame
+    #Takes the overall data set 
+    #Dividies it up into 20%: Tune/Valdiation DataFrame
+    #80% that becoems the: TrainTest DataFrame
+    data_Tune_TrainTest = {'Tune Data Set': None,
+                           'TrainTest Data Set': None}
     
+    #Note: This is working under the assumption that the Tune Data Set and the TrainTest Data set must be
+    # be comprised of data points that are totally unique. (For example no data point in Tune Data Set)
+    # can be found in the TrainTest Data Set
+    data_Tune_TrainTest['Tune Data Set'] = overallDataFrame.sample(frac=0.2, random_state=1)
+    #for row in data_Tune_TrainTest['Tune Data Set'].index:
+        #print(row)
+    #data_Tune_TrainTest['TrainTest Data Set'] = overallDataFrame.sample(frac=0.8, random_state=1)
+    data_Tune_TrainTest['TrainTest Data Set'] = tempOverDataSet.drop(data_Tune_TrainTest['Tune Data Set'].index)
+    #for row in data_Tune_TrainTest['TrainTest Data Set'].index:
+        #print(row)
+    
+    return data_Tune_TrainTest
+
+def cal_mean_std(inputDataFrame, colsApply):
+    #Calcualtes the mean and stardand deviation on a certain set of columns 
+    # inputDataFrame is the pd.dataframe to get the data from
+    # colApply is a list of columns to get the data from in the inputDataFrame
+    mean_stdList = []
+    for col in colsApply:
+        meanCol = inputDataFrame[col].mean(axis=0, skipna=True)
+        stdCol = inputDataFrame[col].std(axis=0, skipna=True)
+        #If statement here to adddress the divide by zero error in Z Standardization
+        if(stdCol == 0.0):
+            stdCol = 1.0
+        
+        meanStdTuple = (col, meanCol, stdCol)
+        mean_stdList.append(meanStdTuple)
+        
+    return mean_stdList
+
+
+def zStanderdize_data(inputDataFrame, mean_stdList):
+    #Applies the Z Standardization to the input data set.
+    #On the columns indcaited in the list mean_stdList
+    manipulateInputDataFrame = inputDataFrame.copy(deep=True)
+    for element in mean_stdList:
+        curCol = element[0]
+        meanCol = element[1]
+        stdCol = element[2]
+        manipulateInputDataFrame = manipulateInputDataFrame.apply(lambda dfCol: zStanderdize_ApplyFunction(dfCol, meanCol, stdCol) if dfCol.name == curCol else dfCol)
+        
+    return manipulateInputDataFrame
+
+def zStanderdize_ApplyFunction(inputDataVaule, mean, std):
+    zStand = (inputDataVaule - mean)/std;
+    return zStand       
+    
+      
 if __name__ == "__main__":
     print("MLPL - Machine Learning Pipeline")
     
@@ -215,8 +274,14 @@ if __name__ == "__main__":
     #DiscList format is Type of Disc / Number of Bins /  List Column to apply on
     testDiscEFDiscList = ['Equal Frequency', 3, ['EFCol']]
     
+    #This Test Set shows z-Standerdization Being Applied
+    testZStandDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\zStanderdization.data"
+    testZStandFHeaders = ['Val0','Val1','Val2']
+    
     
     dfSteps_Abalone = main(abaloneDataSet, abaloneHeaders, abaloneDtypeDict)
+    
+    
     dfSteps_BreastCancer = main(breastCancerDataSet, breastCancerHeaders, breastCancerDtypes, breastCancerDtypeConvterts, breastCancerMissingValCols)
     dfSteps_CarEval = main(carEvalDataSet, carEvalHeaders, carDtypeDict, carDtypeConvterts)
     dfSteps_CompHW = main(compHardwareDataSet, compHardwareHeader, compHardwareDtypeDict)
@@ -229,8 +294,13 @@ if __name__ == "__main__":
     dfSteps_testNomOneHot = main(testNomOneHotDataSet, testNomOneHotlHeaders, testNomOneHotDtypeDict, None, None, None, testNomOneHotColList)
     dfSteps_testDicEvenWidth = main(testDiscEWDataSet, testDiscEWHeaders, None, None, None, None, None, testDiscEWDiscList)
     dfSteps_testDicEvenFreq = main(testDiscEFDataSet, testDiscEFHeaders, None, None, None, None, None, testDiscEFDiscList)
+    dfSteps_testZStand = main(testZStandDataSet, testZStandFHeaders)
     
-    
+    #Tune and TrainTest Data Sets from the ZStandard DataFrame
+    dictTuneTestTrainZStand = create_Tune_TrainTest(dfSteps_testZStand['Raw Data dTypes Applied'])
+    meanStdTrainZStand = cal_mean_std(dictTuneTestTrainZStand['TrainTest Data Set'], testZStandFHeaders)
+    standerdizedZStandTrainTestSet = zStanderdize_data(dictTuneTestTrainZStand['TrainTest Data Set'], meanStdTrainZStand)
+    standerdizedZStandTunetSet = zStanderdize_data(dictTuneTestTrainZStand['Tune Data Set'], meanStdTrainZStand) 
     
 
 
