@@ -4,6 +4,7 @@
 
 import pandas as pd
 import numpy as np
+import copy
 from typing import List, Tuple, Dict;
 
 def main(dataFile: str, 
@@ -181,7 +182,53 @@ def zStanderdize_ApplyFunction(inputDataVaule, mean, std):
     zStand = (inputDataVaule - mean)/std;
     return zStand       
     
-      
+
+def runKFold_CrossVal(inputTestTrainDataSetList, taskName=None, classCol=None):
+    numFolds = len(inputTestTrainDataSetList)
+    accuracyErrorTupleList = []
+    for iFoldIndex in range(numFolds):
+        loopList = copy.deepcopy(inputTestTrainDataSetList)
+        testdf = loopList.pop(iFoldIndex)
+        traindf = pd.concat(loopList, axis=0)
+        
+        if (taskName == 'Classification'):
+           accuracyErrorTupleList.append(runSimplePluralityClassAlgo(traindf, testdf, classCol))
+           print('Accuracy on fold ' + str(iFoldIndex+1) + ': ' +  str(accuracyErrorTupleList[iFoldIndex][0]))
+    
+    #Determine average Accuracy and average Error for all folds
+    accSum = 0.0
+    errSum = 0.0
+    for accErrPair in accuracyErrorTupleList:
+        curAcc = accErrPair[0]
+        accSum = accSum + curAcc
+        curErr = accErrPair[1]
+        errSum = errSum + curErr
+    
+    avgAcc = accSum / numFolds
+    avgErr = errSum / numFolds
+    
+    return (avgAcc, avgErr)
+    
+
+
+def runSimplePluralityClassAlgo(trainSet, testSet, classifyOnHeader):
+    #This function will run the algoirhtm for a simple pluarity class label
+    
+    mostCommonInTrain = trainSet[classifyOnHeader].value_counts().idxmax()
+    #use this call to account for equal counts. Will return the first hit
+    mostCommonInTest = testSet[classifyOnHeader].value_counts().idxmax()
+    print('Most Common In Train Set:' + mostCommonInTrain)
+    print('Most Common in Test Set:' + mostCommonInTest)
+    
+    if (mostCommonInTrain == mostCommonInTest):
+        err = 0.0
+        acc = 1.0
+    elif(mostCommonInTrain != mostCommonInTest):
+        err = 1.0
+        acc = 0.0
+
+    return(acc, err)
+   
 if __name__ == "__main__":
     print("MLPL - Machine Learning Pipeline")
     
@@ -299,8 +346,6 @@ if __name__ == "__main__":
     
     
     dfSteps_Abalone = main(abaloneDataSet, abaloneHeaders, abaloneDtypeDict)
-    
-    
     dfSteps_BreastCancer = main(breastCancerDataSet, breastCancerHeaders, breastCancerDtypes, breastCancerDtypeConvterts, breastCancerMissingValCols)
     dfSteps_CarEval = main(carEvalDataSet, carEvalHeaders, carDtypeDict, carDtypeConvterts)
     dfSteps_CompHW = main(compHardwareDataSet, compHardwareHeader, compHardwareDtypeDict)
@@ -324,7 +369,9 @@ if __name__ == "__main__":
     
     #Show 5 folds being built
     kFoldsExampleList = create_stratified_folds(dfSteps_testkFoldClass['Raw Data dTypes Applied'], 5)
-    
+    (avgAcc, avgErr) = runKFold_CrossVal(kFoldsExampleList, 'Classification', 'Risk')
+    print('Average Accuracy of Simple Pluarity Predictor:' + str(avgAcc))
+   # print(avgErr)
 
 
     
