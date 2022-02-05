@@ -217,7 +217,7 @@ def runKFold_CrossVal(inputTestTrainDataSetList, taskName=None, classCol=None, z
            print('\t Error on fold ' + str(iFoldIndex+1) + ': ' +  str(accuracyErrorTupleList[iFoldIndex][1]))
            
         if (taskName == 'Regression'):
-            accuracyErrorTupleList.append(runSimplePluralityRegAlgo(zz_traindf, zz_testdf, classCol))
+            accuracyErrorTupleList.append(runSimpleAvgRegAlgo(zz_traindf, zz_testdf, classCol))
             print('\t Accuracy on fold ' + str(iFoldIndex+1) + ': ' +  str(accuracyErrorTupleList[iFoldIndex][0]))
             print('\t Error on fold ' + str(iFoldIndex+1) + ': ' +  str(accuracyErrorTupleList[iFoldIndex][1]))
          
@@ -259,19 +259,17 @@ def runSimplePluralityClassAlgo(trainSet, testSet, classifyOnHeader):
 
     return(acc, err)
     
-def runSimplePluralityRegAlgo(trainSet, testSet, regOnHeader):
-    #This function will run the algoirhtm for a simple pluarity class label
+def runSimpleAvgRegAlgo(trainSet, testSet, regOnHeader):
+    #This function will run the algoirhtm for a simple determine the average of the test and train sets
     
-    mostCommonInTrain = trainSet[regOnHeader].value_counts().idxmax()
-    #use this call to account for equal counts. Will return the first hit
-    mostCommonInTest = testSet[regOnHeader].value_counts().idxmax()
-    print('\n')
-    print('\t Most Common In Train Set:' + str(mostCommonInTrain))
-    print('\t Most Common in Test Set:' + str(mostCommonInTest))
+    avgInTrain = trainSet[regOnHeader].mean(axis=0, skipna=True)
+    avgInTest = testSet[regOnHeader].value_counts().idxmax()
+    print('Average In Train Set:' + str(avgInTrain))
+    print('Average in Test Set:' + str(avgInTest))
     
     
-    err = np.abs(mostCommonInTrain - mostCommonInTest)
-    acc = (err / mostCommonInTest) *100
+    err = np.abs(avgInTrain - avgInTest)
+    acc = (err / avgInTest) *100
 
     return(acc, err)
    
@@ -425,8 +423,8 @@ if __name__ == "__main__":
     
     print('---Regression---')
     (avgAcc, avgErr) = runKFold_CrossVal(kFoldsExampleList, 'Regression', 'Debt')
-    print('Average Accuracy of Simple Pluarity Predictor:' + str(avgAcc))
-    print('Average Absolute Error of Simple Pluarity Predictor:' + str(avgErr))
+    print('Average Accuracy of Simple Average Predictor:' + str(avgAcc))
+    print('Average Absolute Error of Simple Average Predictor:' + str(avgErr))
     #print(avgErr)
 
 
