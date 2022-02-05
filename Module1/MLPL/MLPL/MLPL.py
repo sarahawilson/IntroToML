@@ -140,7 +140,6 @@ def create_stratified_folds(inputDataFrame, numFolds):
     # and the number of folds (int) to create out of this data frame
     # Creates the number of disjoint folds from the input data frame
     # Returns a list of these dataframes
-    kFoldDataFrames = []
     tempInputDataFrame = inputDataFrame.copy(deep=True)
     kFoldDataFramesTest = np.split(tempInputDataFrame, numFolds)
 
@@ -183,23 +182,48 @@ def zStanderdize_ApplyFunction(inputDataVaule, mean, std):
     return zStand       
     
 
-def runKFold_CrossVal(inputTestTrainDataSetList, taskName=None, classCol=None):
+def runKFold_CrossVal(inputTestTrainDataSetList, taskName=None, classCol=None, zStand=False, zStandHeaders=None, printzStand=False):
     numFolds = len(inputTestTrainDataSetList)
     accuracyErrorTupleList = []
+    zStandTestTrainDict = {'Train Set': None,
+                           'Test Set': None}
+    
     print('Running k Fold Cross Validation for task: ' + taskName)
     for iFoldIndex in range(numFolds):
         loopList = copy.deepcopy(inputTestTrainDataSetList)
-        testdf = loopList.pop(iFoldIndex)
-        traindf = pd.concat(loopList, axis=0)
+        #Demo Prints
+        zz_testdf = loopList.pop(iFoldIndex)
+        zz_traindf = pd.concat(loopList, axis=0)
+        if((printzStand) and (iFoldIndex==0)):
+            print(zz_testdf)
+            print(zz_traindf)
+            
+        zStandTestTrainDict['Train Set'] = zz_traindf
+        zStandTestTrainDict['Test Set'] = zz_testdf
+        
+        if(zStand):
+            meanStdTuple = cal_mean_std(zStandTestTrainDict['Train Set'], zStandHeaders)
+            zz_testdf_zStandTrainSet = zStanderdize_data(zStandTestTrainDict['Train Set'], meanStdTuple)
+            zz_testdf_zStandTestSet = zStanderdize_data(zStandTestTrainDict['Test Set'], meanStdTuple)
+            if((printzStand) and (iFoldIndex==0)):
+                print(meanStdTuple)
+                print(zz_testdf_zStandTestSet)
+                print(zz_testdf_zStandTrainSet)
+            
         
         if (taskName == 'Classification'):
-           accuracyErrorTupleList.append(runSimplePluralityClassAlgo(traindf, testdf, classCol))
-           print('Accuracy on fold ' + str(iFoldIndex+1) + ': ' +  str(accuracyErrorTupleList[iFoldIndex][0]))
+           accuracyErrorTupleList.append(runSimplePluralityClassAlgo(zz_traindf, zz_testdf, classCol))
+           print('\t Accuracy on fold ' + str(iFoldIndex+1) + ': ' +  str(accuracyErrorTupleList[iFoldIndex][0]))
+           print('\t Error on fold ' + str(iFoldIndex+1) + ': ' +  str(accuracyErrorTupleList[iFoldIndex][1]))
            
         if (taskName == 'Regression'):
-            accuracyErrorTupleList.append(runSimplePluralityRegAlgo(traindf, testdf, classCol))
-            print('Accuracy on fold ' + str(iFoldIndex+1) + ': ' +  str(accuracyErrorTupleList[iFoldIndex][0]))
-            
+            accuracyErrorTupleList.append(runSimplePluralityRegAlgo(zz_traindf, zz_testdf, classCol))
+            print('\t Accuracy on fold ' + str(iFoldIndex+1) + ': ' +  str(accuracyErrorTupleList[iFoldIndex][0]))
+            print('\t Error on fold ' + str(iFoldIndex+1) + ': ' +  str(accuracyErrorTupleList[iFoldIndex][1]))
+         
+        #End of For Loop clear the dictonary
+        zStandTestTrainDict['Train Set'] = None
+        zStandTestTrainDict['Test Set'] = None
     
     #Determine average Accuracy and average Error for all folds
     accSum = 0.0
@@ -241,17 +265,13 @@ def runSimplePluralityRegAlgo(trainSet, testSet, regOnHeader):
     mostCommonInTrain = trainSet[regOnHeader].value_counts().idxmax()
     #use this call to account for equal counts. Will return the first hit
     mostCommonInTest = testSet[regOnHeader].value_counts().idxmax()
-    print('Most Common In Train Set:' + str(mostCommonInTrain))
-    print('Most Common in Test Set:' + str(mostCommonInTest))
+    print('\n')
+    print('\t Most Common In Train Set:' + str(mostCommonInTrain))
+    print('\t Most Common in Test Set:' + str(mostCommonInTest))
     
-    #TODO: Error and Accuracy Calcs need to be different for a regression task
-    # Error: (True Value - Predicted Value) / (True Value * 100)
-    if (mostCommonInTrain == mostCommonInTest):
-        err = 0.0
-        acc = 1.0
-    elif(mostCommonInTrain != mostCommonInTest):
-        err = (mostCommonInTest - mostCommonInTrain) / (mostCommonInTest*100)
-        acc = 0.0
+    
+    err = np.abs(mostCommonInTrain - mostCommonInTest)
+    acc = (err / mostCommonInTest) *100
 
     return(acc, err)
    
@@ -259,72 +279,71 @@ if __name__ == "__main__":
     print("MLPL - Machine Learning Pipeline")
     
     
-
-    ####################
-    # BREAST CANCER DATA
-    ####################
-    breastCancerDataSet_OverallType = 'Classification'
-    breastCancerDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\BreastCancer\breast-cancer-wisconsin.data"
-    breastCancerHeaders = ['Sample Code Number', 'Clump Thickness', 'Uni. of Cell Size', 'Uni. of Cell Shape', 'Marginal Adhesion', 'Single Ep. Cell Size', 'Bare Nuclei',
-                            'Bland Chromatin', 'Normal Nucleoli', 'Mitoses', 'Class']
-
-    breastCancerDtypes = {'Sample Code Number': 'int', 'Clump Thickness': 'int', 'Uni. of Cell Size': 'int', 
-                          'Uni. of Cell Shape': 'int', 'Marginal Adhesion': 'int', 'Single Ep. Cell Size': 'int', 
-                          'Bland Chromatin': 'int', 'Normal Nucleoli': 'int', 'Mitoses': 'int', 
-                          'Class': 'int'}
-    
-    breastCancerDtypeConvterts = {'Bare Nuclei': convert_StringToIntOrNaN}
-    breastCancerMissingValCols = ['Bare Nuclei']
-    #TODO: This column is an int, the mean is returning a float (?) not sure if this is okay or not
-    
-    
-    ####################
-    # CAR DATA
-    ####################
-    carEvalDataSet_OverallType = 'Classification'
-    carEvalDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\CarEvaluation\car.data"
-    carEvalHeaders = ['Buying', 'Maint', 'Doors', 'Persons', 'Lug_Boot', 'Safety', 'Car Acceptability']
-    carDtypeDict = {'Buying': 'str', 'Maint': 'str', 'Lug_Boot': 'str', 'Safety': 'str', 'Car Acceptability': 'str'}
-    carDtypeConvterts = {'Doors': convert_StringToIntOrNaN, 'Persons': convert_StringToIntOrNaN}
-    #TODO: handle the 5-more (just make value 5 for doors)
-    #TODO: handle the more (just make the value max+1 for persons)
- 
-    
-    ####################
-    # CONGRESSIONAL VODE DATA
-    ####################
-    congVoteDataSet_OverallType = 'Classification'
-    congVoteDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\CongressionalVote\house-votes-84.data"
-    congVoteHeaders = ['Class Name', 'handicapped-infants', 'water-project-cost-sharing', 'adoption-of-the-budget-resolution', 'physician-fee-freeze', 'el-salvador-aid',
-                       'religious-groups-in-schools', 'anti-satellite-test-ban', 'aid-to-nicaraguan-contras', 'mx-missile', 'immigration', 'synfuels-corporation-cutback',
-                       'education-spending', 'superfund-right-to-sue', 'crime', 'duty-free-exports', 'export-administration-act-south-africa']
-    
-    
-    
-    ####################
-    # COMPUTER HARDWARE DATA
-    ####################
-    compHardwareDataSet_OverallType = 'Regression'
-    compHardwareDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\ComputerHardware\machine.data"
-    compHardwareHeader = ['Vendor Name','Model Name','MYCT','MMIN','MMAX','CACH','CHMIN','CHMAX','PRP','ERP']
-    compHardwareDtypeDict = {'Vendor Name': 'str','Model Name': 'str','MYCT': 'int','MMIN': 'int',
-                             'MMAX': 'int','CACH': 'int','CHMIN': 'int','CHMAX': 'int','PRP': 'int','ERP': 'int'}
-    
-     ####################
-    # ALBALONDE DATA
-    ####################
-    abaloneDataSet_OverallType = 'Regression'
-    abaloneDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\Abalone\abalone.data"
-    abaloneHeaders = ['Sex', 'Length', 'Diameter', 'Height', 'Whole Weight', 'Shucked Weight', 'Viscera Weight', 'Shell Weight', 'Rings']
-    abaloneDtypeDict = {'Sex': 'str', 'Length': 'float' , 'Diameter': 'float', 'Height': 'float', 
-                        'Whole Weight':'float', 'Shucked Weight':'float', 'Viscera Weight': 'float', 'Shell Weight': 'float', 'Rings': 'int'}
-
-    ####################
-    # FOREST FIRE DATA
-    ####################
-    forestFireDataSet_OverallType = 'Regression'
-    forestFireDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\ForestFires\forestfires.data"
-    
+#    ####################
+#    # BREAST CANCER DATA
+#    ####################
+#    breastCancerDataSet_OverallType = 'Classification'
+#    breastCancerDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\BreastCancer\breast-cancer-wisconsin.data"
+#    breastCancerHeaders = ['Sample Code Number', 'Clump Thickness', 'Uni. of Cell Size', 'Uni. of Cell Shape', 'Marginal Adhesion', 'Single Ep. Cell Size', 'Bare Nuclei',
+#                            'Bland Chromatin', 'Normal Nucleoli', 'Mitoses', 'Class']
+#
+#    breastCancerDtypes = {'Sample Code Number': 'int', 'Clump Thickness': 'int', 'Uni. of Cell Size': 'int', 
+#                          'Uni. of Cell Shape': 'int', 'Marginal Adhesion': 'int', 'Single Ep. Cell Size': 'int', 
+#                          'Bland Chromatin': 'int', 'Normal Nucleoli': 'int', 'Mitoses': 'int', 
+#                          'Class': 'int'}
+#    
+#    breastCancerDtypeConvterts = {'Bare Nuclei': convert_StringToIntOrNaN}
+#    breastCancerMissingValCols = ['Bare Nuclei']
+#    #TODO: This column is an int, the mean is returning a float (?) not sure if this is okay or not
+#    
+#    
+#    ####################
+#    # CAR DATA
+#    ####################
+#    carEvalDataSet_OverallType = 'Classification'
+#    carEvalDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\CarEvaluation\car.data"
+#    carEvalHeaders = ['Buying', 'Maint', 'Doors', 'Persons', 'Lug_Boot', 'Safety', 'Car Acceptability']
+#    carDtypeDict = {'Buying': 'str', 'Maint': 'str', 'Lug_Boot': 'str', 'Safety': 'str', 'Car Acceptability': 'str'}
+#    carDtypeConvterts = {'Doors': convert_StringToIntOrNaN, 'Persons': convert_StringToIntOrNaN}
+#    #TODO: handle the 5-more (just make value 5 for doors)
+#    #TODO: handle the more (just make the value max+1 for persons)
+# 
+#    
+#    ####################
+#    # CONGRESSIONAL VODE DATA
+#    ####################
+#    congVoteDataSet_OverallType = 'Classification'
+#    congVoteDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\CongressionalVote\house-votes-84.data"
+#    congVoteHeaders = ['Class Name', 'handicapped-infants', 'water-project-cost-sharing', 'adoption-of-the-budget-resolution', 'physician-fee-freeze', 'el-salvador-aid',
+#                       'religious-groups-in-schools', 'anti-satellite-test-ban', 'aid-to-nicaraguan-contras', 'mx-missile', 'immigration', 'synfuels-corporation-cutback',
+#                       'education-spending', 'superfund-right-to-sue', 'crime', 'duty-free-exports', 'export-administration-act-south-africa']
+#    
+#    
+#    
+#    ####################
+#    # COMPUTER HARDWARE DATA
+#    ####################
+#    compHardwareDataSet_OverallType = 'Regression'
+#    compHardwareDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\ComputerHardware\machine.data"
+#    compHardwareHeader = ['Vendor Name','Model Name','MYCT','MMIN','MMAX','CACH','CHMIN','CHMAX','PRP','ERP']
+#    compHardwareDtypeDict = {'Vendor Name': 'str','Model Name': 'str','MYCT': 'int','MMIN': 'int',
+#                             'MMAX': 'int','CACH': 'int','CHMIN': 'int','CHMAX': 'int','PRP': 'int','ERP': 'int'}
+#    
+#     ####################
+#    # ALBALONDE DATA
+#    ####################
+#    abaloneDataSet_OverallType = 'Regression'
+#    abaloneDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\Abalone\abalone.data"
+#    abaloneHeaders = ['Sex', 'Length', 'Diameter', 'Height', 'Whole Weight', 'Shucked Weight', 'Viscera Weight', 'Shell Weight', 'Rings']
+#    abaloneDtypeDict = {'Sex': 'str', 'Length': 'float' , 'Diameter': 'float', 'Height': 'float', 
+#                        'Whole Weight':'float', 'Shucked Weight':'float', 'Viscera Weight': 'float', 'Shell Weight': 'float', 'Rings': 'int'}
+#
+#    ####################
+#    # FOREST FIRE DATA
+#    ####################
+#    forestFireDataSet_OverallType = 'Regression'
+#    forestFireDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\ForestFires\forestfires.data"
+#    
     
     ####################
     # EXAMPLE TEST SETS DATA
@@ -371,33 +390,44 @@ if __name__ == "__main__":
     kFClassTestHeaders = ['Risk', 'Debt']
     
     
-    dfSteps_Abalone = main(abaloneDataSet, abaloneHeaders, abaloneDtypeDict)
-    dfSteps_BreastCancer = main(breastCancerDataSet, breastCancerHeaders, breastCancerDtypes, breastCancerDtypeConvterts, breastCancerMissingValCols)
-    dfSteps_CarEval = main(carEvalDataSet, carEvalHeaders, carDtypeDict, carDtypeConvterts)
-    dfSteps_CompHW = main(compHardwareDataSet, compHardwareHeader, compHardwareDtypeDict)
-    dfSteps_CongVote = main(congVoteDataSet, congVoteHeaders)
-    dfSteps_ForestFire = main(forestFireDataSet)
+    #dfSteps_Abalone = main(abaloneDataSet, abaloneHeaders, abaloneDtypeDict)
+    #dfSteps_BreastCancer = main(breastCancerDataSet, breastCancerHeaders, breastCancerDtypes, breastCancerDtypeConvterts, breastCancerMissingValCols)
+    #dfSteps_CarEval = main(carEvalDataSet, carEvalHeaders, carDtypeDict, carDtypeConvterts)
+    #dfSteps_CompHW = main(compHardwareDataSet, compHardwareHeader, compHardwareDtypeDict)
+    #dfSteps_CongVote = main(congVoteDataSet, congVoteHeaders)
+    #dfSteps_ForestFire = main(forestFireDataSet)
     
     #Tests!
     dfSteps_testAvg = main(testAvgDataSet, testAvgDataHeaders, None, testAvgDtypeConvterts, testAvgMissingValCols)
-    dfSteps_testOrdinal = main(testOrdinalDataSet, testOrdinalHeaders, testOrdinalDtypeDict, None, None, testOrdinalEncodingDict)
+    #dfSteps_testOrdinal = main(testOrdinalDataSet, testOrdinalHeaders, testOrdinalDtypeDict, None, None, testOrdinalEncodingDict)
     dfSteps_testNomOneHot = main(testNomOneHotDataSet, testNomOneHotlHeaders, testNomOneHotDtypeDict, None, None, None, testNomOneHotColList)
     dfSteps_testDicEvenWidth = main(testDiscEWDataSet, testDiscEWHeaders, None, None, None, None, None, testDiscEWDiscList)
-    dfSteps_testDicEvenFreq = main(testDiscEFDataSet, testDiscEFHeaders, None, None, None, None, None, testDiscEFDiscList)
-    dfSteps_testZStand = main(testZStandDataSet, testZStandFHeaders)
+    #dfSteps_testDicEvenFreq = main(testDiscEFDataSet, testDiscEFHeaders, None, None, None, None, None, testDiscEFDiscList)
+    #dfSteps_testZStand = main(testZStandDataSet, testZStandFHeaders)
     dfSteps_testkFoldClass = main(kFClassTestDataSet, kFClassTestHeaders)
     
     #Tune and TrainTest Data Sets from the ZStandard DataFrame
-    dictTuneTestTrainZStand = create_Tune_TrainTest(dfSteps_testZStand['Raw Data dTypes Applied'])
-    meanStdTrainZStand = cal_mean_std(dictTuneTestTrainZStand['TrainTest Data Set'], testZStandFHeaders)
-    standerdizedZStandTrainTestSet = zStanderdize_data(dictTuneTestTrainZStand['TrainTest Data Set'], meanStdTrainZStand)
-    standerdizedZStandTunetSet = zStanderdize_data(dictTuneTestTrainZStand['Tune Data Set'], meanStdTrainZStand)
+    #dictTuneTestTrainZStand = create_Tune_TrainTest(dfSteps_testZStand['Raw Data dTypes Applied'])
+    #meanStdTrainZStand = cal_mean_std(dictTuneTestTrainZStand['TrainTest Data Set'], testZStandFHeaders)
+    #standerdizedZStandTrainTestSet = zStanderdize_data(dictTuneTestTrainZStand['TrainTest Data Set'], meanStdTrainZStand)
+    #standerdizedZStandTunetSet = zStanderdize_data(dictTuneTestTrainZStand['Tune Data Set'], meanStdTrainZStand)
     
     #Show 5 folds being built
     kFoldsExampleList = create_stratified_folds(dfSteps_testkFoldClass['Raw Data dTypes Applied'], 5)
+    
+    print('Demo z Standard---')
+    (avgAcc, avgErr) = runKFold_CrossVal(kFoldsExampleList, 'Regression', 'Debt', True, ['Debt'], True)
+    
+    print('---Classification---')
     (avgAcc, avgErr) = runKFold_CrossVal(kFoldsExampleList, 'Classification', 'Risk')
     print('Average Accuracy of Simple Pluarity Predictor:' + str(avgAcc))
-   # print(avgErr)
+    print('Average Absolute Error of Simple Pluarity Predictor:' + str(avgErr))
+    
+    print('---Regression---')
+    (avgAcc, avgErr) = runKFold_CrossVal(kFoldsExampleList, 'Regression', 'Debt')
+    print('Average Accuracy of Simple Pluarity Predictor:' + str(avgAcc))
+    print('Average Absolute Error of Simple Pluarity Predictor:' + str(avgErr))
+    #print(avgErr)
 
 
     
