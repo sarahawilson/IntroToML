@@ -186,6 +186,7 @@ def zStanderdize_ApplyFunction(inputDataVaule, mean, std):
 def runKFold_CrossVal(inputTestTrainDataSetList, taskName=None, classCol=None):
     numFolds = len(inputTestTrainDataSetList)
     accuracyErrorTupleList = []
+    print('Running k Fold Cross Validation for task: ' + taskName)
     for iFoldIndex in range(numFolds):
         loopList = copy.deepcopy(inputTestTrainDataSetList)
         testdf = loopList.pop(iFoldIndex)
@@ -194,6 +195,11 @@ def runKFold_CrossVal(inputTestTrainDataSetList, taskName=None, classCol=None):
         if (taskName == 'Classification'):
            accuracyErrorTupleList.append(runSimplePluralityClassAlgo(traindf, testdf, classCol))
            print('Accuracy on fold ' + str(iFoldIndex+1) + ': ' +  str(accuracyErrorTupleList[iFoldIndex][0]))
+           
+        if (taskName == 'Regression'):
+            accuracyErrorTupleList.append(runSimplePluralityRegAlgo(traindf, testdf, classCol))
+            print('Accuracy on fold ' + str(iFoldIndex+1) + ': ' +  str(accuracyErrorTupleList[iFoldIndex][0]))
+            
     
     #Determine average Accuracy and average Error for all folds
     accSum = 0.0
@@ -225,6 +231,26 @@ def runSimplePluralityClassAlgo(trainSet, testSet, classifyOnHeader):
         acc = 1.0
     elif(mostCommonInTrain != mostCommonInTest):
         err = 1.0
+        acc = 0.0
+
+    return(acc, err)
+    
+def runSimplePluralityRegAlgo(trainSet, testSet, regOnHeader):
+    #This function will run the algoirhtm for a simple pluarity class label
+    
+    mostCommonInTrain = trainSet[regOnHeader].value_counts().idxmax()
+    #use this call to account for equal counts. Will return the first hit
+    mostCommonInTest = testSet[regOnHeader].value_counts().idxmax()
+    print('Most Common In Train Set:' + str(mostCommonInTrain))
+    print('Most Common in Test Set:' + str(mostCommonInTest))
+    
+    #TODO: Error and Accuracy Calcs need to be different for a regression task
+    # Error: (True Value - Predicted Value) / (True Value * 100)
+    if (mostCommonInTrain == mostCommonInTest):
+        err = 0.0
+        acc = 1.0
+    elif(mostCommonInTrain != mostCommonInTest):
+        err = (mostCommonInTest - mostCommonInTrain) / (mostCommonInTest*100)
         acc = 0.0
 
     return(acc, err)
