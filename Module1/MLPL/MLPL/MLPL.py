@@ -3,6 +3,7 @@
 #605.649 Introduction to Machine Learning
 
 import pandas as pd
+import numpy as np
 from typing import List, Tuple, Dict;
 
 def main(dataFile: str, 
@@ -122,7 +123,7 @@ def create_Tune_TrainTest(overallDataFrame):
     #Note: This is working under the assumption that the Tune Data Set and the TrainTest Data set must be
     # be comprised of data points that are totally unique. (For example no data point in Tune Data Set)
     # can be found in the TrainTest Data Set
-    data_Tune_TrainTest['Tune Data Set'] = overallDataFrame.sample(frac=0.2, random_state=1)
+    data_Tune_TrainTest['Tune Data Set'] = tempOverDataSet.sample(frac=0.2, random_state=1)
     #for row in data_Tune_TrainTest['Tune Data Set'].index:
         #print(row)
     #data_Tune_TrainTest['TrainTest Data Set'] = overallDataFrame.sample(frac=0.8, random_state=1)
@@ -131,6 +132,20 @@ def create_Tune_TrainTest(overallDataFrame):
         #print(row)
     
     return data_Tune_TrainTest
+
+
+def create_stratified_folds(inputDataFrame, numFolds):
+    # Input data frame
+    # and the number of folds (int) to create out of this data frame
+    # Creates the number of disjoint folds from the input data frame
+    # Returns a list of these dataframes
+    kFoldDataFrames = []
+    tempInputDataFrame = inputDataFrame.copy(deep=True)
+    kFoldDataFramesTest = np.split(tempInputDataFrame, numFolds)
+
+    return kFoldDataFramesTest;    
+    
+
 
 def cal_mean_std(inputDataFrame, colsApply):
     #Calcualtes the mean and stardand deviation on a certain set of columns 
@@ -278,6 +293,10 @@ if __name__ == "__main__":
     testZStandDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\zStanderdization.data"
     testZStandFHeaders = ['Val0','Val1','Val2']
     
+    #This is a test of k-Fold Cross Validation on an simple Classification Data Set 
+    kFClassTestDataSet = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\kFold_Classification.data"
+    kFClassTestHeaders = ['Risk', 'Debt']
+    
     
     dfSteps_Abalone = main(abaloneDataSet, abaloneHeaders, abaloneDtypeDict)
     
@@ -295,12 +314,16 @@ if __name__ == "__main__":
     dfSteps_testDicEvenWidth = main(testDiscEWDataSet, testDiscEWHeaders, None, None, None, None, None, testDiscEWDiscList)
     dfSteps_testDicEvenFreq = main(testDiscEFDataSet, testDiscEFHeaders, None, None, None, None, None, testDiscEFDiscList)
     dfSteps_testZStand = main(testZStandDataSet, testZStandFHeaders)
+    dfSteps_testkFoldClass = main(kFClassTestDataSet, kFClassTestHeaders)
     
     #Tune and TrainTest Data Sets from the ZStandard DataFrame
     dictTuneTestTrainZStand = create_Tune_TrainTest(dfSteps_testZStand['Raw Data dTypes Applied'])
     meanStdTrainZStand = cal_mean_std(dictTuneTestTrainZStand['TrainTest Data Set'], testZStandFHeaders)
     standerdizedZStandTrainTestSet = zStanderdize_data(dictTuneTestTrainZStand['TrainTest Data Set'], meanStdTrainZStand)
-    standerdizedZStandTunetSet = zStanderdize_data(dictTuneTestTrainZStand['Tune Data Set'], meanStdTrainZStand) 
+    standerdizedZStandTunetSet = zStanderdize_data(dictTuneTestTrainZStand['Tune Data Set'], meanStdTrainZStand)
+    
+    #Show 5 folds being built
+    kFoldsExampleList = create_stratified_folds(dfSteps_testkFoldClass['Raw Data dTypes Applied'], 5)
     
 
 
