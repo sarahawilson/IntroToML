@@ -1,0 +1,178 @@
+\documentclass[twoside,11pt]{article}
+\usepackage{jmlr2e}
+\usepackage{hyperref}
+
+% Definitions of handy macros can go here
+
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+
+
+\firstpageno{1}
+
+\begin{document}
+
+\title{Project 1: Machine Learning Pipeline}
+
+\author{\name Sarah Wilson 
+	   \email sawi117@jhu.edu \\
+	   \phone 303-921-7225 \\
+       \addr Engineering Professionals Computer Science\\
+       Johns Hopkins University\\
+       Baltimore, MD 21218, USA} 
+
+\maketitle
+
+
+\section{Introduction}
+Regression and classification are both common tasks in the realm of Machine Learning. Regression and classification are both supervised learning problems. Supervised learning is where the system is given an input and output and then ask to learn or predict the mapping of input to out.\\ \hspace*{10mm} Regression is used to solve problems where the outcome is a number. An example of a Regression problem would be if a system needed to be built that would predict the price of a car based off of certain attributes of that car, such as, mileage, accident history and age.\\
+\hspace*{10mm} Classification is used to solve problems where the outcome is a classifier or string. An example of a Classification problem would be if a system needed to built that would predict if a loan was 'high' or 'low' risk, based off of certain attributes of the person applying for that loan, such as, credit score, previous loan history and income.\\ 
+\hspace*{10mm} In order to implement Regression and Classification algorithms it first must be noted that there needs to be data for these algorithms to run on. A crucial component in Machine Learning is the pre-processing of the data sets that the algorithms are intended to run on. The primary motivation behind this project was to develop a Machine Learning Pipeline that could be used to pre- process multiple unique data sets in order to pass the data to the algorithms. Due to the fact the primary objective was proper data handling the only algorithms that will be discussed in this report are: for Classification problems a Naive Majority predictor and for Regression problems the mean of an attribute in the data sets. These algorithms will be evaluated by using the \textit{k}-fold cross validation method.\\
+\hspace*{10mm} The algorithms implemented for both Classification and Regression are very simple. This leads to the hypothesis that the results from these simplistic algorithms will be highly inaccurate and produce large errors.\\
+\hspace*{10mm} Section 2 will discuss more examples of ways that data needs be pre-proccesed before entering the algorithms, the data-sets that were leverages, the algorithms themselves and the \textit{k}-fold cross validation method. Section 3 will present the results obtained by the Classification task using a Naive Majority predictor and for Regression task taking the mean of an attribute in the data sets. Section 4 will discuss the result that were obtain and compare that to the hypothesis that was outlined in the introduction. This report will conclude in Section 5 with a discussion of lessons learned and areas of possible future work.\\
+
+\newpage
+
+
+\section{Algorithms and Experimental Methods}
+INSERT\\
+
+{\noindent}{\bf Data Sets}
+The following data sets were used during the classification and regression tasks for this project. TABLE X provides a description 
+
+\begin{table}[h!]
+		\caption{Data Sets}
+		\label{tab:table1}\\
+		\begin{tabular}{l|l|c|c|l} 
+			\textbf{Set Name} & 
+			\textbf{Description} & 
+			\textbf{Task Type} & 
+			\textbf{Predictor} & 
+			\textbf{Link}\\
+			\hline
+			Breast Cancer & 
+			Descp & 
+			Classification & 
+			Diagnosis & 
+			Link\\
+				
+			Car Evaluation & 
+			Descp & 
+			Classification & 
+			Car Eval. & 
+			Link\\
+			
+			Congressional Vote & 
+			Descp & 
+			Classification & 
+			Party & 
+			Link\\
+			
+			Albalone & 
+			Descp & 
+			Regression & 
+			Rings (int) & 
+			Link\\
+
+			Computer Hardware & 
+			Descp & 
+			Regression & 
+			PRP (int) & 
+			Link\\
+			
+			Forest Fires & 
+			Descp & 
+			Regression & 
+			Area (float) & 
+			Link\\
+			
+		\end{tabular}
+\end{table}
+
+
+\newpage
+
+\section{Results}
+The following results were obtained from the Classificaiton task data sets.\newline
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Classification: Naive Majority Predictor Results}
+		\label{tab:table1}
+		\begin{tabular}{l|c|r} 
+			\textbf{} & 
+			\textbf{Value 2} & 
+			\textbf{Value 3}\\
+			\hline
+			1 & 1110.1 & a\\
+			2 & 10.1 & b\\
+			3 & 23.113231 & c\\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\newpage
+
+\section{Discussion}
+
+\newpage
+
+\section{Conclusion}
+
+\newpage
+
+Probabilistic inference has become a core technology in AI,
+largely due to developments in graph-theoretic methods for the 
+representation and manipulation of complex probability 
+distributions~\citep{pearl:88}.  Whether in their guise as 
+directed graphs (Bayesian networks) or as undirected graphs (Markov 
+random fields), \emph{probabilistic graphical models} have a number 
+of virtues as representations of uncertainty and as inference engines.  
+Graphical models allow a separation between qualitative, structural
+aspects of uncertain knowledge and the quantitative, parametric aspects 
+of uncertainty...\\
+
+
+
+\newpage
+
+\appendix
+\section*{Appendix A.}
+\label{app:theorem}
+
+% Note: in this sample, the section number is hard-coded in. Following
+% proper LaTeX conventions, it should properly be coded as a reference:
+
+%In this appendix we prove the following theorem from
+%Section~\ref{sec:textree-generalization}:
+
+In this appendix we prove the following theorem from
+Section~6.2:
+
+\noindent
+{\bf Theorem} {\it Let $u,v,w$ be discrete variables such that $v, w$ do
+not co-occur with $u$ (i.e., $u\neq0\;\Rightarrow \;v=w=0$ in a given
+dataset $\dataset$). Let $N_{v0},N_{w0}$ be the number of data points for
+which $v=0, w=0$ respectively, and let $I_{uv},I_{uw}$ be the
+respective empirical mutual information values based on the sample
+$\dataset$. Then
+\[
+	N_{v0} \;>\; N_{w0}\;\;\Rightarrow\;\;I_{uv} \;\leq\;I_{uw}
+\]
+with equality only if $u$ is identically 0.} \hfill\BlackBox
+
+\noindent
+{\bf Proof}. We use the notation:
+\[
+P_v(i) \;=\;\frac{N_v^i}{N},\;\;\;i \neq 0;\;\;\;
+P_{v0}\;\equiv\;P_v(0)\; = \;1 - \sum_{i\neq 0}P_v(i).
+\]
+These values represent the (empirical) probabilities of $v$
+taking value $i\neq 0$ and 0 respectively.  Entropies will be denoted
+by $H$. We aim to show that $\fracpartial{I_{uv}}{P_{v0}} < 0$....\\
+
+
+\vskip 0.2in
+\bibliography{sample}
+
+\end{document}
