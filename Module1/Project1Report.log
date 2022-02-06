@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.6)  6 FEB 2022 17:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.6)  6 FEB 2022 17:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -353,30 +353,76 @@ Underfull \hbox (badness 10000) in paragraph at lines 96--97
 
  []
 
-[3] [4] [5]
 
-Package natbib Warning: Citation `pearl:88' on page 6 undefined on input line 1
-27.
+! LaTeX Error: Illegal character in array arg.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.102 ...{tabular}{l|>\centering m{1inch}|c|c|c|c}
+                                                  
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 124--134
+! LaTeX Error: Illegal character in array arg.
 
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.102 ...{tabular}{l|>\centering m{1inch}|c|c|c|c}
+                                                  
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Illegal character in array arg.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.102 ...{tabular}{l|>\centering m{1inch}|c|c|c|c}
+                                                  
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Illegal character in array arg.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.102 ...{tabular}{l|>\centering m{1inch}|c|c|c|c}
+                                                  
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Illegal character in array arg.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.102 ...{tabular}{l|>\centering m{1inch}|c|c|c|c}
+                                                  
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (80.62851pt too wide) in paragraph at lines 102--116
+ [] 
  []
 
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 169--173
-
- []
-
-(Project1Report.bbl
+[3] [4] [5] (Project1Report.bbl
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-)
-
-Package natbib Warning: There were undefined citations.
-
-[7] (Project1Report.aux)
+) [6] (Project1Report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -384,9 +430,9 @@ Package rerunfilecheck Info: File `Project1Report.out' has not changed.
 (rerunfilecheck)             Checksum: CD01CCEB625938019430AC93CDC4EC19;594.
  ) 
 Here is how much of TeX's memory you used:
- 9169 strings out of 478593
- 143303 string characters out of 2844605
- 432951 words of memory out of 3000000
+ 9167 strings out of 478593
+ 143286 string characters out of 2844605
+ 432917 words of memory out of 3000000
  27223 multiletter control sequences out of 15000+600000
  476726 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -395,20 +441,11 @@ Here is how much of TeX's memory you used:
 cmbx10.pfb><C:/Users/sarah/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb><C:/Users/sarah/AppData/Local/Programs/MiKTeX/fonts/type1/p
 ublic/amsfonts/cm/cmcsc10.pfb><C:/Users/sarah/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/sarah/AppData/Local/Programs/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/sarah/AppData/Local/P
-rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/sarah/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/sarah
-/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Use
-rs/sarah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb>
-<C:/Users/sarah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
-r8.pfb><C:/Users/sarah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
-s/cm/cmsy10.pfb><C:/Users/sarah/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/amsfonts/cm/cmsy8.pfb><C:/Users/sarah/AppData/Local/Programs/MiKTeX/fonts/typ
-e1/public/amsfonts/cm/cmti10.pfb>
-Output written on Project1Report.pdf (7 pages, 173123 bytes).
+ts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/sarah/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on Project1Report.pdf (6 pages, 94470 bytes).
 PDF statistics:
- 130 PDF objects out of 1000 (max. 8388607)
- 17 named destinations out of 1000 (max. 500000)
+ 83 PDF objects out of 1000 (max. 8388607)
+ 15 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

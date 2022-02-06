@@ -93,20 +93,25 @@ The following data sets were used during the classification and regression tasks
 \newpage
 
 \section{Results}
-The following results were obtained from the Classificaiton task data sets.\newline
+The following results were obtained from the Classification task data sets.\newline
 
 \begin{table}[h!]
 	\begin{center}
 		\caption{Classification: Naive Majority Predictor Results}
 		\label{tab:table1}
-		\begin{tabular}{l|c|r} 
-			\textbf{} & 
-			\textbf{Value 2} & 
-			\textbf{Value 3}\\
+		\begin{tabular}{l|>\centering m{1inch}|c|c|c|c} 
+			\textbf{Set Name} & 
+			\textbf{\textbf{k}-fold Index} & 
+			\textbf{Naive Majority Predictor} & 
+			\textbf{Truth Majority} &
+			\textbf{Error} &
+			\textbf{Accuracy}\\
 			\hline
-			1 & 1110.1 & a\\
-			2 & 10.1 & b\\
-			3 & 23.113231 & c\\
+			Breast Cancer & 
+			INS & 
+			INS &
+			INS &  
+
 		\end{tabular}
 	\end{center}
 \end{table}
@@ -114,6 +119,7 @@ The following results were obtained from the Classificaiton task data sets.\newl
 \newpage
 
 \section{Discussion}
+The hypothesis was that since the algorithms implemented for Classification and Regression were very simplistic the prediction results from these algorithms will be highly inaccurate and produce large errors.
 
 \newpage
 
@@ -121,55 +127,6 @@ The following results were obtained from the Classificaiton task data sets.\newl
 
 \newpage
 
-Probabilistic inference has become a core technology in AI,
-largely due to developments in graph-theoretic methods for the 
-representation and manipulation of complex probability 
-distributions~\citep{pearl:88}.  Whether in their guise as 
-directed graphs (Bayesian networks) or as undirected graphs (Markov 
-random fields), \emph{probabilistic graphical models} have a number 
-of virtues as representations of uncertainty and as inference engines.  
-Graphical models allow a separation between qualitative, structural
-aspects of uncertain knowledge and the quantitative, parametric aspects 
-of uncertainty...\\
-
-
-
-\newpage
-
-\appendix
-\section*{Appendix A.}
-\label{app:theorem}
-
-% Note: in this sample, the section number is hard-coded in. Following
-% proper LaTeX conventions, it should properly be coded as a reference:
-
-%In this appendix we prove the following theorem from
-%Section~\ref{sec:textree-generalization}:
-
-In this appendix we prove the following theorem from
-Section~6.2:
-
-\noindent
-{\bf Theorem} {\it Let $u,v,w$ be discrete variables such that $v, w$ do
-not co-occur with $u$ (i.e., $u\neq0\;\Rightarrow \;v=w=0$ in a given
-dataset $\dataset$). Let $N_{v0},N_{w0}$ be the number of data points for
-which $v=0, w=0$ respectively, and let $I_{uv},I_{uw}$ be the
-respective empirical mutual information values based on the sample
-$\dataset$. Then
-\[
-	N_{v0} \;>\; N_{w0}\;\;\Rightarrow\;\;I_{uv} \;\leq\;I_{uw}
-\]
-with equality only if $u$ is identically 0.} \hfill\BlackBox
-
-\noindent
-{\bf Proof}. We use the notation:
-\[
-P_v(i) \;=\;\frac{N_v^i}{N},\;\;\;i \neq 0;\;\;\;
-P_{v0}\;\equiv\;P_v(0)\; = \;1 - \sum_{i\neq 0}P_v(i).
-\]
-These values represent the (empirical) probabilities of $v$
-taking value $i\neq 0$ and 0 respectively.  Entropies will be denoted
-by $H$. We aim to show that $\fracpartial{I_{uv}}{P_{v0}} < 0$....\\
 
 
 \vskip 0.2in
