@@ -1,0 +1,150 @@
+
+runfile('C:/Users/sarah/Desktop/IntroToML/Module1/MLPL/MLPL/MLPL.py', wdir='C:/Users/sarah/Desktop/IntroToML/Module1/MLPL/MLPL')
+MLPL - Machine Learning Pipeline
+---- BreastCancer Data ----
+Running k Fold Cross Validation for task: Classification
+Most Common In Train Set:2
+Most Common in Test Set:2
+         Accuracy on fold 1: 1.0
+         Error on fold 1: 0.0
+Most Common In Train Set:2
+Most Common in Test Set:2
+         Accuracy on fold 2: 1.0
+         Error on fold 2: 0.0
+Most Common In Train Set:2
+Most Common in Test Set:2
+         Accuracy on fold 3: 1.0
+         Error on fold 3: 0.0
+Most Common In Train Set:2
+Most Common in Test Set:2
+         Accuracy on fold 4: 1.0
+         Error on fold 4: 0.0
+Most Common In Train Set:2
+Most Common in Test Set:2
+         Accuracy on fold 5: 1.0
+         Error on fold 5: 0.0
+Average Accuracy of Simple Pluarity Predictor:1.0
+Average Absolute Error of Simple Pluarity Predictor:0.0
+---- END BreastCancer Data ----
+---- CarEval Data ----
+Running k Fold Cross Validation for task: Classification
+Most Common In Train Set:unacc
+Most Common in Test Set:unacc
+         Accuracy on fold 1: 1.0
+         Error on fold 1: 0.0
+Most Common In Train Set:unacc
+Most Common in Test Set:unacc
+         Accuracy on fold 2: 1.0
+         Error on fold 2: 0.0
+Most Common In Train Set:unacc
+Most Common in Test Set:unacc
+         Accuracy on fold 3: 1.0
+         Error on fold 3: 0.0
+Most Common In Train Set:unacc
+Most Common in Test Set:unacc
+         Accuracy on fold 4: 1.0
+         Error on fold 4: 0.0
+Most Common In Train Set:unacc
+Most Common in Test Set:unacc
+         Accuracy on fold 5: 1.0
+         Error on fold 5: 0.0
+Average Accuracy of Simple Pluarity Predictor:1.0
+Average Absolute Error of Simple Pluarity Predictor:0.0
+---- END CarEval Data ----
+---- Congressional Vote Data ----
+Running k Fold Cross Validation for task: Classification
+Most Common In Train Set:democrat
+Most Common in Test Set:democrat
+         Accuracy on fold 1: 1.0
+         Error on fold 1: 0.0
+Most Common In Train Set:democrat
+Most Common in Test Set:democrat
+         Accuracy on fold 2: 1.0
+         Error on fold 2: 0.0
+Most Common In Train Set:democrat
+Most Common in Test Set:democrat
+         Accuracy on fold 3: 1.0
+         Error on fold 3: 0.0
+Most Common In Train Set:democrat
+Most Common in Test Set:democrat
+         Accuracy on fold 4: 1.0
+         Error on fold 4: 0.0
+Most Common In Train Set:democrat
+Most Common in Test Set:democrat
+         Accuracy on fold 5: 1.0
+         Error on fold 5: 0.0
+Average Accuracy of Simple Pluarity Predictor:1.0
+Average Absolute Error of Simple Pluarity Predictor:0.0
+---- END Congressional Vote Data ----
+---- Computer Hardware Data ----
+Running k Fold Cross Validation for task: Regression
+Average In Train Set:94.91017964071857
+Average in Test Set:33
+         Accuracy on fold 1: 6191.017964071857
+         Error on fold 1: 61.91017964071857
+Average In Train Set:119.2934131736527
+Average in Test Set:36
+         Accuracy on fold 2: 8329.34131736527
+         Error on fold 2: 83.2934131736527
+Average In Train Set:111.65868263473054
+Average in Test Set:66
+         Accuracy on fold 3: 4565.868263473054
+         Error on fold 3: 45.65868263473054
+Average In Train Set:105.31736526946108
+Average in Test Set:45
+         Accuracy on fold 4: 6031.736526946108
+         Error on fold 4: 60.31736526946108
+Average In Train Set:96.98214285714286
+Average in Test Set:30
+         Accuracy on fold 5: 6698.214285714286
+         Error on fold 5: 66.98214285714286
+Average Absolute Error of Simple Mean Predictor:63.63235671514114
+---- END Computer Hardware Data ----
+---- Alablone Data ----
+Running k Fold Cross Validation for task: Regression
+Average In Train Set:9.565399580963783
+Average in Test Set:10
+         Accuracy on fold 1: 43.46004190362169
+         Error on fold 1: 0.43460041903621693
+Average In Train Set:10.269979048189166
+Average in Test Set:9
+         Accuracy on fold 2: 126.99790481891657
+         Error on fold 2: 1.2699790481891657
+Average In Train Set:9.794733692399761
+Average in Test Set:9
+         Accuracy on fold 3: 79.47336923997614
+         Error on fold 3: 0.7947336923997614
+Average In Train Set:9.997606223818073
+Average in Test Set:9
+         Accuracy on fold 4: 99.76062238180728
+         Error on fold 4: 0.9976062238180727
+Average In Train Set:10.040694195092758
+Average in Test Set:9
+         Accuracy on fold 5: 104.06941950927582
+         Error on fold 5: 1.0406941950927582
+Average Absolute Error of Simple Mean Predictor:0.907522715707195
+---- END Alablone Data ----
+---- Forest Fire Data ----
+Running k Fold Cross Validation for task: Regression
+Average In Train Set:16.08244552058111
+Average in Test Set:0.0
+         Accuracy on fold 1: 1608.2445520581111
+         Error on fold 1: 16.08244552058111
+Average In Train Set:15.202542372881354
+Average in Test Set:0.0
+         Accuracy on fold 2: 1520.2542372881353
+         Error on fold 2: 15.202542372881354
+Average In Train Set:7.858091787439615
+Average in Test Set:0.0
+         Accuracy on fold 3: 785.8091787439615
+         Error on fold 3: 7.858091787439615
+Average In Train Set:13.817826086956519
+Average in Test Set:0.0
+         Accuracy on fold 4: 1381.7826086956518
+         Error on fold 4: 13.817826086956519
+Average In Train Set:11.289057971014492
+Average in Test Set:0.0
+         Accuracy on fold 5: 1128.9057971014493
+         Error on fold 5: 11.289057971014492
+Average Absolute Error of Simple Mean Predictor:12.849992747774616
+---- END Forest Fire Data ----
