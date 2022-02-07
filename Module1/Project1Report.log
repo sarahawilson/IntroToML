@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.6)  6 FEB 2022 19:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.2.6)  6 FEB 2022 20:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -228,17 +228,7 @@ tex.def
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count272
 \l__pdf_internal_box=\box50
-) (Project1Report.aux
-
-LaTeX Warning: Label `tab:table1' multiply defined.
-
-
-LaTeX Warning: Label `tab:table2' multiply defined.
-
-
-LaTeX Warning: Label `tab:table3' multiply defined.
-
-)
+) (Project1Report.aux)
 \openout1 = `Project1Report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
@@ -374,37 +364,38 @@ Package pdftex.def Info: ./images//CV_Results.png  used on input line 106.
 (pdftex.def)             Requested size: 282.75856pt x 80.40097pt.
 [4 <./images//BC_Results.png> <./images//CE_Results.png> <./images//CV_Results.
 png>]
-File: ./images//BC_Results.png Graphic file (type png)
-<use ./images//BC_Results.png>
-Package pdftex.def Info: ./images//BC_Results.png  used on input line 117.
-(pdftex.def)             Requested size: 281.85518pt x 81.00323pt.
-File: ./images//CE_Results.png Graphic file (type png)
-<use ./images//CE_Results.png>
-Package pdftex.def Info: ./images//CE_Results.png  used on input line 125.
-(pdftex.def)             Requested size: 282.45743pt x 80.7021pt.
-File: ./images//CV_Results.png Graphic file (type png)
-<use ./images//CV_Results.png>
-Package pdftex.def Info: ./images//CV_Results.png  used on input line 133.
-(pdftex.def)             Requested size: 282.75856pt x 80.40097pt.
- [5] [6] [7] (Project1Report.bbl
+<./images//AB_Results.png, id=63, 470.25688pt x 119.44624pt>
+File: ./images//AB_Results.png Graphic file (type png)
+<use ./images//AB_Results.png>
+Package pdftex.def Info: ./images//AB_Results.png  used on input line 117.
+(pdftex.def)             Requested size: 282.15631pt x 71.66829pt.
+<./images//CH_Results.png, id=64, 473.26813pt x 116.93687pt>
+File: ./images//CH_Results.png Graphic file (type png)
+<use ./images//CH_Results.png>
+Package pdftex.def Info: ./images//CH_Results.png  used on input line 125.
+(pdftex.def)             Requested size: 283.96306pt x 70.16264pt.
+<./images//FF_Results.png, id=65, 472.26437pt x 119.44624pt>
+File: ./images//FF_Results.png Graphic file (type png)
+<use ./images//FF_Results.png>
+Package pdftex.def Info: ./images//FF_Results.png  used on input line 133.
+(pdftex.def)             Requested size: 283.36081pt x 71.66829pt.
+ [5 <./images//AB_Results.png> <./images//CH_Results.png> <./images//FF_Results
+.png>] [6] [7] (Project1Report.bbl
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
 ) [8] (Project1Report.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `Project1Report.out' has not changed.
 (rerunfilecheck)             Checksum: CD01CCEB625938019430AC93CDC4EC19;594.
  ) 
 Here is how much of TeX's memory you used:
- 9216 strings out of 478593
- 144261 string characters out of 2844605
- 433073 words of memory out of 3000000
- 27262 multiletter control sequences out of 15000+600000
+ 9249 strings out of 478593
+ 145092 string characters out of 2844605
+ 433223 words of memory out of 3000000
+ 27295 multiletter control sequences out of 15000+600000
  476894 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 85i,7n,90p,860b,322s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 85i,7n,90p,978b,322s stack positions out of 5000i,500n,10000p,200000b,80000s
 <C:/Users/sarah/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmbx10.pfb><C:/Users/sarah/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb><C:/Users/sarah/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -414,9 +405,9 @@ iKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/sarah/AppData/Local/Pr
 ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/sarah/AppData
 /Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/sara
 h/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Project1Report.pdf (8 pages, 175001 bytes).
+Output written on Project1Report.pdf (8 pages, 212296 bytes).
 PDF statistics:
- 127 PDF objects out of 1000 (max. 8388607)
+ 133 PDF objects out of 1000 (max. 8388607)
  21 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

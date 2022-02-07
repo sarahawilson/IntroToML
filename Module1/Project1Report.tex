@@ -36,7 +36,13 @@ Regression and classification are both common tasks in the realm of Machine Lear
 
 
 \section{Algorithms and Experimental Methods}
-INSERT\\
+The primary objective of this project was to create a Machine Learning Pipeline that was capable of prepping data sets for insertion into algorithms. The primary methods that were developed to be used in the future were: The handling of missing data, handling categorical data, discretization and standardization.\newline
+
+Handling of missing data is needed as real life data will in many cases be incomplete for certain attributes. For the purposes of this project if missing data was found in any particular feature column, the average of that feature column was taken and then the missing element was filled with that average.\newline 
+
+Handling of categorical data was addressed in two ways. For ordinal data where the order of the categories was important to preserve, those categorical values were converted to integer values that keep the ordering of the original categories. For nominal data, which is data that has no order, all that was applied was a binary one-hot encoding, where the value of the category is encoded in set of 1s or 0s. Handling this data is important as algorithms that are explored that need to run on categorical data but can not handle strings as the input type.\newline
+
+
 
 \newpage
 {\noindent}{\bf Data Sets}\newline
@@ -85,33 +91,6 @@ Tables 1-3 display the results from the Breast Cancer, Car Evaluation and Congre
 
 \begin{table}[h!]
 	\begin{center}
-		\caption{Breast Cancer: Naive Average Predictor Results}
-		\label{tab:table4}
-		\includegraphics[scale=.6]{BC_Results}\newline
-	\end{center}
-\end{table}
-
-\begin{table}[h!]
-	\begin{center}
-		\caption{Car Evaluation: Naive Average Predictor Results}
-		\label{tab:table5}
-		\includegraphics[scale=.6]{CE_Results}\newline
-	\end{center}
-\end{table}
-
-\begin{table}[h!]
-	\begin{center}
-		\caption{Congressional Vote: Naive Average Predictor Results}
-		\label{tab:table6}
-		\includegraphics[scale=.6]{CV_Results}\newline
-	\end{center}
-\end{table}
-\newpage
-
-The following results were obtained from the Regression task data sets. Tables 4-6 display the results from the Albalone, Computer Hardware and Forest Fire data sets. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process.  The tables also display the error obtained during each fold, and the total error as averaged across each of the 5 \textit{k}-folds The error is the absolute error and was calculated as: $| Test Set Average - Train Set Average|$. This is meant as a measure of how far off the train set average was from the test set average. 
-
-\begin{table}[h!]
-	\begin{center}
 		\caption{Breast Cancer: Naive Majority Predictor Results}
 		\label{tab:table1}
 		\includegraphics[scale=.6]{BC_Results}\newline
@@ -133,17 +112,48 @@ The following results were obtained from the Regression task data sets. Tables 4
 		\includegraphics[scale=.6]{CV_Results}\newline
 	\end{center}
 \end{table}
+\newpage
+
+The following results were obtained from the Regression task data sets. Tables 4-6 display the results from the Albalone, Computer Hardware and Forest Fire data sets. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process.  The tables also display the error obtained during each fold, and the total error as averaged across each of the 5 \textit{k}-folds The error is the absolute error and was calculated as: $| Test Set Average - Train Set Average|$. This is meant as a measure of how far off the train set average was from the test set average. 
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Albalone: Naive Mean Predictor Results}
+		\label{tab:table4}
+		\includegraphics[scale=.6]{AB_Results}\newline
+	\end{center}
+\end{table}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Computer Hardware: Naive Mean Predictor Results}
+		\label{tab:table5}
+		\includegraphics[scale=.6]{CH_Results}\newline
+	\end{center}
+\end{table}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Forest Fire: Naive Mean Predictor Results}
+		\label{tab:table6}
+		\includegraphics[scale=.6]{FF_Results}\newline
+	\end{center}
+\end{table}
 
 
 
 \newpage
 
 \section{Discussion}
-The hypothesis was that since the algorithms implemented for Classification and Regression were very simplistic the prediction results from these algorithms will be highly inaccurate and produce large errors.
+The hypothesis was that since the algorithms implemented for Classification and Regression were very simplistic the prediction results from these algorithms will be highly inaccurate and produce large errors.\newline
+The Classification results seemed to indicate otherwise, for all Classification data-sets run through the Naive Majority predictor, for each fold the training set matched the test set. Due to this result occurring across three different data sets, the Naive Majority predictor should under-go more review. It was validated that the test set was unique and contained no duplicate data from the train set, thus ruling out an issue in the \textbf{k}-fold process it self. However, each of these data set was not shuffled prior to entering into the \textbf{k}-fold generation process. It is possible that the storage structure of the data as it's pulled down raw from the source, had some intrinsic ordering that impacted the results.\newline
+
+The Regression results also indicated that there was is most cases lower error than originally hypothesized. The error was relatively low \textbf{k}-fold to \textbf{k}-fold and on average across folds for the Albalone and Forest Fire data set. The computer hardware data-set seemed to have a larger magnitude of error. It is possible that the computer hardware had a larger spread of values in the Attribute PRP that was used to perform the Naive Average predictor on. This large spread would then transfer to the test and train sets more often. In other words, as the data get cut sliced for the test set there is a higher chance that more of the higher PRP values fall into the test set, which can attribute to the error, as the average of higher values will be higher than the average of lower values, and vice versa. The Forest Fire data set did not have a logarithmic transform applied, leading to the error being directly equal to the average that was computed by the train set. 
 
 \newpage
 
 \section{Conclusion}
+From this project it can be concluded that pre-processing the data in order to feed algorithms is an important step in Machine Learning. This project also implemented a Naive Majority and Average predictor on data sets using \textbf{k}-fold cross validation. Reviewing the results, it can be seen that trends that are apparent in the raw data can have an impact on the result of our predictors. This was most noticeable in the Forest Fire data set, where many of the results were skewed towards zero. Without a logarithmic transform in place, to represent all data points from this data set on a representative scale, the overall error in our mean predictor was directly equal to the result average of our training sets. For future would it would be useful to implement a logarithmic transform of the data and in addition it would be helpful if the Naive Majority and Average predictor algorithms were improved to reduce error. 
 
 \newpage
 
