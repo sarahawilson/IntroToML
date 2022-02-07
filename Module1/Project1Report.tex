@@ -1,6 +1,7 @@
 \documentclass[twoside,11pt]{article}
 \usepackage{jmlr2e}
-\usepackage{hyperref}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
 
 % Definitions of handy macros can go here
 
@@ -69,8 +70,7 @@ Task: Regression\newline
 Predictor: PRP\newline
 Link: \newline
 \url{https://archive.ics.uci.edu/ml/datasets/Computer+Hardware}\newline
-
-{\noindent}\textbf{Forest Fires Regression}\newline
+{\noindent}\textbf{Forest Fires}\newline
 Description: Forest Fire burn area data\newline
 Task: Regression\newline
 Predictor: Area (float)\newline
@@ -80,33 +80,61 @@ Link: \newline
 \newpage
 
 \section{Results}
-The following results were obtained from the Classification task data sets.\newline
-
-
-\begin{tabular}{|p{1cm}|p{3cm}|}
-	This text will be wrapped & Some more text \\
-\end{tabular}
+The following results were obtained from the Classification task data sets.
+Tables 1-3 display the results from the Breast Cancer, Car Evaluation and Congressional Vote data sets. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process. The tables also display the accuracy and error obtained during each fold, and the total accuracy and error as averaged across each of the 5 \textit{k}-folds. An accuracy(scale of 0-1) of 1 indicates that the train set had the most frequently occurring classifier equal to the most frequently occurring classifier in the test set. An error(scale of 0-1) of 0 indicates that the test set and train set had the same most frequently occurring classifier. Note in the Breast Cancer data set a value of 2 was mapped to the classifier of benign.\\ 
 
 \begin{table}[h!]
 	\begin{center}
-		\caption{Classification: Naive Majority Predictor Results}
-		\label{tab:table1}
-		\begin{tabular}{l|c|c|c|c|c} 
-			\textbf{Set Name} & 
-			\textbf{\textbf{k}-fold Index} & 
-			\textbf{Naive Majority Predictor} & 
-			\textbf{Truth Majority} &
-			\textbf{Error} &
-			\textbf{Accuracy}\\
-			\hline
-			Breast Cancer & 
-			INS & 
-			INS &
-			INS &  
-
-		\end{tabular}
+		\caption{Breast Cancer: Naive Average Predictor Results}
+		\label{tab:table4}
+		\includegraphics[scale=.6]{BC_Results}\newline
 	\end{center}
 \end{table}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Car Evaluation: Naive Average Predictor Results}
+		\label{tab:table5}
+		\includegraphics[scale=.6]{CE_Results}\newline
+	\end{center}
+\end{table}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Congressional Vote: Naive Average Predictor Results}
+		\label{tab:table6}
+		\includegraphics[scale=.6]{CV_Results}\newline
+	\end{center}
+\end{table}
+\newpage
+
+The following results were obtained from the Regression task data sets. Tables 4-6 display the results from the Albalone, Computer Hardware and Forest Fire data sets. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process.  The tables also display the error obtained during each fold, and the total error as averaged across each of the 5 \textit{k}-folds The error is the absolute error and was calculated as: $| Test Set Average - Train Set Average|$. This is meant as a measure of how far off the train set average was from the test set average. 
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Breast Cancer: Naive Majority Predictor Results}
+		\label{tab:table1}
+		\includegraphics[scale=.6]{BC_Results}\newline
+	\end{center}
+\end{table}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Car Evaluation: Naive Majority Predictor Results}
+		\label{tab:table2}
+		\includegraphics[scale=.6]{CE_Results}\newline
+	\end{center}
+\end{table}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Congressional Vote: Naive Majority Predictor Results}
+		\label{tab:table3}
+		\includegraphics[scale=.6]{CV_Results}\newline
+	\end{center}
+\end{table}
+
+
 
 \newpage
 
