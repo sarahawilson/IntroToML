@@ -37,69 +37,61 @@ Regression and classification are both common tasks in the realm of Machine Lear
 \section{Algorithms and Experimental Methods}
 INSERT\\
 
-{\noindent}{\bf Data Sets}
-The following data sets were used during the classification and regression tasks for this project. TABLE X provides a description 
+\newpage
+{\noindent}{\bf Data Sets}\newline
+The following data sets were used during the classification and regression tasks for this project.\newline
+{\bf Breast Cancer}\newline
+Description: \newline
+Task: Classification\newline
+Predictor: Diagnosis (Malingant or Benign)\newline
+Link:\newline \url{https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Original%29}\newline
+{\noindent}\textbf{Car Evaluation}\newline
+Description:\newline
+Task: Classification\newline
+Predictor: Car Evaluation (Unacctable, Acctable, Good, Very Good)\newline
+Link: \newline
+\url{https://archive.ics.uci.edu/ml/datasets/Car+Evaluation}\\
+{\noindent}\textbf{Congressional Vote}\newline
+Description: 1984 United Stated Congressional Voting Records\newline
+Task: Classification \newline
+Predictor: Party (Reblican / Democrat) \newline
+Link: \newline
+\url{https://archive.ics.uci.edu/ml/datasets/Congressional+Voting+Records}\newline
+{\noindent}\textbf{Albalone}\newline
+Description: Physical merasurements of Albalone\newline
+Task: Regression\newline
+Predictor: Rings (int)\newline
+Link: \newline
+\url{https://archive.ics.uci.edu/ml/datasets/Abalone}\newline
+{\noindent}\textbf{Computer Hardware}\newline
+Description: Realative CPU performance data.\newline
+Task: Regression\newline
+Predictor: PRP\newline
+Link: \newline
+\url{https://archive.ics.uci.edu/ml/datasets/Computer+Hardware}\newline
 
-\begin{table}[h!]
-		\caption{Data Sets}
-		\label{tab:table1}\\
-		\begin{tabular}{l|l|c|c|l} 
-			\textbf{Set Name} & 
-			\textbf{Description} & 
-			\textbf{Task Type} & 
-			\textbf{Predictor} & 
-			\textbf{Link}\\
-			\hline
-			Breast Cancer & 
-			Descp & 
-			Classification & 
-			Diagnosis & 
-			Link\\
-				
-			Car Evaluation & 
-			Descp & 
-			Classification & 
-			Car Eval. & 
-			Link\\
-			
-			Congressional Vote & 
-			Descp & 
-			Classification & 
-			Party & 
-			Link\\
-			
-			Albalone & 
-			Descp & 
-			Regression & 
-			Rings (int) & 
-			Link\\
-
-			Computer Hardware & 
-			Descp & 
-			Regression & 
-			PRP (int) & 
-			Link\\
-			
-			Forest Fires & 
-			Descp & 
-			Regression & 
-			Area (float) & 
-			Link\\
-			
-		\end{tabular}
-\end{table}
-
-
+{\noindent}\textbf{Forest Fires Regression}\newline
+Description: Forest Fire burn area data\newline
+Task: Regression\newline
+Predictor: Area (float)\newline
+Link: \newline
+\url{https://archive.ics.uci.edu/ml/datasets/Forest+Fires}\newline
+	
 \newpage
 
 \section{Results}
 The following results were obtained from the Classification task data sets.\newline
 
+
+\begin{tabular}{|p{1cm}|p{3cm}|}
+	This text will be wrapped & Some more text \\
+\end{tabular}
+
 \begin{table}[h!]
 	\begin{center}
 		\caption{Classification: Naive Majority Predictor Results}
 		\label{tab:table1}
-		\begin{tabular}{l|>\centering m{1inch}|c|c|c|c} 
+		\begin{tabular}{l|c|c|c|c|c} 
 			\textbf{Set Name} & 
 			\textbf{\textbf{k}-fold Index} & 
 			\textbf{Naive Majority Predictor} & 
