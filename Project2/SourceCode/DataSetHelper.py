@@ -12,7 +12,7 @@ class DataSet:
              headers: List = None,
              dataTypes: Dict = None,
              missingValueAttributes: List = None,
-             #missingValueDataTypeConverters: Dict = None
+             applyConversionValueAttribues: Tuple = None
              ):
         self.name = dataSetName
         self.taskType = taskType
@@ -20,7 +20,7 @@ class DataSet:
         self.headers = headers
         self.dataTypes = dataTypes
         self.missingValueAttributes = missingValueAttributes
-        #self.missingValueDataTypeConverters = missingValueDataTypeConverters
+        self.applyConversionValueAttributes = applyConversionValueAttribues
         self.rawData = None # Raw Data Frame
         self.rawDataWithDataTypes = None # Data Frame that has been corrected for data types of each Attribute
         self.filledData = None # Filled in Data Frame
@@ -29,28 +29,59 @@ class DataSet:
         #Read in the Raw Data
         self._readInData()
         
-        #Apply Data Types for Each Attribute
-        self._applyDataTypes()
+        #Fill in missing data and apply approritate data types for each attribute
+        self._fillMissingAndApplyTypesToData()
+        
+        #Fill in the Missing Value with the average of the Attribute 
+        self._fillMissingValueWithMeanOfAttribute()
+        
+        #Adjust the data (such as 5more, more) to be integer values
+        self._fillWithAdjustedDataValues()
         
             
     def _readInData(self):
         if ((self.dataFilePath != None) and (self.headers != None)):
             self.rawData = pd.read_csv(self.dataFilePath, names=self.headers)
     
-    def _applyDataTypes(self, stringToIntOrNan = True):
-        # TODO INSERT Description
-        #Build the Dictonary of Converters for the Data Frame Read
-        convertersDataType = {}
+    def _fillMissingAndApplyTypesToData(self):
+        #TODO Insert Description
+        convertersMapping = {}
         if (self.missingValueAttributes != None):
             for attribute in self.missingValueAttributes:
-                if (stringToIntOrNan):
-                    convertersDataType[attribute] = self._convert_StringToIntOrNaN
-                  
+                    convertersMapping[attribute] = self._convert_StringToNaN
+        
+        elif((self.missingValueAttributes == None) and (self.applyConversionValueAttributes != None)):
+            for attributePair in self.applyConversionValueAttributes:
+                curAttribute = attributePair[0]
+                convertersMapping[curAttribute] = self._convert_StringToNaN
+            
+               
         self.rawDataWithDataTypes = pd.read_csv(self.dataFilePath, 
                                                 names=self.headers, 
                                                 dtype=self.dataTypes, 
-                                                converters=convertersDataType)
-        
-    def _convert_StringToIntOrNaN(self, dataFrameColumn):
+                                                converters=convertersMapping)
+
+
+    def _convert_StringToNaN(self, dataFrameColumn):
         #Converts Strings such as ? that indicate missing data to an Int or Nan
-        return pd.to_numeric(dataFrameColumn, errors = 'coerce')
+        return pd.to_numeric(dataFrameColumn, errors = 'coerce')           
+     
+        
+    def _fillMissingValueWithMeanOfAttribute(self):
+        if (self.missingValueAttributes != None):
+            mean = []
+            for attribute in self.missingValueAttributes:
+                mean.append(self.rawDataWithDataTypes[attribute].mean(axis=0, skipna=True))
+            
+            attIndex = 0
+            for attribute in self.missingValueAttributes:
+                self.rawDataWithDataTypes.fillna({attribute: mean[attIndex]}, inplace=True)
+            attIndex = attIndex + 1
+        
+        
+    def _fillWithAdjustedDataValues(self):
+        if(self.applyConversionValueAttributes != None):
+            for attribuePair in self.applyConversionValueAttributes:
+                curAttribute = attribuePair[0]
+                curReplaceVal = attribuePair[1]
+                self.rawDataWithDataTypes.fillna({curAttribute: curReplaceVal}, inplace=True)

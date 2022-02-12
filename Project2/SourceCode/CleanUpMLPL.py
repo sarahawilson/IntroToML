@@ -32,6 +32,7 @@ def defineAllDataSets()->Dict:
     
     #breastCancerDtypeConvterts = {'Bare Nuclei': convert_StringToIntOrNaN}
     breastCancerMissingValAttributes = ['Bare Nuclei']
+    breastCancerApplyConversionAttributes = None
     #TODO: This column is an int, the mean is returning a float (?) not sure if this is okay or not
     
     #Create an Instance of the Data Set Class 
@@ -40,7 +41,8 @@ def defineAllDataSets()->Dict:
                              breastCancerDataSetPath,
                              breastCancerHeaders,
                              breastCancerDtypes,
-                             breastCancerMissingValAttributes
+                             breastCancerMissingValAttributes,
+                             breastCancerApplyConversionAttributes
                              )
     
     #Add to the Overall Data Set Dictonary 
@@ -57,6 +59,7 @@ def defineAllDataSets()->Dict:
     carEvalHeaders = ['Buying', 'Maint', 'Doors', 'Persons', 'Lug_Boot', 'Safety', 'Car Acceptability']
     carDtypes = {'Buying': 'str', 'Maint': 'str', 'Lug_Boot': 'str', 'Safety': 'str', 'Car Acceptability': 'str'}
     carMissingValAttributes = None
+    carApplyConversionValueAttribues = [('Doors', 5), ('Persons', 5)]
     #carDtypeConvterts = {'Doors': convert_StringToIntOrNaN, 'Persons': convert_StringToIntOrNaN}
     #TODO: handle the 5-more (just make value 5 for doors)
     #TODO: handle the more (just make the value max+1 for persons)
@@ -67,7 +70,8 @@ def defineAllDataSets()->Dict:
                                       carEvalDataSetPath,
                                       carEvalHeaders,
                                       carDtypes,
-                                      carMissingValAttributes
+                                      carMissingValAttributes,
+                                      carApplyConversionValueAttribues
                                       )
     
     #Add to the Overall Data Set Dictonary 
@@ -83,8 +87,6 @@ def defineAllDataSets()->Dict:
                        'education-spending', 'superfund-right-to-sue', 'crime', 'duty-free-exports', 'export-administration-act-south-africa']
     
     
-    
-
     return allDataSetObjects
 
 if __name__ == "__main__":
