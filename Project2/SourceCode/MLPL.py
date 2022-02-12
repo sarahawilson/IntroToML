@@ -5,7 +5,7 @@
 import pandas as pd
 import numpy as np
 import copy
-from typing import List, Tuple, Dict;
+from typing import List, Tuple, Dict
 
 def main(dataFile: str, 
          dataFileHeaders: List = None,
