@@ -13,6 +13,7 @@
 	}{%
 	\end{mylistenv}%
 }
+\newcommand\tab[1][1cm]{\hspace*{#1}}
 
 % Definitions of handy macros can go here
 
@@ -37,7 +38,7 @@
 
 
 \section{Introduction}
-Regression and classification are both common tasks in the realm of Machine Learning. Regression and classification are both supervised learning problems. Supervised learning is where the system is given an input and output and then asked to learn or predict the mapping of input to output. The algorithm explored in this paper is \textit{k}-Nearest Neighbor (\textit{k}NN). \textit{k}NN is an example of a nonparametric algorithm, nonparametic algorithms do not make any strong assumptions about the form of the mapping function from input data to output predictions. The advantage offered by this approach is that not a lot of prior knowledge on the data or its features is required to build a predictor. \textit{k}NN is nonparametric as it makes predictions for new data based upon training data by looking at the \textit{k} closest neighbors to the new data. The primary philosophy behind the \textit{k}NN algorithm is ""(INSERT REF)\\ 
+Regression and classification are both common tasks in the realm of Machine Learning. Regression and classification are both supervised learning problems. Supervised learning is where the system is given an input and output and then asked to learn or predict the mapping of input to output. The algorithm explored in this paper is \textit{K}-Nearest Neighbor (\textit{K}NN). \textit{K}NN is an example of a nonparametric algorithm, nonparametic algorithms do not make any strong assumptions about the form of the mapping function from input data to output predictions. The advantage offered by this approach is that not a lot of prior knowledge on the data or its features is required to build a predictor. \textit{K}NN is nonparametric as it makes predictions for new data based upon training data by looking at the \textit{k} closest neighbors to the new data. The primary philosophy behind the \textit{k}NN algorithm is ""(INSERT REF)\\ 
 
 \hspace*{10mm} INSERT REFERENCES ON APPLICATIONS\\
 
@@ -61,8 +62,31 @@ For the experiment in this report a Validation / Tuning set is first used to det
 	\item Randomly shuffle the Entire data set
 	\item \textbf{Start Validation / Tune Process}
 	\begin{mylist}
-		\item Remove 20\% of data point from Entire data set, assign to new Validation / Tune  data set. 
+		\item Remove 20\% of data points from Entire data set, assign to new Validation / Tune  data set. 
+		\item Assign a list of \textit{k} neighbors values to compare for optimization. 
+		\item Break Validation / Tune data set into 5 folds. 
+		\item For each of the \textit{k} neighbors in the list for optimization:
+		\item \tab For a fold to maximum number of folds (5):
+		\item \tab Assign 1 fold to be the Test Set
+		\item \tab Assign and concatenate the other 4 folds to be the Train Set 
+		\item \tab \tab For each Data Point in the Test Set:
+		\item \tab \tab \tab Assign the current Data Point as the Query Point
+		\item \tab \tab \tab \tab For each Data Point in the Training Set:
+		\item \tab \tab \tab \tab \tab Calculate the distance between the Query Point and the current Data Point in the Training set
 		
+		\item \tab \tab \tab \tab \tab Store distance in an overall list for Query Point sorted from smallest to largest. 
+		
+		\item \tab \tab \tab \tab Get the Predictor for each of the \textit{k} closest neighbors as determined by the distance list for the Query Point. 
+		\item \tab \tab \tab \tab If Classification:
+		\item \tab \tab \tab \tab \tab Return the most common predictor
+		\item \tab \tab \tab \tab If Regression:
+	\end{mylist}
+
+	\item \textbf{Run \textit{K}NN with Optimal \textit{K} Neighbors Value}
+	\begin{mylist}
+		\item Using remaining 80\% data points from Entire data set, assign to new Train / Test data set.
+		\item Repeat steps XXX - XXX.\newline
+		Replacing the list list of \textit{k} Neighbors values with the single optimal \textit{K} Neighbors value.\newline 
 	\end{mylist}
 	
 
@@ -91,7 +115,7 @@ The following data sets were used during the classification and regression tasks
 {\bf Breast Cancer}\newline
 Description: \newline
 Task: Classification\newline
-Predictor: Diagnosis (Malingant or Benign)\newline
+Predictor: Diagnosis (Malignant or Benign)\newline
 Link:\newline \url{https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Original%29}\newline
 {\noindent}\textbf{Car Evaluation}\newline
 Description:\newline
@@ -102,17 +126,17 @@ Link: \newline
 {\noindent}\textbf{Congressional Vote}\newline
 Description: 1984 United Stated Congressional Voting Records\newline
 Task: Classification \newline
-Predictor: Party (Reblican / Democrat) \newline
+Predictor: Party (Republican / Democrat) \newline
 Link: \newline
 \url{https://archive.ics.uci.edu/ml/datasets/Congressional+Voting+Records}\newline
 {\noindent}\textbf{Albalone}\newline
-Description: Physical merasurements of Albalone\newline
+Description: Physical measurements of Albalone\newline
 Task: Regression\newline
 Predictor: Rings (int)\newline
 Link: \newline
 \url{https://archive.ics.uci.edu/ml/datasets/Abalone}\newline
 {\noindent}\textbf{Computer Hardware}\newline
-Description: Realative CPU performance data.\newline
+Description: Relative CPU performance data.\newline
 Task: Regression\newline
 Predictor: PRP\newline
 Link: \newline
