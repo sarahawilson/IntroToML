@@ -28,6 +28,11 @@ class DataSet:
         self.rawDataWithDataTypes = None # Data Frame that has been corrected for data types of each Attribute
         self.finalData = None # Final Data Frame after all needed data clean ups have been applied
         
+        self.finalData_Validation20PercentSet = None
+        self.finalData_ExperimentSet = None
+        self.finalData_TestSet = None
+        self.finalData_TrainSet = None
+        
         #Read in the Raw Data
         self._readInData()
         

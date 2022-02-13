@@ -5,7 +5,8 @@
 
 from typing import List, Tuple, Dict;
 import DataSetHelper 
-import KNNAlgoHelper
+import KNNAlgoHelperModule
+import KCrossValHelperModule
 
 
 def defineAllDataSets()->Dict:
@@ -159,6 +160,12 @@ def defineAllDataSets()->Dict:
 
 if __name__ == "__main__":
     print("MLPL - Machine Learning Pipeline")
+    #Load in the Data and Set up Basic Data Sets
     allDataSets = defineAllDataSets()
+    
+    myKNNHelper = KNNAlgoHelperModule.KNNAlgoHelper(allDataSets)
+    
+    myKCrossValHelper = KCrossValHelperModule.KCrossValHelper(allDataSets, myKNNHelper)
+    myKCrossValHelper.createValidation_TuneAndExperimentSets()
     
 

@@ -51,12 +51,10 @@ Regression and classification are both common tasks in the realm of Machine Lear
 
 
 \section{Algorithms and Experimental Methods}
-The experimental method used in this report is \textit{k}-Fold Cross Validation. \textit{k}-Fold Cross Validation is used when the data sets that an algorithm is being experimented on is small, the goal of \textit{k}-Fold Cross validation is to maximize the amount of data that is used for training of the algorithm. The expriment will use 5-Fold Cross Validation ($\textit{k} = 5$).\\ 
+The experimental method used in this report is \textit{k}-Fold Cross Validation. \textit{k}-Fold Cross Validation is used when the data sets that an algorithm is being experimented on is small, the goal of \textit{k}-Fold Cross validation is to maximize the amount of data that is used for training of the algorithm. The experiment will use 5-Fold Cross Validation ($\textit{k} = 5$).\\ 
 For the experiment in this report a Validation / Tuning set is first used to determine the optimal value of \textit{k} neighbors in the \textit{k}NN.\\ 
 
-\textbf{General \textit{k}NN}\\
-\hspace*{10mm} The approach is outlined in the steps below for the General \textit{k}NN algorithm implementation:
-
+\noindent \textbf{General \textit{k}NN}\nolinebreak
 \begin{mylist}{Step }
 	\item Load in Entire data set 
 	\item Randomly shuffle the Entire data set
@@ -72,9 +70,11 @@ For the experiment in this report a Validation / Tuning set is first used to det
 		\item \tab \tab For each Data Point in the Test Set:
 		\item \tab \tab \tab Assign the current Data Point as the Query Point
 		\item \tab \tab \tab \tab For each Data Point in the Training Set:
-		\item \tab \tab \tab \tab \tab Calculate the distance between the Query Point and the current Data Point in the Training set
+		\item \tab \tab \tab \tab \tab Calculate the distance between the Query Point\newline
+		\tab \tab \tab \tab \tab and the current Data Point in the Training set
 		
-		\item \tab \tab \tab \tab \tab Store distance in an overall list for Query Point sorted from smallest to largest. 
+		\item \tab \tab \tab \tab \tab Store distance in an overall list for Query Point\newline
+		\tab \tab \tab \tab \tab sorted from smallest to largest. 
 		
 		\item \tab \tab \tab \tab Get the Predictor for each of the \textit{k} closest neighbors as determined by the distance list for the Query Point. 
 		\item \tab \tab \tab \tab If Classification:
