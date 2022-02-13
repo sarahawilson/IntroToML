@@ -1,9 +1,11 @@
 # Sarah Wilson 
+# 303 - 921 - 7225
 # Project 2
-# 
+# Introduction to Machine Learning
 
 from typing import List, Tuple, Dict;
 import DataSetHelper 
+import KNNAlgoHelper
 
 
 def defineAllDataSets()->Dict:
@@ -60,11 +62,8 @@ def defineAllDataSets()->Dict:
     carDtypes = {'Buying': 'str', 'Maint': 'str', 'Lug_Boot': 'str', 'Safety': 'str', 'Car Acceptability': 'str'}
     carMissingValAttributes = None
     carApplyConversionValueAttribues = [('Doors', 5), ('Persons', 5)]
-    #carDtypeConvterts = {'Doors': convert_StringToIntOrNaN, 'Persons': convert_StringToIntOrNaN}
-    #TODO: handle the 5-more (just make value 5 for doors)
-    #TODO: handle the more (just make the value max+1 for persons)
     
-    #Creat an Instance of the Data Set Class
+    #Create an Instance of the Data Set Class
     carEvalDS = DataSetHelper.DataSet(carEvalDataSetName,
                                       carEvalDataSet_OverallType,
                                       carEvalDataSetPath,
@@ -80,12 +79,81 @@ def defineAllDataSets()->Dict:
     ####################
     # CONGRESSIONAL VODE DATA
     ####################
+    congVoteDataSetName = "Congressional Vote"
     congVoteDataSet_OverallType = 'Classification'
-    congVoteDataSet = r"C:\Users\sarah\Desktop\IntroToML\DataSets\CongressionalVote\house-votes-84.data"
+    congVoteDataSetPath = r"C:\Users\sarah\Desktop\IntroToML\DataSets\CongressionalVote\house-votes-84.data"
     congVoteHeaders = ['Class Name', 'handicapped-infants', 'water-project-cost-sharing', 'adoption-of-the-budget-resolution', 'physician-fee-freeze', 'el-salvador-aid',
                        'religious-groups-in-schools', 'anti-satellite-test-ban', 'aid-to-nicaraguan-contras', 'mx-missile', 'immigration', 'synfuels-corporation-cutback',
                        'education-spending', 'superfund-right-to-sue', 'crime', 'duty-free-exports', 'export-administration-act-south-africa']
     
+    #Create an Instance of the Data Set Class
+    congVoteDS = DataSetHelper.DataSet(congVoteDataSetName,
+                                       congVoteDataSet_OverallType,
+                                       congVoteDataSetPath,
+                                       congVoteHeaders)
+    
+    #Add to the Overall Data Set Dictonary 
+    allDataSetObjects[congVoteDataSetName] = congVoteDS
+    
+    
+    ####################
+    # COMPUTER HARDWARE DATA
+    ####################
+    compHardwareDataSetName = 'Computer Hardware'
+    compHardwareDataSet_OverallType = 'Regression'
+    compHardwareDataSetPath = r"C:\Users\sarah\Desktop\IntroToML\DataSets\ComputerHardware\machine.data"
+    compHardwareHeader = ['Vendor Name','Model Name','MYCT','MMIN','MMAX','CACH','CHMIN','CHMAX','PRP','ERP']
+    compHardwareDtypeDict = {'Vendor Name': 'str','Model Name': 'str','MYCT': 'int','MMIN': 'int',
+                             'MMAX': 'int','CACH': 'int','CHMIN': 'int','CHMAX': 'int','PRP': 'int','ERP': 'int'}
+    
+    #Create an Instance of the Data Set Class
+    compHardwareDS = DataSetHelper.DataSet(compHardwareDataSetName,
+                                           compHardwareDataSet_OverallType,
+                                           compHardwareDataSetPath,
+                                           compHardwareHeader,
+                                           compHardwareDtypeDict
+                                           )
+    
+    #Add to the Overall Data Set Dictonary 
+    allDataSetObjects[compHardwareDataSetName] = compHardwareDS
+    
+    ####################
+    # ALBALONE DATA
+    ####################
+    abaloneDataSetName = 'Albalone'
+    abaloneDataSet_OverallType = 'Regression'
+    abaloneDataSetPath = r"C:\Users\sarah\Desktop\IntroToML\DataSets\Abalone\abalone.data"
+    abaloneHeaders = ['Sex', 'Length', 'Diameter', 'Height', 'Whole Weight', 'Shucked Weight', 'Viscera Weight', 'Shell Weight', 'Rings']
+    abaloneDtypeDict = {'Sex': 'str', 'Length': 'float' , 'Diameter': 'float', 'Height': 'float', 
+                        'Whole Weight':'float', 'Shucked Weight':'float', 'Viscera Weight': 'float', 'Shell Weight': 'float', 'Rings': 'int'}
+    
+    #Create an Instance of the Data Set Class
+    albaloneDS = DataSetHelper.DataSet(abaloneDataSetName,
+                                       abaloneDataSet_OverallType,
+                                       abaloneDataSetPath,
+                                       abaloneHeaders,
+                                       abaloneDtypeDict
+                                       )
+    
+    #Add to the Overall Data Set Dictonary 
+    allDataSetObjects[abaloneDataSetName] = albaloneDS
+    
+    
+    ####################
+    # FOREST FIRE DATA
+    ####################
+    forestFireDataSetName = 'Forest Fire'
+    forestFireDataSet_OverallType = 'Regression'
+    forestFireDataSetPath = r"C:\Users\sarah\Desktop\IntroToML\DataSets\ForestFires\forestfires.data"
+    
+    #Create an Instance of the Data Set Class
+    forestFireDS = DataSetHelper.DataSet(forestFireDataSetName,
+                                         forestFireDataSet_OverallType,
+                                         forestFireDataSetPath
+                                         )
+    
+    #Add to the Overall Data Set Dictonary 
+    allDataSetObjects[forestFireDataSetName] = forestFireDS
     
     return allDataSetObjects
 

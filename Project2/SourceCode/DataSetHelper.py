@@ -1,8 +1,11 @@
-# Sarah Wilson
-# Project 2 
+# Sarah Wilson 
+# 303 - 921 - 7225
+# Project 2
+# Introduction to Machine Learning
 
 from typing import List, Tuple, Dict;
 import pandas as pd
+import copy
 
 class DataSet:
     def __init__(self, 
@@ -23,7 +26,6 @@ class DataSet:
         self.applyConversionValueAttributes = applyConversionValueAttribues
         self.rawData = None # Raw Data Frame
         self.rawDataWithDataTypes = None # Data Frame that has been corrected for data types of each Attribute
-        self.filledData = None # Filled in Data Frame
         self.finalData = None # Final Data Frame after all needed data clean ups have been applied
         
         #Read in the Raw Data
@@ -37,6 +39,9 @@ class DataSet:
         
         #Adjust the data (such as 5more, more) to be integer values
         self._fillWithAdjustedDataValues()
+        
+        #Generate the final data set to be used in additional algorithms
+        self._generateFinalDataSet()
         
             
     def _readInData(self):
@@ -85,3 +90,13 @@ class DataSet:
                 curAttribute = attribuePair[0]
                 curReplaceVal = attribuePair[1]
                 self.rawDataWithDataTypes.fillna({curAttribute: curReplaceVal}, inplace=True)
+                
+    def _generateFinalDataSet(self):
+        self.finalData = self.rawDataWithDataTypes.copy(deep=True)
+
+
+    def applyOneHotEncoding(self,
+                            oneHotAttributes: List = None):
+        
+        if(oneHotAttributes != None):
+            self.finalData = pd.get_dummies(self.finalData, columns = oneHotAttributes)
