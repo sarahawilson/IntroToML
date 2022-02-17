@@ -23,7 +23,7 @@ def defineAllDataSets()->Dict:
     # Define the needed variables
     breastCancerName = 'Breast Cancer'
     breastCancerDataSet_OverallType = 'Classification'
-    breastCancerDataSetPath = r"C:\Users\sarah\Desktop\IntroToML\DataSets\BreastCancer\breast-cancer-wisconsin.data"
+    breastCancerDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\BreastCancer\breast-cancer-wisconsin.data"
     breastCancerHeaders = ['Sample Code Number', 'Clump Thickness', 'Uni. of Cell Size', 'Uni. of Cell Shape', 
                            'Marginal Adhesion', 'Single Ep. Cell Size', 'Bare Nuclei',
                             'Bland Chromatin', 'Normal Nucleoli', 'Mitoses', 'Class']
@@ -58,7 +58,7 @@ def defineAllDataSets()->Dict:
     # Define the needed variables
     carEvalDataSetName = 'Car Eval'
     carEvalDataSet_OverallType = 'Classification'
-    carEvalDataSetPath = r"C:\Users\sarah\Desktop\IntroToML\DataSets\CarEvaluation\car.data"
+    carEvalDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\CarEvaluation\car.data"
     carEvalHeaders = ['Buying', 'Maint', 'Doors', 'Persons', 'Lug_Boot', 'Safety', 'Car Acceptability']
     carDtypes = {'Buying': 'str', 'Maint': 'str', 'Lug_Boot': 'str', 'Safety': 'str', 'Car Acceptability': 'str'}
     carMissingValAttributes = None
@@ -82,7 +82,7 @@ def defineAllDataSets()->Dict:
     ####################
     congVoteDataSetName = "Congressional Vote"
     congVoteDataSet_OverallType = 'Classification'
-    congVoteDataSetPath = r"C:\Users\sarah\Desktop\IntroToML\DataSets\CongressionalVote\house-votes-84.data"
+    congVoteDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\CongressionalVote\house-votes-84.data"
     congVoteHeaders = ['Class Name', 'handicapped-infants', 'water-project-cost-sharing', 'adoption-of-the-budget-resolution', 'physician-fee-freeze', 'el-salvador-aid',
                        'religious-groups-in-schools', 'anti-satellite-test-ban', 'aid-to-nicaraguan-contras', 'mx-missile', 'immigration', 'synfuels-corporation-cutback',
                        'education-spending', 'superfund-right-to-sue', 'crime', 'duty-free-exports', 'export-administration-act-south-africa']
@@ -102,7 +102,7 @@ def defineAllDataSets()->Dict:
     ####################
     compHardwareDataSetName = 'Computer Hardware'
     compHardwareDataSet_OverallType = 'Regression'
-    compHardwareDataSetPath = r"C:\Users\sarah\Desktop\IntroToML\DataSets\ComputerHardware\machine.data"
+    compHardwareDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\ComputerHardware\machine.data"
     compHardwareHeader = ['Vendor Name','Model Name','MYCT','MMIN','MMAX','CACH','CHMIN','CHMAX','PRP','ERP']
     compHardwareDtypeDict = {'Vendor Name': 'str','Model Name': 'str','MYCT': 'int','MMIN': 'int',
                              'MMAX': 'int','CACH': 'int','CHMIN': 'int','CHMAX': 'int','PRP': 'int','ERP': 'int'}
@@ -123,7 +123,7 @@ def defineAllDataSets()->Dict:
     ####################
     abaloneDataSetName = 'Albalone'
     abaloneDataSet_OverallType = 'Regression'
-    abaloneDataSetPath = r"C:\Users\sarah\Desktop\IntroToML\DataSets\Abalone\abalone.data"
+    abaloneDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\Abalone\abalone.data"
     abaloneHeaders = ['Sex', 'Length', 'Diameter', 'Height', 'Whole Weight', 'Shucked Weight', 'Viscera Weight', 'Shell Weight', 'Rings']
     abaloneDtypeDict = {'Sex': 'str', 'Length': 'float' , 'Diameter': 'float', 'Height': 'float', 
                         'Whole Weight':'float', 'Shucked Weight':'float', 'Viscera Weight': 'float', 'Shell Weight': 'float', 'Rings': 'int'}
@@ -145,7 +145,7 @@ def defineAllDataSets()->Dict:
     ####################
     forestFireDataSetName = 'Forest Fire'
     forestFireDataSet_OverallType = 'Regression'
-    forestFireDataSetPath = r"C:\Users\sarah\Desktop\IntroToML\DataSets\ForestFires\forestfires.data"
+    forestFireDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\ForestFires\forestfires.data"
     
     #Create an Instance of the Data Set Class
     forestFireDS = DataSetHelper.DataSet(forestFireDataSetName,
@@ -167,5 +167,7 @@ if __name__ == "__main__":
     
     myKCrossValHelper = KCrossValHelperModule.KCrossValHelper(allDataSets, myKNNHelper)
     myKCrossValHelper.createValidation_TuneAndExperimentSets()
+    #myKCrossValHelper.runKFoldCrossVal_OnAllDataSets_ForTuning()
+    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuning()
     
 

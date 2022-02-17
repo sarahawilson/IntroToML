@@ -4,6 +4,7 @@
 # Introduction to Machine Learning
 
 from typing import List, Tuple, Dict
+import pandas as pd
 
 class KNNAlgoHelper:
     def __init__(self,
@@ -69,6 +70,15 @@ class KNNAlgoHelper:
         #TODO: Implement 
         test =1           
         
-    def runKNNAlgorithm(self):
+    def runKNNAlgorithm(self, testset, trainset):
         #TODO: Implement 
         test = 1
+        
+        from scipy.spatial.distance import cdist
+        ary = cdist(testset.iloc[:,1:], trainset.iloc[:,1:], metric='euclidean')
+
+        distDF = pd.DataFrame(ary)
+    
+        test= 2
+        #for row in range(len(testset)):
+            #print(testset.iloc[[row]])

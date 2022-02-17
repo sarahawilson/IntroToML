@@ -4,8 +4,10 @@
 # Introduction to Machine Learning
 
 from typing import List, Tuple, Dict
-import DataSetHelper
-import KNNAlgoHelperModule
+
+import numpy as np
+import pandas as pd
+import copy
 
 class KCrossValHelper:
     def __init__(self,
@@ -18,30 +20,56 @@ class KCrossValHelper:
         self.algoHelper = inputAlgoHelper
         
         
-    def createValidation_TuneAndExperimentSets(self):
+    def createValidation_TuneAndExperimentSets(self, runOn = "AllDataSets"):
     # Splits the overall data sets into the 20% that is needed for Validation
     # The other 80% is left for the full algorithm experiment 
-        for dataSetName in self.allDataSets: 
-            tempCurDataSet = self.allDataSets[dataSetName].finalData.copy(deep=True)
-            #Create the 20% Set
-            self.allDataSets[dataSetName].finalData_Validation20PercentSet = tempCurDataSet.sample(frac=0.2, random_state=1)
+    
+        if(runOn == "AllDataSets"):
+            for dataSetName in self.allDataSets: 
+                tempCurDataSet = self.allDataSets[dataSetName].finalData.copy(deep=True)
+                #Create the 20% Set
+                self.allDataSets[dataSetName].finalData_Validation20PercentSet = tempCurDataSet.sample(frac=0.2, random_state=1)
             
-            #Create the 80% Set 
-            self.allDataSets[dataSetName].finalData_ExperimentSet = tempCurDataSet.drop(self.allDataSets[dataSetName].finalData_Validation20PercentSet.index)
+                #Create the 80% Set 
+                self.allDataSets[dataSetName].finalData_ExperimentSet = tempCurDataSet.drop(self.allDataSets[dataSetName].finalData_Validation20PercentSet.index)
             
-    def create_folds(self, inputDataFrame, numFolds):
+    def create_folds(self, inputDataFrame):
         # Input data frame
         #   and the number of folds (int) to create out of this data frame
         # Creates the number of disjoint folds from the input data frame
         # Returns a list of these dataframes
         tempInputDataFrame = inputDataFrame.copy(deep=True)
-        kFoldDataFramesTest = np.array_split(tempInputDataFrame, numFolds)
+        kFoldDataFramesTest = np.array_split(tempInputDataFrame, self.numFolds)
 
         return kFoldDataFramesTest; 
     
-    def runKFoldCrossVal(self, printMessage: str):
-        print(printMessage)
+    def runKFoldCrossVal_OnSingleDataSet_ForTuning(self):
+        curDataFrameFoldList = self.create_folds(self.allDataSets['Breast Cancer'].finalData_Validation20PercentSet)
         for iFoldIndex in range(self.numFolds):
-            test =1 
+            loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+            tuneTestDF = loopDataFrameFoldList.pop(iFoldIndex)
+            tuneTrainDF = pd.concat(loopDataFrameFoldList, axis=0)
+                    
+            #Insert the Step where the Algorithm Runs
+            self.algoHelper.runKNNAlgorithm(tuneTestDF, tuneTrainDF)
+        
+        
+    def runKFoldCrossVal_OnAllDataSets_ForTuning(self, runOn = 'AllDataSets'):
+        #print(printMessage)
+        #errorPerFold = [] #Error = Number Wrong / Total
+        #accuracyPerFold = [] #Accuracy = Number Right / Total
+        
+        if(runOn == "AllDataSets"):
+            for dataSetName in self.allDataSets: 
+                #Create the Folds
+                curDataFrameFoldList = self.create_folds(self.allDataSets[dataSetName].finalData_Validation20PercentSet)
+                
+                for iFoldIndex in range(self.numFolds):
+                    loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+                    tuneTestDF = loopDataFrameFoldList.pop(iFoldIndex)
+                    tuneTrainDF = pd.concat(loopDataFrameFoldList, axis=0)
+                    
+                    #Insert the Step where the Algorithm Runs
+                    self.algoHelper.runKNNAlgorithm(tuneTestDF, tuneTrainDF)
         
     
