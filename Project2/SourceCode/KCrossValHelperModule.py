@@ -44,37 +44,127 @@ class KCrossValHelper:
 
         return kFoldDataFramesTest; 
     
-    def runKFoldCrossVal_OnSingleDataSet_ForTuning(self, toRunOnDataSetName):
+    def runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN(self, toRunOnDataSetName):
         curDataFrameFoldList = self.create_folds(self.allDataSets[toRunOnDataSetName].finalData_Validation20PercentSet)
         curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
         curDataFrameTaskType = self.allDataSets[toRunOnDataSetName].taskType
-        kvals = [1,3,5,7]
+        kNNValues = [1,3,5,7]
         
+        allFoldMSE = []
+        allFoldError = []
+        
+        
+        for kVal in kNNValues:
+            for iFoldIndex in range(self.numFolds):
+                print('Tuning on Fold: \t' + str(iFoldIndex))
+                print('Tuning for kNN Value: \t' + str(kVal))
+                loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+                tuneTestDF = loopDataFrameFoldList.pop(iFoldIndex)
+                tuneTrainDF = pd.concat(loopDataFrameFoldList, axis=0)
+                    
+                #Insert the Step where the Algorithm Runs
+                #Change out for the current algorithm being tested
+                (curFoldMSE, curFoldErr) = self.algoHelper.runKNN_Algorithm(kVal, tuneTestDF, tuneTrainDF, curDataFramePredictor, curDataFrameTaskType)
+                allFoldMSE.append(curFoldMSE)
+                allFoldError.append(curFoldErr)
+                print('-')
+            
+            #Calcualte the Average Accuracy and Error on the Folds
+            if(allFoldMSE[0]!=None):
+                avgMSE = sum(allFoldMSE)/(self.numFolds)
+            else:
+                avgMSE = None
+            if(allFoldError[0]!=None):
+                avgError = sum(allFoldError)/(self.numFolds)
+            else:
+                avgError = None
+            print('Average Error on Fold: \t' + str(avgError))
+            print('Average Mean Square Error on Fold: \t' + str(avgMSE))
+            print('----')
+            print('----')
+            #Reset for next k Value
+            allFoldMSE = []
+            allFoldError = []
+
+
+    def runKFoldCrossVal_OnSingleDataSet_ForTuningSigma(self, toRunOnDataSetName), optK:
+        curDataFrameFoldList = self.create_folds(self.allDataSets[toRunOnDataSetName].finalData_Validation20PercentSet)
+        curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
+        curDataFrameTaskType = self.allDataSets[toRunOnDataSetName].taskType
+        sigmaValues = [0.01,0.1,1,10]
+        k = optK
+        
+        allFoldMSE = []
+        allFoldError = []
+        
+        
+        for sigmaVal in sigmaValues:
+            for iFoldIndex in range(self.numFolds):
+                print('Tuning on Fold: \t' + str(iFoldIndex))
+                print('Tuning for Sigma Value: \t' + str(sigmaVal))
+                loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+                tuneTestDF = loopDataFrameFoldList.pop(iFoldIndex)
+                tuneTrainDF = pd.concat(loopDataFrameFoldList, axis=0)
+                    
+                #Insert the Step where the Algorithm Runs
+                #Change out for the current algorithm being tested
+                (curFoldMSE, curFoldErr) = self.algoHelper.runKNN_Algorithm(k, tuneTestDF, tuneTrainDF, curDataFramePredictor, curDataFrameTaskType)
+                allFoldMSE.append(curFoldMSE)
+                allFoldError.append(curFoldErr)
+                print('-')
+            
+            #Calcualte the Average Accuracy and Error on the Folds
+            if(allFoldMSE[0]!=None):
+                avgMSE = sum(allFoldMSE)/(self.numFolds)
+            else:
+                avgMSE = None
+            if(allFoldError[0]!=None):
+                avgError = sum(allFoldError)/(self.numFolds)
+            else:
+                avgError = None
+            print('Average Error on Fold: \t' + str(avgError))
+            print('Average Mean Square Error on Fold: \t' + str(avgMSE))
+            print('----')
+            print('----')
+            #Reset for next k Value
+            allFoldMSE = []
+            allFoldError = []        
+
+    def runKFoldCrossVal_OnSingleDataSet_ForExp(self, toRunOnDataSetName, optK):
+        curDataFrameFoldList = self.create_folds(self.allDataSets[toRunOnDataSetName].finalData_ExperimentSet)
+        curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
+        curDataFrameTaskType = self.allDataSets[toRunOnDataSetName].taskType
+
+        allFoldAccuracy = []
+        allFoldError = []
+        
+        print('START OF EXPRIMENT FOR:')
+        print(toRunOnDataSetName + 'Data Set')
         for iFoldIndex in range(self.numFolds):
+            print('Running on Fold: \t' + str(iFoldIndex))
             loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
-            tuneTestDF = loopDataFrameFoldList.pop(iFoldIndex)
-            tuneTrainDF = pd.concat(loopDataFrameFoldList, axis=0)
+            runTestDF = loopDataFrameFoldList.pop(iFoldIndex)
+            runTrainDF = pd.concat(loopDataFrameFoldList, axis=0)
                     
             #Insert the Step where the Algorithm Runs
-            self.algoHelper.runKNNAlgorithm(kvals, tuneTestDF, tuneTrainDF, curDataFramePredictor, curDataFrameTaskType)
-        
-        
-    def runKFoldCrossVal_OnAllDataSets_ForTuning(self, runOn = 'AllDataSets'):
-        #print(printMessage)
-        #errorPerFold = [] #Error = Number Wrong / Total
-        #accuracyPerFold = [] #Accuracy = Number Right / Total
-        
-        if(runOn == "AllDataSets"):
-            for dataSetName in self.allDataSets: 
-                #Create the Folds
-                curDataFrameFoldList = self.create_folds(self.allDataSets[dataSetName].finalData_Validation20PercentSet)
-                
-                for iFoldIndex in range(self.numFolds):
-                    loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
-                    tuneTestDF = loopDataFrameFoldList.pop(iFoldIndex)
-                    tuneTrainDF = pd.concat(loopDataFrameFoldList, axis=0)
-                    
-                    #Insert the Step where the Algorithm Runs
-                    self.algoHelper.runKNNAlgorithm(tuneTestDF, tuneTrainDF)
+            #Change out for the current algorithm being tested
+            (curFoldAcc, curFoldErr) = self.algoHelper.runKNN_Algorithm(optK, runTestDF, runTrainDF, curDataFramePredictor, curDataFrameTaskType)
+            allFoldAccuracy.append(curFoldAcc)
+            allFoldError.append(curFoldErr)
+            print('-')
+            
+        #Calcualte the Average Accuracy and Error on the Folds
+        if(allFoldAccuracy[0]!=None):
+            avgAcc = sum(allFoldAccuracy)/(self.numFolds)
+        else:
+            avgAcc = None
+        if(allFoldError[0]!=None):
+            avgError = sum(allFoldError)/(self.numFolds)
+        else:
+            avgError = None
+        print('Average Error on Fold: \t' + str(avgError))
+        print('Average Mean Square Error on Fold: \t' + str(avgAcc))
+        print('----')
+        print('----')
         
     

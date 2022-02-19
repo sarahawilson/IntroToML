@@ -5,7 +5,6 @@
 
 from typing import List, Tuple, Dict;
 import DataSetHelper 
-import KNNAlgoHelperModule
 import KCrossValHelperModule
 
 
@@ -175,11 +174,59 @@ if __name__ == "__main__":
     #Load in the Data and Set up Basic Data Sets
     allDataSets = defineAllDataSets()
     
-    #myKNNHelper = KNNAlgoHelperModule.KNNAlgoHelper(allDataSets)
-    
+    #Set up the KCross Val Helper 
     myKCrossValHelper = KCrossValHelperModule.KCrossValHelper(allDataSets)
+    
+    #Create the Tune and Expirment Sets for all the Data sets
     myKCrossValHelper.createValidation_TuneAndExperimentSets()
-    #myKCrossValHelper.runKFoldCrossVal_OnAllDataSets_ForTuning()
-    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuning('Car Eval')
+    
+    
+    #Run the Tuning on the Classification Tasks
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN('Car Eval')
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN('Breast Cancer')
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN('Congressional Vote')
+    
+    #Classification Tasks 
+    #Define the best K value in KNN to run the Full Expirment With
+    #These numbers were determine by looking at the results from the runKFoldCross value on 
+    #knn from the tuning process
+    congVoteOptK = 3
+    breastCancerOptK = 7
+    carEvalOptKOptK = 3
+    
+    #Run the Expirment on the Classificaiton Task, with optimal k values
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForExp('Car Eval', carEvalOptKOptK)
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForExp('Breast Cancer', breastCancerOptK)
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForExp('Congressional Vote', congVoteOptK)
+    
+    
+    #Run the Tuning for K (kNN) on the Regression Tasks
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN('Albalone')
+    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN('Forest Fire')
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN('Computer Hardware')
+    
+    #Regression Tasks Optimal K (Normal KNN)
+    albaloneOptK = 7
+    compHwOptK = 5
+    ForestFiresOptK = 7
+    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigma('Albalone', albaloneOptK)
+    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigma('Forest Fire', compHwOptK)
+    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigma('Computer Hardware', ForestFiresOptK)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 

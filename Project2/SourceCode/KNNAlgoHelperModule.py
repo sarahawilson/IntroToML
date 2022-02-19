@@ -29,18 +29,39 @@ class KNNAlgoHelper:
         #Define the Tuple for all the data that needs to be one hot encoded
         toApplyOneHotOn =[('Albalone', ['Sex']), 
                         ('Computer Hardware', ['Vendor Name', 'Model Name']),
-                        ('Forest Fire', ['month', 'day'])]
+                        ('Forest Fire', ['month', 'day'])
+                        ]
         
         
-        #TODO: Find out if the Predictor Car Eval needs to be encoded as well
+        
         carEvalOrdinalEncoding = {'Buying': {'vhigh': 4, 'high': 3, 'med': 2, 'low': 1},
                                   'Maint': {'vhigh': 4, 'high': 3, 'med': 2, 'low': 1},
                                   'Lug_Boot': {'big': 3, 'med': 2, 'small': 1},
                                   'Safety': {'high': 3, 'med': 2, 'low': 1}
                                   }
+        
+        
+        congVoteOrdinalEncoding = {'handicapped-infants': {'y': 1, '?':0, 'n':-1}, 
+                           'water-project-cost-sharing': {'y': 1, '?':0, 'n':-1},  
+                           'adoption-of-the-budget-resolution': {'y': 1, '?':0, 'n':-1},  
+                           'physician-fee-freeze': {'y': 1, '?':0, 'n':-1}, 
+                           'el-salvador-aid': {'y': 1, '?':0, 'n':-1}, 
+                           'religious-groups-in-schools': {'y': 1, '?':0, 'n':-1}, 
+                           'anti-satellite-test-ban': {'y': 1, '?':0, 'n':-1}, 
+                           'aid-to-nicaraguan-contras': {'y': 1, '?':0, 'n':-1}, 
+                           'mx-missile': {'y': 1, '?':0, 'n':-1},
+                           'immigration': {'y': 1, '?':0, 'n':-1}, 
+                           'synfuels-corporation-cutback': {'y': 1, '?':0, 'n':-1}, 
+                           'education-spending': {'y': 1, '?':0, 'n':-1}, 
+                           'superfund-right-to-sue': {'y': 1, '?':0, 'n':-1}, 
+                           'crime':{'y': 1, '?':0, 'n':-1},  
+                           'duty-free-exports':{'y': 1, '?':0, 'n':-1},  
+                           'export-administration-act-south-africa':{'y': 1, '?':0, 'n':-1}}
+        
 
         #Define the Tuple for all the data sets that need to be Ordinal Encoded
-        toApplyOrdinalEncodingOn = [('Car Eval',carEvalOrdinalEncoding)
+        toApplyOrdinalEncodingOn = [('Car Eval',carEvalOrdinalEncoding),
+                                    ('Congressional Vote', congVoteOrdinalEncoding)
                                     ]
         
         #Congressional Vote
@@ -69,22 +90,14 @@ class KNNAlgoHelper:
     def getKNeighborsParam(self):
         return self._kNeighbors
                       
-    def runKNNAlgorithm(self,
-                        kvals: List, 
-                        testSet, 
-                        trainSet, 
-                        predictor: str,
-                        taskType: str):
-        #TODO: Insert Description
-        #test = 1
-        #self.testRunKNN()
-        self.testRunKNN_Simple(kvals, testSet, trainSet, predictor, taskType)
 
-        
-        
-    def testRunKNN_Simple(self, kval, testSet, trainSet, predictor, taskType):
-        
-        k = 3;
+    def runKNN_Algorithm(self, 
+                          kval: int, 
+                          testSet, 
+                          trainSet, 
+                          predictor: str, 
+                          taskType: str):
+        k = kval;
         unmodTestSet = testSet
         unmodTrainSet = trainSet
         # Drop the Predictor from the data frame since we don't want 
@@ -99,6 +112,7 @@ class KNNAlgoHelper:
         numRowsTestSet = testSetArray.shape[0]
         
         classificationWrongCnt = 0
+        regressionSumErrorsSqrd = 0
         
         for curRow in range(numRowsTestSet):
             testSetCurRow = testSetArray[curRow]
@@ -122,7 +136,9 @@ class KNNAlgoHelper:
             
             #Compare the Query Predictor to the KNN Predictors
             if(taskType == 'Regression'):
-                print(1)
+                avgClosest = sum(kNNPredictors)/k
+                curRegErr = (curQueryPredictor - avgClosest)**2
+                regressionSumErrorsSqrd = regressionSumErrorsSqrd + curRegErr
             elif(taskType == 'Classification'):
                 mostCommon = max(kNNPredictors, key = kNNPredictors.count)
                 #print('\t' + curQueryPredictor)
@@ -132,10 +148,15 @@ class KNNAlgoHelper:
             
         
         if(taskType == 'Regression'):
-            print(1)
+            regressionError = None
+            regressionMSE = regressionSumErrorsSqrd / numRowsTestSet
+            print('\t' + 'Regression MSE: ' + str(regressionMSE))
+            return (regressionMSE, regressionError)
         elif(taskType == 'Classification'):
             classificationError = classificationWrongCnt / numRowsTestSet
+            classificationMSE = None #Not applied for classificaiton taks
             print('\t' + 'Classification Error: ' + str(classificationError))
+            return (classificationMSE, classificationError)
         
     def testRunKNN(self):
         
