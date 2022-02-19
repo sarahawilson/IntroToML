@@ -7,7 +7,7 @@ from typing import List, Tuple, Dict
 import pandas as pd
 from numpy import array, argmin, sqrt, sum
 import numpy as np
-from statistics import mode
+from collections import Counter
 
 class KNNAlgoHelper:
     def __init__(self,
@@ -124,7 +124,9 @@ class KNNAlgoHelper:
             if(taskType == 'Regression'):
                 print(1)
             elif(taskType == 'Classification'):
-                mostCommon = mode(kNNPredictors) 
+                mostCommon = max(kNNPredictors, key = kNNPredictors.count)
+                #print('\t' + curQueryPredictor)
+                #print('\t Most Common:' + mostCommon)
                 if(mostCommon != curQueryPredictor):
                     classificationWrongCnt = classificationWrongCnt + 1
             
@@ -133,8 +135,7 @@ class KNNAlgoHelper:
             print(1)
         elif(taskType == 'Classification'):
             classificationError = classificationWrongCnt / numRowsTestSet
-            print('\t' + 'Classification Error: ' + classificationError)
-        
+            print('\t' + 'Classification Error: ' + str(classificationError))
         
     def testRunKNN(self):
         
