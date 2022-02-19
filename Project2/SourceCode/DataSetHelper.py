@@ -11,6 +11,7 @@ class DataSet:
     def __init__(self, 
              dataSetName: str = None,
              taskType: str = None,
+             predictor: str = None,
              dataFilePath: str = None,
              headers: List = None,
              dataTypes: Dict = None,
@@ -19,6 +20,7 @@ class DataSet:
              ):
         self.name = dataSetName
         self.taskType = taskType
+        self.predictor = predictor
         self.dataFilePath = dataFilePath
         self.headers = headers
         self.dataTypes = dataTypes

@@ -8,16 +8,17 @@ from typing import List, Tuple, Dict
 import numpy as np
 import pandas as pd
 import copy
+import KNNAlgoHelperModule
 
 class KCrossValHelper:
     def __init__(self,
                  allDataSets: Dict,
-                 inputAlgoHelper):
+                 ):
         
         self.name = 'KCrossVal'
         self.numFolds = 5
         self.allDataSets = allDataSets
-        self.algoHelper = inputAlgoHelper
+        self.algoHelper = KNNAlgoHelperModule.KNNAlgoHelper(self.allDataSets)
         
         
     def createValidation_TuneAndExperimentSets(self, runOn = "AllDataSets"):
@@ -43,15 +44,19 @@ class KCrossValHelper:
 
         return kFoldDataFramesTest; 
     
-    def runKFoldCrossVal_OnSingleDataSet_ForTuning(self):
-        curDataFrameFoldList = self.create_folds(self.allDataSets['Breast Cancer'].finalData_Validation20PercentSet)
+    def runKFoldCrossVal_OnSingleDataSet_ForTuning(self, toRunOnDataSetName):
+        curDataFrameFoldList = self.create_folds(self.allDataSets[toRunOnDataSetName].finalData_Validation20PercentSet)
+        curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
+        curDataFrameTaskType = self.allDataSets[toRunOnDataSetName].taskType
+        kvals = [1,3,5,7]
+        
         for iFoldIndex in range(self.numFolds):
             loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
             tuneTestDF = loopDataFrameFoldList.pop(iFoldIndex)
             tuneTrainDF = pd.concat(loopDataFrameFoldList, axis=0)
                     
             #Insert the Step where the Algorithm Runs
-            self.algoHelper.runKNNAlgorithm(tuneTestDF, tuneTrainDF)
+            self.algoHelper.runKNNAlgorithm(kvals, tuneTestDF, tuneTrainDF, curDataFramePredictor, curDataFrameTaskType)
         
         
     def runKFoldCrossVal_OnAllDataSets_ForTuning(self, runOn = 'AllDataSets'):

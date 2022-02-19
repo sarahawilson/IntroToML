@@ -23,6 +23,7 @@ def defineAllDataSets()->Dict:
     # Define the needed variables
     breastCancerName = 'Breast Cancer'
     breastCancerDataSet_OverallType = 'Classification'
+    breastCancerDataSet_Predictor = 'Class'
     breastCancerDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\BreastCancer\breast-cancer-wisconsin.data"
     breastCancerHeaders = ['Sample Code Number', 'Clump Thickness', 'Uni. of Cell Size', 'Uni. of Cell Shape', 
                            'Marginal Adhesion', 'Single Ep. Cell Size', 'Bare Nuclei',
@@ -41,6 +42,7 @@ def defineAllDataSets()->Dict:
     #Create an Instance of the Data Set Class 
     breastCancerDS = DataSetHelper.DataSet(breastCancerName, 
                              breastCancerDataSet_OverallType,
+                             breastCancerDataSet_Predictor,
                              breastCancerDataSetPath,
                              breastCancerHeaders,
                              breastCancerDtypes,
@@ -58,6 +60,7 @@ def defineAllDataSets()->Dict:
     # Define the needed variables
     carEvalDataSetName = 'Car Eval'
     carEvalDataSet_OverallType = 'Classification'
+    carEvalDataSet_Predictor = 'Car Acceptability'
     carEvalDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\CarEvaluation\car.data"
     carEvalHeaders = ['Buying', 'Maint', 'Doors', 'Persons', 'Lug_Boot', 'Safety', 'Car Acceptability']
     carDtypes = {'Buying': 'str', 'Maint': 'str', 'Lug_Boot': 'str', 'Safety': 'str', 'Car Acceptability': 'str'}
@@ -67,6 +70,7 @@ def defineAllDataSets()->Dict:
     #Create an Instance of the Data Set Class
     carEvalDS = DataSetHelper.DataSet(carEvalDataSetName,
                                       carEvalDataSet_OverallType,
+                                      carEvalDataSet_Predictor,
                                       carEvalDataSetPath,
                                       carEvalHeaders,
                                       carDtypes,
@@ -82,6 +86,7 @@ def defineAllDataSets()->Dict:
     ####################
     congVoteDataSetName = "Congressional Vote"
     congVoteDataSet_OverallType = 'Classification'
+    congVoteDataSet_Predictor = 'Class Name'
     congVoteDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\CongressionalVote\house-votes-84.data"
     congVoteHeaders = ['Class Name', 'handicapped-infants', 'water-project-cost-sharing', 'adoption-of-the-budget-resolution', 'physician-fee-freeze', 'el-salvador-aid',
                        'religious-groups-in-schools', 'anti-satellite-test-ban', 'aid-to-nicaraguan-contras', 'mx-missile', 'immigration', 'synfuels-corporation-cutback',
@@ -90,6 +95,7 @@ def defineAllDataSets()->Dict:
     #Create an Instance of the Data Set Class
     congVoteDS = DataSetHelper.DataSet(congVoteDataSetName,
                                        congVoteDataSet_OverallType,
+                                       congVoteDataSet_Predictor,
                                        congVoteDataSetPath,
                                        congVoteHeaders)
     
@@ -102,6 +108,7 @@ def defineAllDataSets()->Dict:
     ####################
     compHardwareDataSetName = 'Computer Hardware'
     compHardwareDataSet_OverallType = 'Regression'
+    compHardwareDataSet_Predictor = 'PRP'
     compHardwareDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\ComputerHardware\machine.data"
     compHardwareHeader = ['Vendor Name','Model Name','MYCT','MMIN','MMAX','CACH','CHMIN','CHMAX','PRP','ERP']
     compHardwareDtypeDict = {'Vendor Name': 'str','Model Name': 'str','MYCT': 'int','MMIN': 'int',
@@ -110,6 +117,7 @@ def defineAllDataSets()->Dict:
     #Create an Instance of the Data Set Class
     compHardwareDS = DataSetHelper.DataSet(compHardwareDataSetName,
                                            compHardwareDataSet_OverallType,
+                                           compHardwareDataSet_Predictor,
                                            compHardwareDataSetPath,
                                            compHardwareHeader,
                                            compHardwareDtypeDict
@@ -123,6 +131,7 @@ def defineAllDataSets()->Dict:
     ####################
     abaloneDataSetName = 'Albalone'
     abaloneDataSet_OverallType = 'Regression'
+    abaloneDatasSet_Predictor = 'Rings'
     abaloneDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\Abalone\abalone.data"
     abaloneHeaders = ['Sex', 'Length', 'Diameter', 'Height', 'Whole Weight', 'Shucked Weight', 'Viscera Weight', 'Shell Weight', 'Rings']
     abaloneDtypeDict = {'Sex': 'str', 'Length': 'float' , 'Diameter': 'float', 'Height': 'float', 
@@ -131,6 +140,7 @@ def defineAllDataSets()->Dict:
     #Create an Instance of the Data Set Class
     albaloneDS = DataSetHelper.DataSet(abaloneDataSetName,
                                        abaloneDataSet_OverallType,
+                                       abaloneDatasSet_Predictor,
                                        abaloneDataSetPath,
                                        abaloneHeaders,
                                        abaloneDtypeDict
@@ -145,11 +155,13 @@ def defineAllDataSets()->Dict:
     ####################
     forestFireDataSetName = 'Forest Fire'
     forestFireDataSet_OverallType = 'Regression'
+    foresetFireDataSet_Predictor = 'area'
     forestFireDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\ForestFires\forestfires.data"
     
     #Create an Instance of the Data Set Class
     forestFireDS = DataSetHelper.DataSet(forestFireDataSetName,
                                          forestFireDataSet_OverallType,
+                                         foresetFireDataSet_Predictor,
                                          forestFireDataSetPath
                                          )
     
@@ -163,11 +175,11 @@ if __name__ == "__main__":
     #Load in the Data and Set up Basic Data Sets
     allDataSets = defineAllDataSets()
     
-    myKNNHelper = KNNAlgoHelperModule.KNNAlgoHelper(allDataSets)
+    #myKNNHelper = KNNAlgoHelperModule.KNNAlgoHelper(allDataSets)
     
-    myKCrossValHelper = KCrossValHelperModule.KCrossValHelper(allDataSets, myKNNHelper)
+    myKCrossValHelper = KCrossValHelperModule.KCrossValHelper(allDataSets)
     myKCrossValHelper.createValidation_TuneAndExperimentSets()
     #myKCrossValHelper.runKFoldCrossVal_OnAllDataSets_ForTuning()
-    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuning()
+    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuning('Car Eval')
     
 
