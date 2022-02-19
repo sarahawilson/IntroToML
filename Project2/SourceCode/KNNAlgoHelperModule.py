@@ -157,7 +157,86 @@ class KNNAlgoHelper:
             classificationMSE = None #Not applied for classificaiton taks
             print('\t' + 'Classification Error: ' + str(classificationError))
             return (classificationMSE, classificationError)
+
+
+
+    def runKNN_AlgorithmForRegression(self, 
+                          kval: int, 
+                          testSet, 
+                          trainSet, 
+                          predictor: str, 
+                          taskType: str,
+                          sigmaVal: int):
+        k = kval;
+        sigma = sigmaVal
+        unmodTestSet = testSet
+        unmodTrainSet = trainSet
+        # Drop the Predictor from the data frame since we don't want 
+        # it included in the distance calculations
+        testSet = testSet.drop(columns=predictor)
+        trainSet = trainSet.drop(columns=predictor)
         
+        testSetArray = testSet.to_numpy()
+        trainSetArray = trainSet.to_numpy()
+        
+        #Get the number of rows in the testSetArray 
+        numRowsTestSet = testSetArray.shape[0]
+        
+        regressionSumErrorsSqrd = 0
+        
+        for curRow in range(numRowsTestSet):
+            testSetCurRow = testSetArray[curRow]
+            curRowDiff = testSetCurRow - trainSetArray
+            curRowDist = sqrt(sum(curRowDiff**2,axis=-1))
+            #dist - rows correspond to the datapoint in the Train Set
+            #dist - colms correspond to the datapoint in the Test Set\
+            
+            
+            #Apply the Gaussian Kernel
+            powerOf = (-1/(2*sigma))*curRowDist
+            GKDist = np.exp(powerOf)
+            
+            #Get the Index of the smallest values  
+            minDistanceIndexAll = np.argpartition(curRowDist, k)
+            minDistanceKNeighborsIndex = minDistanceIndexAll[:k]
+            
+            
+            
+            #Get the Predictor of each of the K Nearest Neighbors
+            #in the Train Set
+            kNNPredictors = []
+            GKWeight = []
+            for nearNeighborIdx in minDistanceKNeighborsIndex:
+                kNNPredictors.append(unmodTrainSet.iloc[nearNeighborIdx][predictor])
+                
+                #Get the Weight from the Gaussian Kernel
+                GKWeight.append(GKDist[nearNeighborIdx])
+            
+            #Calcualte the Weighted Average
+            numeratorSum = np.float64(0)
+            denominatorSum = np.float64(0)
+            for index in range(len(kNNPredictors)):
+                numeratorSum = numeratorSum + (kNNPredictors[index] * GKWeight[index])
+                denominatorSum = denominatorSum + GKWeight[index]
+            
+            GKweightAvg = numeratorSum / denominatorSum
+            
+            #Get the Query Point (Test Set) predictor
+            curQueryPredictor = unmodTestSet.iloc[curRow][predictor]
+            
+            #Compare the Query Predictor to the KNN Predictors
+
+            curRegErr = (curQueryPredictor - GKweightAvg)**2
+            regressionSumErrorsSqrd = regressionSumErrorsSqrd + curRegErr
+
+
+        regressionError = None
+        regressionMSE = np.sqrt(regressionSumErrorsSqrd / numRowsTestSet)
+        print('\t' + 'Regression RMSE: ' + str(regressionMSE))
+        return (regressionMSE, regressionError)
+
+
+
     def testRunKNN(self):
         
         testSetArray = array([1,1,1])

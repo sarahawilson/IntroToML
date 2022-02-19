@@ -200,18 +200,19 @@ if __name__ == "__main__":
     #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForExp('Congressional Vote', congVoteOptK)
     
     
-    #Run the Tuning for K (kNN) on the Regression Tasks
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN('Albalone')
-    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN('Forest Fire')
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN('Computer Hardware')
+    #Run the Tuning for K (kNN) and Sigma on the Regression Tasks
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Albalone')
+    albaloneOptK = 7
+    albaloneOptSigma = 0.1
+    
+    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForExp('Albalone', albaloneOptK, albaloneOptSigma)
+    
+    
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Forest Fire')
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Computer Hardware')
     
     #Regression Tasks Optimal K (Normal KNN)
-    albaloneOptK = 7
-    compHwOptK = 5
-    ForestFiresOptK = 7
-    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigma('Albalone', albaloneOptK)
-    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigma('Forest Fire', compHwOptK)
-    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigma('Computer Hardware', ForestFiresOptK)
+
     
     
     
