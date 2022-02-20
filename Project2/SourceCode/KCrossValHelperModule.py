@@ -169,16 +169,16 @@ class KCrossValHelper:
                 testDF = loopDataFrameFoldList.pop(iFoldIndex)
                 trainDF = pd.concat(loopDataFrameFoldList, axis=0)
             
-            zStandTestTrainDict['Test Set'] = testDF
-            zStandTestTrainDict['Train Set'] = trainDF
+                zStandTestTrainDict['Test Set'] = testDF
+                zStandTestTrainDict['Train Set'] = trainDF
             
-            if(zStand):
-                meanStdTuple = self.cal_mean_std(zStandTestTrainDict['Train Set'], zStandHeaders)
-                testdf_zStandTrainSet = self.zStanderdize_data(zStandTestTrainDict['Train Set'], meanStdTuple)
-                testdf_zStandTestSet = self.zStanderdize_data(zStandTestTrainDict['Test Set'], meanStdTuple)
+                if(zStand):
+                    meanStdTuple = self.cal_mean_std(zStandTestTrainDict['Train Set'], zStandHeaders)
+                    testdf_zStandTrainSet = self.zStanderdize_data(zStandTestTrainDict['Train Set'], meanStdTuple)
+                    testdf_zStandTestSet = self.zStanderdize_data(zStandTestTrainDict['Test Set'], meanStdTuple)
                 
-                testDF = testdf_zStandTrainSet
-                testDF = testdf_zStandTestSet
+                    testDF = testdf_zStandTrainSet
+                    testDF = testdf_zStandTestSet
     
     
                 #INSERT RUN NORMAL KNN
@@ -212,7 +212,51 @@ class KCrossValHelper:
             allFoldClassificationError = []    
  
 
-    def runKFoldCrossVal_NormalKNN(self, toRunOnDataSetName: str, kVal, sigmaVal, zStand = False, zStandHeaders = None):
+    def runKFoldCrossVal_EditedKNN_Tune(self, toRunOnDataSetName: str, kVal, sigmaVal, epsilonVals: list, zStand = False, zStandHeaders = None):
+        curDataFrameFoldList = self._create_folds(self.allDataSets[toRunOnDataSetName].finalData_Validation20PercentSet)
+        curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
+        curDataFrameTaskType = self.allDataSets[toRunOnDataSetName].taskType
+        
+        allFoldRMSError = []
+        zStandTestTrainDict = {'Train Set': None, 'Test Set': None}
+        
+        if(curDataFrameTaskType == 'Regression'):
+            print('---EDITED KNN---')
+            print('Tuning for Epsilon')
+            print('K:' + str(kVal))
+            print('Sigma:' + str(sigmaVal))
+            for epsilon in epsilonVals:
+                print('Epsilon:' + str(epsilon))
+                for iFoldIndex in range(self.numFolds):
+                    print('Fold:' + str(iFoldIndex))
+                    loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+                    testDF = loopDataFrameFoldList.pop(iFoldIndex)
+                    trainDF = pd.concat(loopDataFrameFoldList, axis=0)
+            
+                    zStandTestTrainDict['Test Set'] = testDF
+                    zStandTestTrainDict['Train Set'] = trainDF
+            
+                    if(zStand):
+                        meanStdTuple = self.cal_mean_std(zStandTestTrainDict['Train Set'], zStandHeaders)
+                        testdf_zStandTrainSet = self.zStanderdize_data(zStandTestTrainDict['Train Set'], meanStdTuple)
+                        testdf_zStandTestSet = self.zStanderdize_data(zStandTestTrainDict['Test Set'], meanStdTuple)
+                
+                        testDF = testdf_zStandTrainSet
+                        testDF = testdf_zStandTestSet
+    
+    
+                    #INSERT RUN NORMAL KNN
+                    (curFoldRMSE, curFoldClassErr) = self.algoHelper.runEditedKNN(kVal, sigmaVal, epsilon, testDF, trainDF, curDataFramePredictor, curDataFrameTaskType)
+                    allFoldRMSError.append(curFoldRMSE)
+    
+                #Determine the overall Error for the Folds
+                avgAllFoldError= sum(allFoldRMSError)/(self.numFolds)
+                print('Average Root Mean Square Error on Fold: \t' + str(avgAllFoldError))
+                #Reset for next k/sigma Value
+                allFoldRMSError = []
+                    
+    
+    def runKFoldCrossVal_EditedKNN(self, toRunOnDataSetName: str, kVal, sigmaVal, epsilon, zStand = False, zStandHeaders = None):
         curDataFrameFoldList = self._create_folds(self.allDataSets[toRunOnDataSetName].finalData_Validation20PercentSet)
         curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
         curDataFrameTaskType = self.allDataSets[toRunOnDataSetName].taskType
@@ -222,61 +266,160 @@ class KCrossValHelper:
         zStandTestTrainDict = {'Train Set': None, 'Test Set': None}
         
         if(curDataFrameTaskType == 'Regression'):
-            print('---NORMAL KNN---')
-            print('Full Exp:')
+            print('---EDITED KNN---')
             print('K:' + str(kVal))
             print('Sigma:' + str(sigmaVal))
+            print('Epsilon:' + str(epsilon))
             for iFoldIndex in range(self.numFolds):
                 print('Fold:' + str(iFoldIndex))
                 loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
                 testDF = loopDataFrameFoldList.pop(iFoldIndex)
                 trainDF = pd.concat(loopDataFrameFoldList, axis=0)
             
-            zStandTestTrainDict['Test Set'] = testDF
-            zStandTestTrainDict['Train Set'] = trainDF
+                zStandTestTrainDict['Test Set'] = testDF
+                zStandTestTrainDict['Train Set'] = trainDF
             
-            if(zStand):
-                meanStdTuple = self.cal_mean_std(zStandTestTrainDict['Train Set'], zStandHeaders)
-                testdf_zStandTrainSet = self.zStanderdize_data(zStandTestTrainDict['Train Set'], meanStdTuple)
-                testdf_zStandTestSet = self.zStanderdize_data(zStandTestTrainDict['Test Set'], meanStdTuple)
-                
-                testDF = testdf_zStandTrainSet
-                testDF = testdf_zStandTestSet
-    
-    
-                #INSERT RUN NORMAL KNN
-                (curFoldRMSE, curFoldClassErr) = self.algoHelper.RunNormalKNN(kVal, sigmaVal, testDF, trainDF, curDataFramePredictor, curDataFrameTaskType)
+                if(zStand):
+                    meanStdTuple = self.cal_mean_std(zStandTestTrainDict['Train Set'], zStandHeaders)
+                    testdf_zStandTrainSet = self.zStanderdize_data(zStandTestTrainDict['Train Set'], meanStdTuple)
+                    testdf_zStandTestSet = self.zStanderdize_data(zStandTestTrainDict['Test Set'], meanStdTuple)
+                    testDF = testdf_zStandTrainSet
+                    testDF = testdf_zStandTestSet
+
+                #Run Edited KNN
+                (curFoldRMSE, curFoldClassErr) = self.algoHelper.runEditedKNN(kVal, sigmaVal, epsilon, testDF, trainDF, curDataFramePredictor, curDataFrameTaskType)
                 allFoldRMSError.append(curFoldRMSE)
     
             #Determine the overall Error for the Folds
             avgAllFoldError= sum(allFoldRMSError)/(self.numFolds)
-            print('Average Root Mean Square Error on Fold: \t' + str(avgAllFoldError))
+            print('Average Root Mean Square Error on Folds: \t' + str(avgAllFoldError))
             #Reset for next k/sigma Value
             allFoldRMSError = []
                     
                         
         if(curDataFrameTaskType == 'Classification'):
-            print('---NORMAL KNN---')
-            print('Full Exp:')
+            print('---EDITED KNN---')
             print('K:' + str(kVal))
             for iFoldIndex in range(self.numFolds):
+                print('Fold:' + str(iFoldIndex))
                 loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
                 testDF = loopDataFrameFoldList.pop(iFoldIndex)
                 trainDF = pd.concat(loopDataFrameFoldList, axis=0)
-                    
-                (curFoldRMSE, curFoldClassErr) = self.algoHelper.RunNormalKNN(kVal, None, testDF, trainDF, curDataFramePredictor, curDataFrameTaskType)
+
+                #Run Edited KNN
+                (curFoldRMSE, curFoldClassErr) = self.algoHelper.runEditedKNN(kVal, sigmaVal, epsilon, testDF, trainDF, curDataFramePredictor, curDataFrameTaskType)
                 allFoldClassificationError.append(curFoldClassErr)
-                    
                     
             #Determine the overall Error for the Folds
             avgAllFoldError= sum(allFoldClassificationError)/(self.numFolds)
-            print('Average Classification Error on Fold: \t' + str(avgAllFoldError))
+            print('Average Classification Error on Folds: \t' + str(avgAllFoldError))
             #Reset for next k value
-            allFoldClassificationError = []       
+            allFoldClassificationError = []      
+    
+
+    def runKFoldCrossVal_CondensedKNN_Tune(self, toRunOnDataSetName: str, kVal, sigmaVal, epsilonVals: list, zStand = False, zStandHeaders = None):
+        curDataFrameFoldList = self._create_folds(self.allDataSets[toRunOnDataSetName].finalData_Validation20PercentSet)
+        curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
+        curDataFrameTaskType = self.allDataSets[toRunOnDataSetName].taskType
+        
+        allFoldRMSError = []
+        zStandTestTrainDict = {'Train Set': None, 'Test Set': None}
+        
+        if(curDataFrameTaskType == 'Regression'):
+            print('---EDITED KNN---')
+            print('Tuning for Epsilon')
+            print('K:' + str(kVal))
+            print('Sigma:' + str(sigmaVal))
+            for epsilon in epsilonVals:
+                print('Epsilon:' + str(epsilon))
+                for iFoldIndex in range(self.numFolds):
+                    print('Fold:' + str(iFoldIndex))
+                    loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+                    testDF = loopDataFrameFoldList.pop(iFoldIndex)
+                    trainDF = pd.concat(loopDataFrameFoldList, axis=0)
+            
+                    zStandTestTrainDict['Test Set'] = testDF
+                    zStandTestTrainDict['Train Set'] = trainDF
+            
+                    if(zStand):
+                        meanStdTuple = self.cal_mean_std(zStandTestTrainDict['Train Set'], zStandHeaders)
+                        testdf_zStandTrainSet = self.zStanderdize_data(zStandTestTrainDict['Train Set'], meanStdTuple)
+                        testdf_zStandTestSet = self.zStanderdize_data(zStandTestTrainDict['Test Set'], meanStdTuple)
+                
+                        testDF = testdf_zStandTrainSet
+                        testDF = testdf_zStandTestSet
     
     
+                    #INSERT RUN NORMAL KNN
+                    (curFoldRMSE, curFoldClassErr) = self.algoHelper.runCondensedKNN(kVal, sigmaVal, epsilon, testDF, trainDF, curDataFramePredictor, curDataFrameTaskType)
+                    allFoldRMSError.append(curFoldRMSE)
     
+                #Determine the overall Error for the Folds
+                avgAllFoldError= sum(allFoldRMSError)/(self.numFolds)
+                print('Average Root Mean Square Error on Fold: \t' + str(avgAllFoldError))
+                #Reset for next k/sigma Value
+                allFoldRMSError = []
+                    
     
+    def runKFoldCrossVal_CondensedKNN(self, toRunOnDataSetName: str, kVal, sigmaVal, epsilon, zStand = False, zStandHeaders = None):
+        curDataFrameFoldList = self._create_folds(self.allDataSets[toRunOnDataSetName].finalData_Validation20PercentSet)
+        curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
+        curDataFrameTaskType = self.allDataSets[toRunOnDataSetName].taskType
+        
+        allFoldRMSError = []
+        allFoldClassificationError = []
+        zStandTestTrainDict = {'Train Set': None, 'Test Set': None}
+        
+        if(curDataFrameTaskType == 'Regression'):
+            print('---CONDENSED KNN---')
+            print('K:' + str(kVal))
+            print('Sigma:' + str(sigmaVal))
+            print('Epsilon:' + str(epsilon))
+            for iFoldIndex in range(self.numFolds):
+                print('Fold:' + str(iFoldIndex))
+                loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+                testDF = loopDataFrameFoldList.pop(iFoldIndex)
+                trainDF = pd.concat(loopDataFrameFoldList, axis=0)
+            
+                zStandTestTrainDict['Test Set'] = testDF
+                zStandTestTrainDict['Train Set'] = trainDF
+            
+                if(zStand):
+                    meanStdTuple = self.cal_mean_std(zStandTestTrainDict['Train Set'], zStandHeaders)
+                    testdf_zStandTrainSet = self.zStanderdize_data(zStandTestTrainDict['Train Set'], meanStdTuple)
+                    testdf_zStandTestSet = self.zStanderdize_data(zStandTestTrainDict['Test Set'], meanStdTuple)
+                    testDF = testdf_zStandTrainSet
+                    testDF = testdf_zStandTestSet
+
+                #Run Edited KNN
+                (curFoldRMSE, curFoldClassErr) = self.algoHelper.runCondensedKNN(kVal, sigmaVal, epsilon, testDF, trainDF, curDataFramePredictor, curDataFrameTaskType)
+                allFoldRMSError.append(curFoldRMSE)
+    
+            #Determine the overall Error for the Folds
+            avgAllFoldError= sum(allFoldRMSError)/(self.numFolds)
+            print('Average Root Mean Square Error on Folds: \t' + str(avgAllFoldError))
+            #Reset for next k/sigma Value
+            allFoldRMSError = []
+                    
+                        
+        if(curDataFrameTaskType == 'Classification'):
+            print('---CONDENSED KNN---')
+            print('K:' + str(kVal))
+            for iFoldIndex in range(self.numFolds):
+                print('Fold:' + str(iFoldIndex))
+                loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+                testDF = loopDataFrameFoldList.pop(iFoldIndex)
+                trainDF = pd.concat(loopDataFrameFoldList, axis=0)
+
+                #Run Edited KNN
+                (curFoldRMSE, curFoldClassErr) = self.algoHelper.runCondensedKNN(kVal, sigmaVal, epsilon, testDF, trainDF, curDataFramePredictor, curDataFrameTaskType)
+                allFoldClassificationError.append(curFoldClassErr)
+                    
+            #Determine the overall Error for the Folds
+            avgAllFoldError= sum(allFoldClassificationError)/(self.numFolds)
+            print('Average Classification Error on Folds: \t' + str(avgAllFoldError))
+            #Reset for next k value
+            allFoldClassificationError = []    
     
         
     

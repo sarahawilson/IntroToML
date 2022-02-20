@@ -186,6 +186,7 @@ if __name__ == "__main__":
     kVals = [1,3,5,7]
     sigmaVals = [0.01,0.1,1,10]
     
+    
     #Classification Tasks
     #Tuning
     #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Car Eval', kVals, sigmaVals)
@@ -193,18 +194,27 @@ if __name__ == "__main__":
     #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Congressional Vote', kVals, sigmaVals)
     
     #Normal KNN
-    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Car Eval', kVals, sigmaVals)
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Car Eval', 3, None)
     #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Breast Cancer', kVals, sigmaVals)
     #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Congressional Vote', kVals, sigmaVals)
     
     
     #Editied KNN
+    epsilonVals = [.001,.01,.1, 1]
+    #myKCrossValHelper.runKFoldCrossVal_EditedKNN_Tune('Car Eval', 3, None, epsilonVals)
+    
+    #myKCrossValHelper.runKFoldCrossVal_EditedKNN('Car Eval', 3, None, 1)
     
     
+    
+    #myKCrossValHelper.runKFoldCrossVal_CondensedKNN('Car Eval', 3, None, 1)
     
     
     #Regression Tasks
     #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Albalone', kVals, sigmaVals)
+    
+    
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Albalone', 7, 0.1)
     
     
     #zStandCompHwHeaders = ['MYCT','MMIN','MMAX','CACH','CHMIN','CHMAX','PRP','ERP']
@@ -214,6 +224,13 @@ if __name__ == "__main__":
     
     
     
+    
+    #Video Demonstration
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Albalone', 3, 0.1)
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Car Eval', 3, None)
+    
+    #myKCrossValHelper.runKFoldCrossVal_EditedKNN('Car Eval', 3, None, 1)
+    myKCrossValHelper.runKFoldCrossVal_CondensedKNN('Car Eval', 3, None, 1)
 
     
     
