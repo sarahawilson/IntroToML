@@ -173,4 +173,23 @@ class KCrossValHelper:
         print('----')
         print('----')
         
+        
+    def runKFoldCrossVal_OnSingleDataSet_TuneEpsilon(self, toRunOnDataSetName, optK, optSigma):
+        curDataFrameFoldList = self.create_folds(self.allDataSets[toRunOnDataSetName].finalData_ExperimentSet)
+        curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
+
+        allFoldAccuracy = []
+        allFoldError = []
+        
+        print('START OF TUNE FOR EPSILON:')
+        print(toRunOnDataSetName + 'Data Set')
+        for iFoldIndex in range(self.numFolds):
+            print('Running on Fold: \t' + str(iFoldIndex))
+            loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+            testDF = loopDataFrameFoldList.pop(iFoldIndex)
+            trainDF = pd.concat(loopDataFrameFoldList, axis=0)
+                    
+            #Step where the Algorithm Runs
+            self.algoHelper.runEditedKNN(optK, optSigma, testDF, trainDF, curDataFramePredictor)
+        
     

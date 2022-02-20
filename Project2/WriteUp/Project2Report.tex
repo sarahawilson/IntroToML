@@ -152,29 +152,29 @@ Link: \newline
 
 \section{Results}
 The following results were obtained from the Classification task data sets.
-Tables 1-3 display the results from the Breast Cancer, Car Evaluation and Congressional Vote data sets. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process. The tables also display the accuracy and error obtained during each fold, and the total accuracy and error as averaged across each of the 5 \textit{k}-folds. An accuracy(scale of 0-1) of 1 indicates that the train set had the most frequently occurring classifier equal to the most frequently occurring classifier in the test set. An error(scale of 0-1) of 0 indicates that the test set and train set had the same most frequently occurring classifier. Note in the Breast Cancer data set a value of 2 was mapped to the classifier of benign.\\ 
+Tables 1-3 display the results from the Breast Cancer, Car Evaluation and Congressional Vote data sets. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process. The results presented also show the k-Fold Cross Validation process happening across different values of K for the KNN Algorithm. The optimal K value was chosen based upon the outcome of this validation process, that K value is what was used to run the final experiment.\\ 
 
 \begin{table}[h!]
 	\begin{center}
-		\caption{Breast Cancer: Naive Majority Predictor Results}
+		\caption{Breast Cancer: Normal KNN - Tuning and Experimental Results}
 		\label{tab:table1}
-		%\includegraphics[scale=.6]{BC_Results}\newline
+		\includegraphics[scale=.7]{BC_Results}\newline
 	\end{center}
 \end{table}
 
 \begin{table}[h!]
 	\begin{center}
-		\caption{Car Evaluation: Naive Majority Predictor Results}
+		\caption{Car Evaluation: Normal KNN - Tuning and Experimental Results}
 		\label{tab:table2}
-		%\includegraphics[scale=.6]{CE_Results}\newline
+		\includegraphics[scale=.7]{CE_Results}\newline
 	\end{center}
 \end{table}
 
 \begin{table}[h!]
 	\begin{center}
-		\caption{Congressional Vote: Naive Majority Predictor Results}
+		\caption{Congressional Vote: Normal KNN - Tuning and Experimental Results}
 		\label{tab:table3}
-		%\includegraphics[scale=.6]{CV_Results}\newline
+		\includegraphics[scale=.7]{CV_Results}\newline
 	\end{center}
 \end{table}
 \newpage

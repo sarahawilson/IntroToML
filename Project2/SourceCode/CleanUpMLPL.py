@@ -202,17 +202,26 @@ if __name__ == "__main__":
     
     #Run the Tuning for K (kNN) and Sigma on the Regression Tasks
     #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Albalone')
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Computer Hardware')
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Forest Fire')
+    
+    
+    #Regression Tasks with Optimal K and Sigma (Normal KNN)
     albaloneOptK = 7
     albaloneOptSigma = 0.1
     
-    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForExp('Albalone', albaloneOptK, albaloneOptSigma)
+    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForExp('Albalone', albaloneOptK, albaloneOptSigma)
     
     
     #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Forest Fire')
     #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Computer Hardware')
     
-    #Regression Tasks Optimal K (Normal KNN)
 
+    #Regressions Tuning for Epsilon 
+    compHWOptK = 5
+    compHWOptSigma=0.1
+    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_TuneEpsilon('Computer Hardware', compHWOptK, compHWOptSigma)
+    
     
     
     
