@@ -5,7 +5,6 @@
 
 from typing import List, Tuple, Dict;
 import pandas as pd
-import copy
 
 class DataSet:
     def __init__(self, 
@@ -32,6 +31,7 @@ class DataSet:
         
         self.finalData_Validation20PercentSet = None
         self.finalData_ExperimentSet = None
+        
         self.finalData_TestSet = None
         self.finalData_TrainSet = None
         
@@ -107,3 +107,66 @@ class DataSet:
         
         if(oneHotAttributes != None):
             self.finalData = pd.get_dummies(self.finalData, columns = oneHotAttributes)
+            
+            
+            
+def ConvertDataSetsToNumeric(allDataSets: Dict):
+    #Take the Nominal Data in the Data Sets and Applies One Hot Encoding
+    #Takes the Ordinal Data in the Data Sets and Applies One Hot Encoding
+        
+    #Define the Tuple for all the data that needs to be one hot encoded
+    toApplyOneHotOn =[('Albalone', ['Sex']), 
+                      ('Computer Hardware', ['Vendor Name', 'Model Name']),
+                      ('Forest Fire', ['month', 'day'])
+                      ]
+        
+        
+        
+    carEvalOrdinalEncoding = {'Buying': {'vhigh': 4, 'high': 3, 'med': 2, 'low': 1},
+                                  'Maint': {'vhigh': 4, 'high': 3, 'med': 2, 'low': 1},
+                                  'Lug_Boot': {'big': 3, 'med': 2, 'small': 1},
+                                  'Safety': {'high': 3, 'med': 2, 'low': 1}
+                                  }
+        
+        
+    congVoteOrdinalEncoding = {'handicapped-infants': {'y': 1, '?':0, 'n':-1}, 
+                           'water-project-cost-sharing': {'y': 1, '?':0, 'n':-1},  
+                           'adoption-of-the-budget-resolution': {'y': 1, '?':0, 'n':-1},  
+                           'physician-fee-freeze': {'y': 1, '?':0, 'n':-1}, 
+                           'el-salvador-aid': {'y': 1, '?':0, 'n':-1}, 
+                           'religious-groups-in-schools': {'y': 1, '?':0, 'n':-1}, 
+                           'anti-satellite-test-ban': {'y': 1, '?':0, 'n':-1}, 
+                           'aid-to-nicaraguan-contras': {'y': 1, '?':0, 'n':-1}, 
+                           'mx-missile': {'y': 1, '?':0, 'n':-1},
+                           'immigration': {'y': 1, '?':0, 'n':-1}, 
+                           'synfuels-corporation-cutback': {'y': 1, '?':0, 'n':-1}, 
+                           'education-spending': {'y': 1, '?':0, 'n':-1}, 
+                           'superfund-right-to-sue': {'y': 1, '?':0, 'n':-1}, 
+                           'crime':{'y': 1, '?':0, 'n':-1},  
+                           'duty-free-exports':{'y': 1, '?':0, 'n':-1},  
+                           'export-administration-act-south-africa':{'y': 1, '?':0, 'n':-1}}
+        
+
+    #Define the Tuple for all the data sets that need to be Ordinal Encoded
+    toApplyOrdinalEncodingOn = [('Car Eval',carEvalOrdinalEncoding),
+                                    ('Congressional Vote', congVoteOrdinalEncoding)
+                                    ]
+        
+    # Loop over the data sets and apply the 
+    # One hot encoding to those that need it 
+    # Based on the toApplyOneHotOn Tuple above
+    for dataSetName in allDataSets:
+        for curTuple in toApplyOneHotOn:
+            applyOnDataSetName = curTuple[0]
+            if (applyOnDataSetName == dataSetName):
+                allDataSets[dataSetName].applyOneHotEncoding(curTuple[1])
+                break
+
+        #Now apply the Ordinal Data Encoding
+        for curOrdTuple in toApplyOrdinalEncodingOn:
+            applyOrdOnDataSetName = curOrdTuple[0]
+            if (applyOrdOnDataSetName == dataSetName):
+                allDataSets[dataSetName].finalData.replace(to_replace=curOrdTuple[1], inplace = True)    
+                
+    return allDataSets
+            

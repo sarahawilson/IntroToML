@@ -9,7 +9,6 @@ import KCrossValHelperModule
 
 
 def defineAllDataSets()->Dict:
-    
     # A Dictonary that holds each data set as an object that can be used 
     # in futher processing.
     # Key: Data Set Name
@@ -170,57 +169,53 @@ def defineAllDataSets()->Dict:
     return allDataSetObjects
 
 if __name__ == "__main__":
-    print("MLPL - Machine Learning Pipeline")
+    print("MLPL - Machine Learning Pipeline - K Nearest Neighbors")
     #Load in the Data and Set up Basic Data Sets
     allDataSets = defineAllDataSets()
+    
+    #Convert the Data Sets to Numeric 
+    allDataSets = DataSetHelper.ConvertDataSetsToNumeric(allDataSets)
     
     #Set up the KCross Val Helper 
     myKCrossValHelper = KCrossValHelperModule.KCrossValHelper(allDataSets)
     
-    #Create the Tune and Expirment Sets for all the Data sets
-    myKCrossValHelper.createValidation_TuneAndExperimentSets()
+    #########
+    # Normal KNN
+    #########
+    #Define the Tuning Parameters for Normal KNN
+    kVals = [1,3,5,7]
+    sigmaVals = [0.01,0.1,1,10]
+    
+    #Classification Tasks
+    #Tuning
+    #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Car Eval', kVals, sigmaVals)
+    #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Breast Cancer', kVals, sigmaVals)
+    #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Congressional Vote', kVals, sigmaVals)
+    
+    #Normal KNN
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Car Eval', kVals, sigmaVals)
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Breast Cancer', kVals, sigmaVals)
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Congressional Vote', kVals, sigmaVals)
     
     
-    #Run the Tuning on the Classification Tasks
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN('Car Eval')
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN('Breast Cancer')
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningKValKNN('Congressional Vote')
-    
-    #Classification Tasks 
-    #Define the best K value in KNN to run the Full Expirment With
-    #These numbers were determine by looking at the results from the runKFoldCross value on 
-    #knn from the tuning process
-    congVoteOptK = 3
-    breastCancerOptK = 7
-    carEvalOptKOptK = 3
-    
-    #Run the Expirment on the Classificaiton Task, with optimal k values
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForExp('Car Eval', carEvalOptKOptK)
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForExp('Breast Cancer', breastCancerOptK)
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForExp('Congressional Vote', congVoteOptK)
+    #Editied KNN
     
     
-    #Run the Tuning for K (kNN) and Sigma on the Regression Tasks
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Albalone')
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Computer Hardware')
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Forest Fire')
     
     
-    #Regression Tasks with Optimal K and Sigma (Normal KNN)
-    albaloneOptK = 7
-    albaloneOptSigma = 0.1
-    
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForExp('Albalone', albaloneOptK, albaloneOptSigma)
+    #Regression Tasks
+    #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Albalone', kVals, sigmaVals)
     
     
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Forest Fire')
-    #myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_ForTuningSigmaAndK('Computer Hardware')
+    #zStandCompHwHeaders = ['MYCT','MMIN','MMAX','CACH','CHMIN','CHMAX','PRP','ERP']
+    #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Computer Hardware', kVals, sigmaVals, True, zStandCompHwHeaders)
+    
+    #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Forest Fire', kVals, sigmaVals)
+    
+    
     
 
-    #Regressions Tuning for Epsilon 
-    compHWOptK = 5
-    compHWOptSigma=0.1
-    myKCrossValHelper.runKFoldCrossVal_OnSingleDataSet_TuneEpsilon('Computer Hardware', compHWOptK, compHWOptSigma)
+    
     
     
     

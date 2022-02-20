@@ -1,0 +1,31 @@
+MLPL - Machine Learning Pipeline - K Nearest Neighbors
+Normal KNN
+Tuning K: Car Eval
+K:1
+        Classification Error: 0.14285714285714285
+        Classification Error: 0.10144927536231885
+        Classification Error: 0.11594202898550725
+        Classification Error: 0.15942028985507245
+        Classification Error: 0.08695652173913043
+Average Classification Error on Fold:   0.12132505175983437
+K:3
+        Classification Error: 0.1
+        Classification Error: 0.07246376811594203
+        Classification Error: 0.08695652173913043
+        Classification Error: 0.13043478260869565
+        Classification Error: 0.07246376811594203
+Average Classification Error on Fold:   0.09246376811594204
+K:5
+        Classification Error: 0.08571428571428572
+        Classification Error: 0.10144927536231885
+        Classification Error: 0.10144927536231885
+        Classification Error: 0.13043478260869565
+        Classification Error: 0.07246376811594203
+Average Classification Error on Fold:   0.09830227743271222
+K:7
+        Classification Error: 0.07142857142857142
+        Classification Error: 0.07246376811594203
+        Classification Error: 0.15942028985507245
+        Classification Error: 0.14492753623188406
+        Classification Error: 0.08695652173913043
+Average Classification Error on Fold:   0.10703933747412009

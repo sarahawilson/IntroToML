@@ -1,0 +1,30 @@
+---NORMAL KNN---
+Tuning K: Congressional Vote
+K:1
+        Classification Error: 0.16666666666666666
+        Classification Error: 0.05555555555555555
+        Classification Error: 0.058823529411764705
+        Classification Error: 0.11764705882352941
+        Classification Error: 0.0
+Average Classification Error on Fold:   0.07973856209150328
+K:3
+        Classification Error: 0.1111111111111111
+        Classification Error: 0.05555555555555555
+        Classification Error: 0.0
+        Classification Error: 0.11764705882352941
+        Classification Error: 0.0
+Average Classification Error on Fold:   0.056862745098039215
+K:5
+        Classification Error: 0.16666666666666666
+        Classification Error: 0.05555555555555555
+        Classification Error: 0.0
+        Classification Error: 0.11764705882352941
+        Classification Error: 0.058823529411764705
+Average Classification Error on Fold:   0.07973856209150328
+K:7
+        Classification Error: 0.16666666666666666
+        Classification Error: 0.05555555555555555
+        Classification Error: 0.0
+        Classification Error: 0.058823529411764705
+        Classification Error: 0.058823529411764705
+Average Classification Error on Fold:   0.06797385620915034
