@@ -150,7 +150,7 @@ class KCrossValHelper:
     
 
     def runKFoldCrossVal_NormalKNN(self, toRunOnDataSetName: str, kVal, sigmaVal, zStand = False, zStandHeaders = None):
-        curDataFrameFoldList = self._create_folds(self.allDataSets[toRunOnDataSetName].finalData_Validation20PercentSet)
+        curDataFrameFoldList = self._create_folds(self.allDataSets[toRunOnDataSetName].finalData_ExperimentSet)
         curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
         curDataFrameTaskType = self.allDataSets[toRunOnDataSetName].taskType
         
@@ -257,7 +257,7 @@ class KCrossValHelper:
                     
     
     def runKFoldCrossVal_EditedKNN(self, toRunOnDataSetName: str, kVal, sigmaVal, epsilon, zStand = False, zStandHeaders = None):
-        curDataFrameFoldList = self._create_folds(self.allDataSets[toRunOnDataSetName].finalData_Validation20PercentSet)
+        curDataFrameFoldList = self._create_folds(self.allDataSets[toRunOnDataSetName].finalData_ExperimentSet)
         curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
         curDataFrameTaskType = self.allDataSets[toRunOnDataSetName].taskType
         
@@ -326,7 +326,7 @@ class KCrossValHelper:
         zStandTestTrainDict = {'Train Set': None, 'Test Set': None}
         
         if(curDataFrameTaskType == 'Regression'):
-            print('---EDITED KNN---')
+            print('---Condesed KNN---')
             print('Tuning for Epsilon')
             print('K:' + str(kVal))
             print('Sigma:' + str(sigmaVal))
@@ -362,7 +362,7 @@ class KCrossValHelper:
                     
     
     def runKFoldCrossVal_CondensedKNN(self, toRunOnDataSetName: str, kVal, sigmaVal, epsilon, zStand = False, zStandHeaders = None):
-        curDataFrameFoldList = self._create_folds(self.allDataSets[toRunOnDataSetName].finalData_Validation20PercentSet)
+        curDataFrameFoldList = self._create_folds(self.allDataSets[toRunOnDataSetName].finalData_ExperimentSet)
         curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
         curDataFrameTaskType = self.allDataSets[toRunOnDataSetName].taskType
         

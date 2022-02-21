@@ -38,13 +38,11 @@
 
 
 \section{Introduction}
-Regression and classification are both common tasks in the realm of Machine Learning. Regression and classification are both supervised learning problems. Supervised learning is where the system is given an input and output and then asked to learn or predict the mapping of input to output. The algorithm explored in this paper is \textit{K}-Nearest Neighbor (\textit{K}NN). \textit{K}NN is an example of a nonparametric algorithm, nonparametic algorithms do not make any strong assumptions about the form of the mapping function from input data to output predictions. The advantage offered by this approach is that not a lot of prior knowledge on the data or its features is required to build a predictor. \textit{K}NN is nonparametric as it makes predictions for new data based upon training data by looking at the \textit{k} closest neighbors to the new data. The primary philosophy behind the \textit{k}NN algorithm is ""(INSERT REF)\\ 
-
-\hspace*{10mm} INSERT REFERENCES ON APPLICATIONS\\
+Regression and classification are both common tasks in the realm of Machine Learning. Regression and classification are both supervised learning problems. Supervised learning is where the system is given an input and output and then asked to learn or predict the mapping of input to output. The algorithm explored in this paper is \textit{K}-Nearest Neighbor (\textit{K}NN). \textit{K}NN is an example of a nonparametric algorithm, nonparametic algorithms do not make any strong assumptions about the form of the mapping function from input data to output predictions. The advantage offered by this approach is that not a lot of prior knowledge on the data or its features is required to build a predictor. \textit{K}NN is nonparametric as it makes predictions for new data based upon training data by looking at the \textit{k} closest neighbors to the new data. The primary philosophy behind the \textit{k}NN algorithm is "In nonparametric estimation, all we assume is that similar inputs have similar outputs. This is a reasonable assumption: the world is smooth, and functions, whether they are densities, discriminants, or regression functions change slowly. Similar instances mean similar things. We all love our neighbors because they are so much like us."(1. Alpaydin)\\ 
 
 \hspace*{10mm} The problem statement presented in this paper is to understand and implement a \textit{k}NN classifier and regressor on 6 different and unique data sets. The experimentation will first be tuned using a validation subset of the overall data set under experimentation, to determine the most optimal value of \textit{k} to use. Then the optimal value of \textit{k} will be run through the full \textit{k}-fold cross validation process. The experimentation will examine: \textit{k}NN, edited \textit{k}NN and condensed \textit{k}NN The results presented will be the classification error and the regression mean squared error on each of the 6 unique data sets and across the 3 variations of the  \textit{k}NN algorithm.\\
 
-\hspace*{10mm} The hypothesis of this report is that INSERT\\
+\hspace*{10mm} The hypothesis of this report is that for the Classification tasks, normal KNN will do better at classifying an instance when compared with Edited or Condensed KNN. For Regression tasks it is hypothesized, that Edited or Condensed KNN will be better at regressing a new instance than normal KNN and that results from Edited and Condensed will be reality similar. This hypothesis will be tested by looking at 6 unique data sets, 3 of which that are classification task, 3 of which that are regression tasks. These data sets will be optimally tuned for the value of K nearest neighbors to use, the $\sigma$ value to use in the Gaussian Kernel for regression, and the $\epsilon$ to use when running Condensed or Edited KNN. The results of these experiments will be discussed and presented against the outlined hypothesis. \\
 
 \hspace*{10mm} Section 1 has provided the introduction, problem statement and hypothesis in regards to the \textit{k}NN algorithm. Section 2 will provide an in-depth explanation of the \textit{k}NN algorithm, how the algorithm will be tuned and specifics on each of the 6 data sets used. Section 3 will present the results obtained by variations of \textit{k}NN, edited \textit{k}NN and condensed \textit{k}NN and the values that were chosen as part of the tuning process. Section 4 will discuss the results that were obtained and compare them to the hypothesis that was outlined in the introduction. This report will conclude in Section 5 with a discussion of lessons learned and areas of possible future work.\newline
 
@@ -52,51 +50,46 @@ Regression and classification are both common tasks in the realm of Machine Lear
 
 \section{Algorithms and Experimental Methods}
 The experimental method used in this report is \textit{k}-Fold Cross Validation. \textit{k}-Fold Cross Validation is used when the data sets that an algorithm is being experimented on is small, the goal of \textit{k}-Fold Cross validation is to maximize the amount of data that is used for training of the algorithm. The experiment will use 5-Fold Cross Validation ($\textit{k} = 5$).\\ 
-For the experiment in this report a Validation / Tuning set is first used to determine the optimal value of \textit{k} neighbors in the \textit{k}NN.\\ 
+For the experiment in this report a Validation / Tuning set is first used to determine the optimal value of \textit{k} neighbors in the \textit{k}NN, $\sigma$ in the case of regression and $\epsilon$ in the case of Condensed or Edited KNN. \\ 
 
-\noindent \textbf{General \textit{k}NN}\nolinebreak
-\begin{mylist}{Step }
-	\item Load in Entire data set 
-	\item Randomly shuffle the Entire data set
-	\item \textbf{Start Validation / Tune Process}
-	\begin{mylist}
-		\item Remove 20\% of data points from Entire data set, assign to new Validation / Tune  data set. 
-		\item Assign a list of \textit{k} neighbors values to compare for optimization. 
-		\item Break Validation / Tune data set into 5 folds. 
-		\item For each of the \textit{k} neighbors in the list for optimization:
-		\item \tab For a fold to maximum number of folds (5):
-		\item \tab Assign 1 fold to be the Test Set
-		\item \tab Assign and concatenate the other 4 folds to be the Train Set 
-		\item \tab \tab For each Data Point in the Test Set:
-		\item \tab \tab \tab Assign the current Data Point as the Query Point
-		\item \tab \tab \tab \tab For each Data Point in the Training Set:
-		\item \tab \tab \tab \tab \tab Calculate the distance between the Query Point\newline
-		\tab \tab \tab \tab \tab and the current Data Point in the Training set
-		
-		\item \tab \tab \tab \tab \tab Store distance in an overall list for Query Point\newline
-		\tab \tab \tab \tab \tab sorted from smallest to largest. 
-		
-		\item \tab \tab \tab \tab Get the Predictor for each of the \textit{k} closest neighbors as determined by the distance list for the Query Point. 
-		\item \tab \tab \tab \tab If Classification:
-		\item \tab \tab \tab \tab \tab Return the most common predictor
-		\item \tab \tab \tab \tab If Regression:
-	\end{mylist}
+\noindent \textbf{General \textit{k}NN}\newline
+For General KNN the Entire Data set is loaded, and randomly shuffled.\newline
+The validation and tune process is started by removing 20\% of the observations from Entire data set, and assigning them to new Validation / Tune  data set.\newline
+A list of k nearest neighbors is assigned, and the 5 fold cross validation process will be run on each value of k to determine the optimal k. In regression the Gaussian Kernel is also applied so the bandwidth of that kernel $\sigma$ is also optimized during this time. (Consider k and $\sigma$ to running in a nested for loop during the tuning process.) For classification there is no $\sigma$, so only k needs to be tuned.\newline 
+The Validation / Tune Data set is broken into 5 folds. 1 of those folds is assigned as the Test fold, while the other folds are concatenated together to form the Train folds. The fold that is assigned as the test fold rotates through all 5 fold positions.\newline
+For each observation in the Test Set, the distance is calculated to each observation in the Train Set using the euclidean Distance Equation. 
+ $d\left( p,q\right)   = \sqrt {\sum _{i=1}^{n}  \left( q_{i}-p_{i}\right)^2 } $\newline
+Where $p$ is the observation in the test set or the Query Point, and $q$ is the observation in the train set. These values are also vectors, so the full form of this equation is scaled to the number of attributes that are in each data set. 
+The predictor attribute in each of the data sets is dropped from this distance calculation, as we only want to use attributes that determine the predictor, not the predictor itself.\newline
+Sort the distances in an overall list for the Query Point sorted from smallest to largest.\newline
+Take the K defined smallest values from that list\newline 
+If running Classification return the most commonly occurring predictor value based on those K nearest neighbors.\newline 
+If running regression, take these K nearest distance values and apply the Gaussian Kernel based on the $\sigma$ that we are running. The Gaussian Kernel is described by the equation: 
+$\exp {\frac{-1}{2\sigma} * d\left( p,q\right)}$\newline
+Each of the K nearest distances values has this Kernel applied. This Kernel is then used to determine the weighted average to come up with Regression prediction value. What specifically is meant by that is that each closest predictor value is then multiplied by its corresponding Gaussian Kernel value and then each one is summed, and divided by the sum of the Gaussian Kernel distances. 
+This can be expressed as:\newline
+$Weighted Prediction = \frac{(Predictor1*GK(dist1) + Predictor2*GK(dist2))...PredictorK*GK(distK)}{GK(dist1) + GK(dist2)....GK(distK)}$\newline
+\newline
+Where $K$ represents up to the Kth nearest neighbor. This weighted average provides a predicted value, this predicted value is then compared to the actual predicted value as determined by the Test Set or Query point. The error reported between the predicted and actual value is the Root Mean Squared Error. Root Mean Squared Error was used, since it provides how far off a measurement was in the units of the measurement that was taken. The higher the Root Mean Squared Error, the worse the prediction was to the actual value. Low Root Mean Squared Error is the objective.\newline
+Once every observation in the Test Set is Compared to the Train Set, the Fold is completed. 
+This process then repeats for all 5 folds. The Classification Error and Regression (RMSE) are then used to determine what the optimal values of K and $\sigma$ are to run the full experiment.\newline
 
-	\item \textbf{Run \textit{K}NN with Optimal \textit{K} Neighbors Value}
-	\begin{mylist}
-		\item Using remaining 80\% data points from Entire data set, assign to new Train / Test data set.
-		\item Repeat steps XXX - XXX.\newline
-		Replacing the list list of \textit{k} Neighbors values with the single optimal \textit{K} Neighbors value.\newline 
-	\end{mylist}
-	
+The full experiment for Normal KNN is completed using the optimized K and $\sigma$, and on the other 80\% of the data that was not used as part of tuning. The process is exactly the same as what was outlined for tuning, with instead an optimized K and $\sigma$. And again the 5 Fold Cross Validation is performed.\newline 
 
-\end{mylist}
 
 \textbf{Edited \textit{k}NN}\\
-\hspace*{10mm} The approach is outlined in the steps below for the Edited \textit{k}NN algorithm implementation:\\
+\hspace*{10mm} Edited KNN follows the same steps that were outlined above in regards to the 5 fold cross validation, classification and application of the Gaussian Kernel for regression. The major difference is in the generation of the Training set. Instead of just taking the Training Set as it is, first we edit out the outliers from the Training Set based on their distance from the K nearest data points. 
+When the Training Set is created, we loop over every observation INSIDE the training set, not the test set, essentially the Query Point has changed. The process then still remains the same, the distance to all other observations in the Train Set is calculated with respect to the Query Inside the Test set.\newline 
+If the task is Classification, we get the closest K neighbors, determine the majority predictor value. If the Train Set Query point does not mach the majority predictor, then it is dropped completely from the data set. This dropping is the editing. 
+If the task is Regression, we get the closest K neighbors, determine the predictor based on the application of the Gaussian Kernel / Weighted Average. We define an $\epsilon$, this $\epsilon$ is then used in the equation $|Current Query Predictor - Weighted Average Prediction| \leq \epsilon$.\newline
+If the delta between the Current observation in the Train Set and the Weighted Average provided by the K nearest neighbors, this data point is dropped from the Train Set.\newline
+
+Once the values have been dropped from the Train Set, then the Normal KNN Classification / Regression process takes place. (Here the Query Point is derived from the Test Set, and we run against our Edited Train Set and all other Error parameters are reported exactly as described in the Normal KNN description.)\newline
+
+$\epsilon$ is tuned for using 20\% of the entire data set that was set aside for validation. Once an optimal $\epsilon$ is determined then the full experiment is run using the other 80\% of the data.
 
 \textbf{Condensed \textit{k}NN}\\
-\hspace*{10mm} The approach is outlined in the steps below for the Condensed \textit{k}NN algorithm implementation:\\
+\hspace*{10mm} Edited KNN follows the same steps that were outlined above in regards to the 5 fold cross validation, classification and application of the Gaussian Kernel for regression. The major difference is in the generation of the Training set, must liked Edited KNN. In the case of Condensed nearest neighbors, 
 
 
 \begin{center}
@@ -152,34 +145,82 @@ Link: \newline
 
 \section{Results}
 The following results were obtained from the Classification task data sets.
-Tables 1-3 display the results from the Breast Cancer, Car Evaluation and Congressional Vote data sets. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process. The results presented also show the k-Fold Cross Validation process happening across different values of K for the KNN Algorithm. The optimal K value was chosen based upon the outcome of this validation process, that K value is what was used to run the final experiment.\\ 
+Tables 1-9 display the results from the Breast Cancer, Car Evaluation and Congressional Vote data sets while running Normal KNN, Edited KNN and Condensed KNN. These tables show the results from the train set and the test set during each fold of the \textit{k}-fold validation process. The results of the tuning process were omitted from this report for brevity but can be found in the project submission, under Results Output. Each KNN variation was run using the optimal values as determined by the parameter tuning. Discussion of the tuning process will occur in the discussion section. The error used is classification error and can be described as the Number of Times Prediction was Wrong / Total Number of Comparisons. This error was averaged across the 5 folds to provide the Average Classification Error against each data set. 
 
 \begin{table}[h!]
 	\begin{center}
-		\caption{Breast Cancer: Normal KNN - Tuning and Experimental Results}
+		\caption{Breast Cancer: Normal KNN - Experimental Results}
 		\label{tab:table1}
-		\includegraphics[scale=.7]{BC_Results}\newline
+		\includegraphics[scale=.7]{BC_Results_NKNN}\newline
 	\end{center}
 \end{table}
 
 \begin{table}[h!]
 	\begin{center}
-		\caption{Car Evaluation: Normal KNN - Tuning and Experimental Results}
+		\caption{Breast Cancer: Edited KNN - Experimental Results}
 		\label{tab:table2}
-		\includegraphics[scale=.7]{CE_Results}\newline
+		\includegraphics[scale=.7]{BC_Results_EKNN}\newline
 	\end{center}
 \end{table}
 
 \begin{table}[h!]
 	\begin{center}
-		\caption{Congressional Vote: Normal KNN - Tuning and Experimental Results}
+		\caption{Breast Cancer: Condensed KNN - Experimental Results}
 		\label{tab:table3}
-		\includegraphics[scale=.7]{CV_Results}\newline
+		\includegraphics[scale=.7]{BC_Results_CKNN}\newline
+	\end{center}
+\end{table}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Car Evaluation: Normal KNN - Experimental Results}
+		\label{tab:table4}
+		\includegraphics[scale=.7]{CE_Results_NKNN}\newline
+	\end{center}
+\end{table}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Car Evaluation: Edited KNN - Experimental Results}
+		\label{tab:table5}
+		\includegraphics[scale=.7]{CE_Results_EKNN}\newline
+	\end{center}
+\end{table}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Car Evaluation: Condensed KNN - Experimental Results}
+		\label{tab:table6}
+		\includegraphics[scale=.7]{CE_Results_CKNN}\newline
+	\end{center}
+\end{table}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Congressional Vote: Normal KNN - Experimental Results}
+		\label{tab:table7}
+		\includegraphics[scale=.7]{CV_Results_NKNN}\newline
+	\end{center}
+\end{table}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Congressional Vote: Edited KNN - Experimental Results}
+		\label{tab:table8}
+		\includegraphics[scale=.7]{CV_Results_EKNN}\newline
+	\end{center}
+\end{table}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Congressional Vote: Condensed KNN - Experimental Results}
+		\label{tab:table9}
+		%\includegraphics[scale=.7]{CV_Results_CKNN}\newline
 	\end{center}
 \end{table}
 \newpage
 
-The following results were obtained from the Regression task data sets. Tables 4-6 display the results from the Albalone, Computer Hardware and Forest Fire data sets. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process.  The tables also display the error obtained during each fold, and the total error as averaged across each of the 5 \textit{k}-folds The error is the absolute error and was calculated as: $| Test Set Average - Train Set Average|$. This is meant as a measure of how far off the train set average was from the test set average. 
+The following results were obtained from the Regression task data sets. Tables 10-18 display the results from the Albalone, Computer Hardware and Forest Fire data sets. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process.  The tables also display the error obtained during each fold, and the total error as averaged across each of the 5 \textit{k}-folds The error is the absolute error and was calculated as: $| Test Set Average - Train Set Average|$. This is meant as a measure of how far off the train set average was from the test set average. 
 
 \begin{table}[h!]
 	\begin{center}
@@ -214,6 +255,9 @@ INSERT\\
 
 \section{Conclusion}
 INSERT\\ 
+
+\section{References}
+1. Alpaydin, E. (2004). Introduction to machine learning (Oip). Mit Press. 
 
 \newpage
 

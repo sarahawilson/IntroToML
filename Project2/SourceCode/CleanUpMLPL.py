@@ -193,47 +193,56 @@ if __name__ == "__main__":
     #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Breast Cancer', kVals, sigmaVals)
     #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Congressional Vote', kVals, sigmaVals)
     
-    #Normal KNN
-    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Car Eval', 3, None)
-    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Breast Cancer', kVals, sigmaVals)
-    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Congressional Vote', kVals, sigmaVals)
-    
-    
-    #Editied KNN
-    epsilonVals = [.001,.01,.1, 1]
-    #myKCrossValHelper.runKFoldCrossVal_EditedKNN_Tune('Car Eval', 3, None, epsilonVals)
-    
-    #myKCrossValHelper.runKFoldCrossVal_EditedKNN('Car Eval', 3, None, 1)
-    
-    
-    
-    #myKCrossValHelper.runKFoldCrossVal_CondensedKNN('Car Eval', 3, None, 1)
-    
-    
     #Regression Tasks
     #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Albalone', kVals, sigmaVals)
-    
-    
-    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Albalone', 7, 0.1)
-    
-    
     #zStandCompHwHeaders = ['MYCT','MMIN','MMAX','CACH','CHMIN','CHMAX','PRP','ERP']
     #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Computer Hardware', kVals, sigmaVals, True, zStandCompHwHeaders)
-    
     #myKCrossValHelper.runKFoldCrossVal_ForNormalKNN_Tuning('Forest Fire', kVals, sigmaVals)
     
     
+    #Editied/Condensed Tuning KNN
+    epsilonVals = [0.1,1,10, 100]
+    #myKCrossValHelper.runKFoldCrossVal_EditedKNN_Tune('Albalone', 7, 0.1, epsilonVals)
+    #myKCrossValHelper.runKFoldCrossVal_CondensedKNN_Tune('Albalone', 7, 0.1, epsilonVals)
+    
+    #myKCrossValHelper.runKFoldCrossVal_EditedKNN_Tune('Computer Hardware', 7, 1, epsilonVals, True, zStandCompHwHeaders)
+    #myKCrossValHelper.runKFoldCrossVal_CondensedKNN_Tune('Computer Hardware', 7, 1, epsilonVals,True, zStandCompHwHeaders)
+    
+    #myKCrossValHelper.runKFoldCrossVal_EditedKNN_Tune('Forest Fire', 7, 0.1, epsilonVals)
+    #myKCrossValHelper.runKFoldCrossVal_CondensedKNN_Tune('Forest Fire', 7, 0.1, epsilonVals)
     
     
-    #Video Demonstration
-    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Albalone', 3, 0.1)
-    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Car Eval', 3, None)
-    
-    #myKCrossValHelper.runKFoldCrossVal_EditedKNN('Car Eval', 3, None, 1)
-    myKCrossValHelper.runKFoldCrossVal_CondensedKNN('Car Eval', 3, None, 1)
 
+
+
+    #Classification Full Experiments     
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Car Eval', 3, None)
+    #myKCrossValHelper.runKFoldCrossVal_EditedKNN('Car Eval', 3, None, 1)
+    #myKCrossValHelper.runKFoldCrossVal_CondensedKNN('Car Eval', 3, None, 1)
     
     
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Breast Cancer', 7, None)
+    #myKCrossValHelper.runKFoldCrossVal_EditedKNN('Breast Cancer', 7, None, 1)
+    #myKCrossValHelper.runKFoldCrossVal_CondensedKNN('Breast Cancer', 7, None, 1)
+    
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Congressional Vote', 3, None)
+    #myKCrossValHelper.runKFoldCrossVal_EditedKNN('Congressional Vote', 3, None,1)
+    #myKCrossValHelper.runKFoldCrossVal_CondensedKNN('Congressional Vote', 3, None,1)
+    
+    
+    #Regression Full Experiments
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Albalone', 7, 0.1)
+    #myKCrossValHelper.runKFoldCrossVal_EditedKNN('Albalone', 7, 0.1, 100)
+    #myKCrossValHelper.runKFoldCrossVal_CondensedKNN('Albalone', 7, 0.1, 100)
+    
+    #zStandCompHwHeaders = ['MYCT','MMIN','MMAX','CACH','CHMIN','CHMAX','PRP','ERP']
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Computer Hardware', 7, 1, True, zStandCompHwHeaders)
+    #myKCrossValHelper.runKFoldCrossVal_EditedKNN('Computer Hardware', 7, 1, 100, True, zStandCompHwHeaders)
+    #myKCrossValHelper.runKFoldCrossVal_CondensedKNN('Computer Hardware', 7, 1, 100, True, zStandCompHwHeaders)
+    
+    #myKCrossValHelper.runKFoldCrossVal_NormalKNN('Forest Fire', 7, 0.1)
+    myKCrossValHelper.runKFoldCrossVal_EditedKNN('Forest Fire', 7, 0.1, 0.1)
+    myKCrossValHelper.runKFoldCrossVal_CondensedKNN('Forest Fire', 7, 0.1, 0.1)
     
     
     
