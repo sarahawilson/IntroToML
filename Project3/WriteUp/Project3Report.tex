@@ -48,11 +48,14 @@
 
 
 \section{Algorithms and Experimental Methods}
-\hspace*{10mm} The ID3 algorithm will be used on classification data sets. The ID3 algorithm is a classification algorithm that follows a greedy heurisitic top down approach by selecting the attribute/feature that provides the maximum information gain at each partition of the data set. The two parameters to understand in the ID3 algorithm are Entropy($I$), Expected Entropy, Information Gain and Gain Ratio.\newline
-Entropy is xxxxx\newline
-Expected Entropy is xxxx\newline
-Information Gain is xxx\newline
-Gain Ratio \newline
+\hspace*{10mm} The ID3 algorithm will be used on classification data sets. The ID3 algorithm is a classification algorithm that follows a greedy heurisitic top down approach by selecting the attribute/feature that provides the maximum information gain at each partition of the data set. The key parameters to understand in the ID3 algorithm are Entropy($I$), Expected Entropy, Information Gain and Gain Ratio.\newline
+
+INSERT GENERAL STEP DESCRIPTION HERE.\newline
+
+Entropy is a measure of uncertainty there is in a data set. An Entropy of 0 means that the data set is pure, meaning it comprised of only one class. An Entropy of 1 or more indicates that there is lots of uncertainty in the data set meaning there is a high level of mixture of multiple different classes contained in the data set.\newline
+Expected Entropy is the Entropy only in feature/attribute $f_i$ in the data set.\newline
+Information Gain is the Entropy minus the Expected Entropy. The Information Gain provides a metric of how much uncertainty there would be in the data if we removed feature $f_i$ from the equation. What I mean by removing $f_i$ from the equation is that, from this point on in calculating or making decisions about the data in the data set, we would hold feature $f_i$ fixed. As in we would only look from this point on at observations that had a certain value of $f_i$ when making future calculations about Entropy and Expected Entropy. From a building a tree perspective this is logical as we only want to continue down branches that will tell us the most about the data, so the goal is to maximize the entropy that we would have at the next node of the decision tree.\newline
+The issue presented by building a decision tree based on information gain alone, is that is we are always looking for the highest gain when making splits in the data set to build new partitions, this can lead to numerous expensive partitions that would force the algorithm to run longer potentially with no real benefit. Instead of splitting on Information Gain alone, the concept of Gain Ratio is introduced. The gain ratio provides a balance of the highest gain while also adding a penalization factor for the splits that would result in a higher number of partitions being built.
 \newpage
 
 Consider a 2 class classification problem we can define the following equations for Entropy, Expected Entropy, Information Gain and Gain Ratio.\newline
