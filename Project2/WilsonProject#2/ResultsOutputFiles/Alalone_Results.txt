@@ -1,0 +1,352 @@
+---NORMAL KNN---
+Tuning K and Sigma On: Albalone
+K:1
+Sigma:0.01
+Fold:0
+        RMSE: 2.521761574202793
+Fold:1
+        RMSE: 3.048509992381966
+Fold:2
+        RMSE: 3.2518994909746515
+Fold:3
+        RMSE: 2.9190680163080023
+Fold:4
+        RMSE: 2.7814612968919383
+Average Root Mean Square Error on Fold:         2.9045400741518703
+Sigma:0.1
+Fold:0
+        RMSE: 2.521761574202793
+Fold:1
+        RMSE: 3.048509992381966
+Fold:2
+        RMSE: 3.2518994909746515
+Fold:3
+        RMSE: 2.9190680163080023
+Fold:4
+        RMSE: 2.7814612968919383
+Average Root Mean Square Error on Fold:         2.9045400741518703
+Sigma:1
+Fold:0
+        RMSE: 2.521761574202793
+Fold:1
+        RMSE: 3.048509992381966
+Fold:2
+        RMSE: 3.2518994909746515
+Fold:3
+        RMSE: 2.9190680163080023
+Fold:4
+        RMSE: 2.7814612968919383
+Average Root Mean Square Error on Fold:         2.9045400741518703
+Sigma:10
+Fold:0
+        RMSE: 2.521761574202793
+Fold:1
+        RMSE: 3.048509992381966
+Fold:2
+        RMSE: 3.2518994909746515
+Fold:3
+        RMSE: 2.9190680163080023
+Fold:4
+        RMSE: 2.7814612968919383
+Average Root Mean Square Error on Fold:         2.9045400741518703
+K:3
+Sigma:0.01
+Fold:0
+        RMSE: 2.154941780238322
+Fold:1
+        RMSE: 2.6424329604241965
+Fold:2
+        RMSE: 2.837317752588375
+Fold:3
+        RMSE: 2.645144418282709
+Fold:4
+        RMSE: 2.354084595963696
+Average Root Mean Square Error on Fold:         2.52678430149946
+Sigma:0.1
+Fold:0
+        RMSE: 2.0630080267300968
+Fold:1
+        RMSE: 2.6005255758168113
+Fold:2
+        RMSE: 2.715215466933461
+Fold:3
+        RMSE: 2.6306806789284733
+Fold:4
+        RMSE: 2.334855341541726
+Average Root Mean Square Error on Fold:         2.4688570179901133
+Sigma:1
+Fold:0
+        RMSE: 2.0620104449141774
+Fold:1
+        RMSE: 2.601098365246908
+Fold:2
+        RMSE: 2.7051326480654314
+Fold:3
+        RMSE: 2.6330249663877283
+Fold:4
+        RMSE: 2.341681309773965
+Average Root Mean Square Error on Fold:         2.4685895468776424
+Sigma:10
+Fold:0
+        RMSE: 2.062212655971843
+Fold:1
+        RMSE: 2.601228138522385
+Fold:2
+        RMSE: 2.704183588879229
+Fold:3
+        RMSE: 2.6333616996892046
+Fold:4
+        RMSE: 2.3424908098419652
+Average Root Mean Square Error on Fold:         2.4686953785809256
+K:5
+Sigma:0.01
+Fold:0
+        RMSE: 2.0339512208601747
+Fold:1
+        RMSE: 2.553452233264664
+Fold:2
+        RMSE: 2.6945294991266513
+Fold:3
+        RMSE: 2.637864817325773
+Fold:4
+        RMSE: 2.2620175260344686
+Average Root Mean Square Error on Fold:         2.436363059322346
+Sigma:0.1
+Fold:0
+        RMSE: 1.9097576537182055
+Fold:1
+        RMSE: 2.4924657141538025
+Fold:2
+        RMSE: 2.5099429313406363
+Fold:3
+        RMSE: 2.6191406814090836
+Fold:4
+        RMSE: 2.2281765781485197
+Average Root Mean Square Error on Fold:         2.35189671175405
+Sigma:1
+Fold:0
+        RMSE: 1.909316075873878
+Fold:1
+        RMSE: 2.497827095984401
+Fold:2
+        RMSE: 2.4999613964946583
+Fold:3
+        RMSE: 2.6223528942828955
+Fold:4
+        RMSE: 2.2332723041160176
+Average Root Mean Square Error on Fold:         2.35254595335037
+Sigma:10
+Fold:0
+        RMSE: 1.9094883654133585
+Fold:1
+        RMSE: 2.4986687078646472
+Fold:2
+        RMSE: 2.4990999593178898
+Fold:3
+        RMSE: 2.622748110569785
+Fold:4
+        RMSE: 2.2338587470984956
+Average Root Mean Square Error on Fold:         2.3527727780528354
+K:7
+Sigma:0.01
+Fold:0
+        RMSE: 2.0070724730954734
+Fold:1
+        RMSE: 2.5149595497381503
+Fold:2
+        RMSE: 2.659467347886775
+Fold:3
+        RMSE: 2.6297559356229963
+Fold:4
+        RMSE: 2.2039912897900633
+Average Root Mean Square Error on Fold:         2.4030493192266915
+Sigma:0.1
+Fold:0
+        RMSE: 1.9042202671591881
+Fold:1
+        RMSE: 2.4439258379177358
+Fold:2
+        RMSE: 2.5414354919055997
+Fold:3
+        RMSE: 2.6172581354463236
+Fold:4
+        RMSE: 2.1770871237044584
+Average Root Mean Square Error on Fold:         2.3367853712266613
+Sigma:1
+Fold:0
+        RMSE: 1.9091188172605655
+Fold:1
+        RMSE: 2.4501052847996414
+Fold:2
+        RMSE: 2.5490233789125596
+Fold:3
+        RMSE: 2.6242562543321704
+Fold:4
+        RMSE: 2.187933704844667
+Average Root Mean Square Error on Fold:         2.344087488029921
+Sigma:10
+Fold:0
+        RMSE: 1.9098119306000012
+Fold:1
+        RMSE: 2.451030003229253
+Fold:2
+        RMSE: 2.5500089078766446
+Fold:3
+        RMSE: 2.625071513168656
+Fold:4
+        RMSE: 2.18910260223483
+Average Root Mean Square Error on Fold:         2.3450049914218773
+
+---NORMAL KNN---
+Full Exp:
+K:7
+Sigma:0.1
+Fold:0
+        RMSE: 3.313529115707671
+Fold:1
+        RMSE: 1.5933915392821567
+Fold:2
+        RMSE: 2.4388586943678043
+Fold:3
+        RMSE: 1.9975680379020355
+Fold:4
+        RMSE: 1.8213512913480043
+Average Root Mean Square Error on Fold:         2.2329397357215344
+
+
+---EDITED KNN---
+Tuning for Epsilon
+K:7
+Sigma:0.1
+Epsilon:0.1
+Fold:0
+        RMSE: 3.361691615415073
+Fold:1
+        RMSE: 3.4005981618764447
+Fold:2
+        RMSE: 4.232587713790247
+Fold:3
+        RMSE: 3.145792669547502
+Fold:4
+        RMSE: 3.224207600288999
+Average Root Mean Square Error on Fold:         3.472975552183653
+Epsilon:1
+Fold:0
+        RMSE: 2.756563102868303
+Fold:1
+        RMSE: 3.412607842666384
+Fold:2
+        RMSE: 3.5859276098222295
+Fold:3
+        RMSE: 3.3576719727895936
+Fold:4
+        RMSE: 3.0568053381088083
+Average Root Mean Square Error on Fold:         3.233915173251064
+Epsilon:10
+Fold:0
+        RMSE: 2.5474091211507273
+Fold:1
+        RMSE: 3.312270139019683
+Fold:2
+        RMSE: 3.3636345087358857
+Fold:3
+        RMSE: 3.2861074356194098
+Fold:4
+        RMSE: 2.7516577033831906
+Average Root Mean Square Error on Fold:         3.052215781581779
+Epsilon:100
+Fold:0
+        RMSE: 1.9042202671591884
+Fold:1
+        RMSE: 2.4439258379177358
+Fold:2
+        RMSE: 2.5414354919055997
+Fold:3
+        RMSE: 2.6172581354463236
+Fold:4
+        RMSE: 2.1770871237044584
+Average Root Mean Square Error on Fold:         2.3367853712266613
+
+---EDITED KNN---
+K:7
+Sigma:0.1
+Epsilon:100
+Fold:0
+        RMSE: 3.313529115707671
+Fold:1
+        RMSE: 1.5933915392821567
+Fold:2
+        RMSE: 2.4388586943678043
+Fold:3
+        RMSE: 1.9975680379020355
+Fold:4
+        RMSE: 1.8213512913480043
+Average Root Mean Square Error on Folds:        2.2329397357215344
+
+Tuning for Epsilon
+K:7
+Sigma:0.1
+Epsilon:0.1
+Fold:0
+        RMSE: 3.361691615415073
+Fold:1
+        RMSE: 3.4005981618764447
+Fold:2
+        RMSE: 4.232587713790247
+Fold:3
+        RMSE: 3.145792669547502
+Fold:4
+        RMSE: 3.224207600288999
+Average Root Mean Square Error on Fold:         3.472975552183653
+Epsilon:1
+Fold:0
+        RMSE: 2.756563102868303
+Fold:1
+        RMSE: 3.412607842666384
+Fold:2
+        RMSE: 3.5859276098222295
+Fold:3
+        RMSE: 3.3576719727895936
+Fold:4
+        RMSE: 3.0568053381088083
+Average Root Mean Square Error on Fold:         3.233915173251064
+Epsilon:10
+Fold:0
+        RMSE: 2.5474091211507273
+Fold:1
+        RMSE: 3.312270139019683
+Fold:2
+        RMSE: 3.3636345087358857
+Fold:3
+        RMSE: 3.2861074356194098
+Fold:4
+        RMSE: 2.7516577033831906
+Average Root Mean Square Error on Fold:         3.052215781581779
+Epsilon:100
+Fold:0
+        RMSE: 1.9042202671591884
+Fold:1
+        RMSE: 2.4439258379177358
+Fold:2
+        RMSE: 2.5414354919055997
+Fold:3
+        RMSE: 2.6172581354463236
+Fold:4
+        RMSE: 2.1770871237044584
+Average Root Mean Square Error on Fold:         2.3367853712266613
+
+---CONDENSED KNN---
+K:7
+Sigma:0.1
+Epsilon:100
+Fold:0
+        RMSE: 3.313529115707671
+Fold:1
+        RMSE: 1.5933915392821567
+Fold:2
+        RMSE: 2.4388586943678043
+Fold:3
+        RMSE: 1.9975680379020355
+Fold:4
+        RMSE: 1.8213512913480043
+Average Root Mean Square Error on Folds:        2.2329397357215344

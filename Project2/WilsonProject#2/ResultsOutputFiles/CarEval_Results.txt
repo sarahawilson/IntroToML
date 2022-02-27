@@ -1,0 +1,67 @@
+MLPL - Machine Learning Pipeline - K Nearest Neighbors
+Normal KNN
+Tuning K: Car Eval
+K:1
+        Classification Error: 0.14285714285714285
+        Classification Error: 0.10144927536231885
+        Classification Error: 0.11594202898550725
+        Classification Error: 0.15942028985507245
+        Classification Error: 0.08695652173913043
+Average Classification Error on Fold:   0.12132505175983437
+K:3
+        Classification Error: 0.1
+        Classification Error: 0.07246376811594203
+        Classification Error: 0.08695652173913043
+        Classification Error: 0.13043478260869565
+        Classification Error: 0.07246376811594203
+Average Classification Error on Fold:   0.09246376811594204
+K:5
+        Classification Error: 0.08571428571428572
+        Classification Error: 0.10144927536231885
+        Classification Error: 0.10144927536231885
+        Classification Error: 0.13043478260869565
+        Classification Error: 0.07246376811594203
+Average Classification Error on Fold:   0.09830227743271222
+K:7
+        Classification Error: 0.07142857142857142
+        Classification Error: 0.07246376811594203
+        Classification Error: 0.15942028985507245
+        Classification Error: 0.14492753623188406
+        Classification Error: 0.08695652173913043
+Average Classification Error on Fold:   0.10703933747412009
+Full Exp:
+K:3
+        Classification Error: 0.10469314079422383
+        Classification Error: 0.09386281588447654
+        Classification Error: 0.11231884057971014
+        Classification Error: 0.17753623188405798
+        Classification Error: 0.18478260869565216
+Average Classification Error on Fold:   0.13463872756762413
+
+---EDITED KNN---
+K:3
+Fold:0
+        Classification Error: 0.23104693140794225
+Fold:1
+        Classification Error: 0.2779783393501805
+Fold:2
+        Classification Error: 0.4311594202898551
+Fold:3
+        Classification Error: 0.4963768115942029
+Fold:4
+        Classification Error: 0.5543478260869565
+Average Classification Error on Folds:  0.3981818657458275
+---CONDENSED KNN---
+K:3
+Fold:0
+        Classification Error: 0.23104693140794225
+Fold:1
+        Classification Error: 0.2779783393501805
+Fold:2
+        Classification Error: 0.4311594202898551
+Fold:3
+        Classification Error: 0.4963768115942029
+Fold:4
+        Classification Error: 0.5543478260869565
+Average Classification Error on Folds:  0.3981818657458275
+

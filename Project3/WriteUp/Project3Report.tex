@@ -44,18 +44,19 @@
 
 \hspace*{5mm} The hypothesis of this report is that for the both the classification and regression tasks the trees that are error pruned or early stopped will perform better than trees that are grown uni-variate to completion. The hypothesis assumes that trees grown to full completion will exhibit over fitting to the data. Over-fitting is where in a learning system the model has been so tightly fit to the training data, that results on new un-trained data are highly inaccurate. The hypothesis assumes that in allowing the trees to grow to full completion of nodes that additional patterns may be learned in the training data that might not apply to new data feed into the algorithm. The results from experiments ran on the provided data sets will be discussed and presented against the outlined hypothesis.\\
 
+INSERT WHY YOU THINK THIS FOR HYPOTHESIS.\\
+
 \hspace*{5mm} Section 1 has provided the introduction, problem statement and hypothesis in regards to two major decision tree algorithms that will be explored.. Section 2 will provide an in-depth explanation of the ID3 and CART algorithms, how these algorithms will be modified during the early stopping and error pruning processes and discuss each of the 6 data sets used. Section 3 will present the results obtained by variations of ID3 and CART as uni-variate, early stopping and error pruning implementations on the provided data sets. Section 4 will discuss the results that were obtained and compare them to the hypothesis that was outlined in the introduction. This report will conclude in Section 5 with a discussion of lessons learned and areas of possible future work.\\
 
 
 \section{Algorithms and Experimental Methods}
-\hspace*{10mm} The ID3 algorithm will be used on classification data sets. The ID3 algorithm is a classification algorithm that follows a greedy heurisitic top down approach by selecting the attribute/feature that provides the maximum information gain at each partition of the data set. The key parameters to understand in the ID3 algorithm are Entropy($I$), Expected Entropy, Information Gain and Gain Ratio.\newline
+\hspace*{10mm} The ID3 algorithm will be used on classification data sets. The ID3 algorithm is a classification algorithm that follows a greedy heurisitic top down approach by selecting the attribute/feature that provides the maximum information gain at each partition of the data set. The key parameters to understand in the ID3 algorithm are Entropy($I$), Expected Entropy, Information Gain and Gain Ratio.\\
 
-INSERT GENERAL STEP DESCRIPTION HERE.\newline
-
-Entropy is a measure of uncertainty there is in a data set. An Entropy of 0 means that the data set is pure, meaning it comprised of only one class. An Entropy of 1 or more indicates that there is lots of uncertainty in the data set meaning there is a high level of mixture of multiple different classes contained in the data set.\newline
+\hspace*{5mm}Entropy is a measure of uncertainty there is in a data set. An Entropy of 0 means that the data set is pure, meaning it comprised of only one class. An Entropy of 1 or more indicates that there is lots of uncertainty in the data set meaning there is a high level of mixture of multiple different classes contained in the data set.\newline
 Expected Entropy is the Entropy only in feature/attribute $f_i$ in the data set.\newline
-Information Gain is the Entropy minus the Expected Entropy. The Information Gain provides a metric of how much uncertainty there would be in the data if we removed feature $f_i$ from the equation. What I mean by removing $f_i$ from the equation is that, from this point on in calculating or making decisions about the data in the data set, we would hold feature $f_i$ fixed. As in we would only look from this point on at observations that had a certain value of $f_i$ when making future calculations about Entropy and Expected Entropy. From a building a tree perspective this is logical as we only want to continue down branches that will tell us the most about the data, so the goal is to maximize the entropy that we would have at the next node of the decision tree.\newline
-The issue presented by building a decision tree based on information gain alone, is that is we are always looking for the highest gain when making splits in the data set to build new partitions, this can lead to numerous expensive partitions that would force the algorithm to run longer potentially with no real benefit. Instead of splitting on Information Gain alone, the concept of Gain Ratio is introduced. The gain ratio provides a balance of the highest gain while also adding a penalization factor for the splits that would result in a higher number of partitions being built.
+Information Gain is the Entropy minus the Expected Entropy. The Information Gain provides a metric of how much uncertainty there would be in the data if we removed feature $f_i$ from the equation. What I mean by removing $f_i$ from the equation is that, from this point on in calculating or making decisions about the data in the data set, we would hold feature $f_i$ fixed. As in we would only look from this point on at observations that had a certain value of $f_i$ when making future calculations about Entropy and Expected Entropy. From a building a tree perspective this is logical as we only want to continue down branches that will tell us the most about the data, so the goal is to maximize the entropy that we would have at the next node of the decision tree.\\
+
+\hspace*{5mm}The issue presented by building a decision tree based on information gain alone, is that is we are always looking for the highest gain when making splits in the data set to build new partitions, this can lead to numerous expensive partitions that would force the algorithm to run longer potentially with no real benefit. Instead of splitting on Information Gain alone, the concept of Gain Ratio is introduced. The gain ratio provides a balance of the highest gain while also adding a penalization factor for the splits that would result in a higher number of partitions being built.
 \newpage
 
 Consider a 2 class classification problem we can define the following equations for Entropy, Expected Entropy, Information Gain and Gain Ratio.\newline
@@ -70,6 +71,7 @@ I(p,n) = -\frac{p}{(p+n)} * log(\frac{p}{p+n}) - \frac{n}{p+n} * log(\frac{n}{p+
 	\item[$p_\pi$=] Number of Class 1 Observations in the Current Partition
 	\item[$n_\pi$=] Number of Class 2 Observations in the Current Partition
 \end{itemize}
+\newline
 
 \textbf{Expected Entropy}
 \begin{equation}
@@ -96,6 +98,7 @@ I(p,n) = -\frac{p}{(p+n)} * log(\frac{p}{p+n}) - \frac{n}{p+n} * log(\frac{n}{p+
 	\item[$p_\pi$=] Number of Class 1 Observations in the Partition
 	\item[$n_\pi$=] Number of Class 2 Observations in the Partition
 \end{itemize}
+\newpage
 
 \textbf{Information Value}
 \begin{equation}
@@ -107,7 +110,6 @@ I(p,n) = -\frac{p}{(p+n)} * log(\frac{p}{p+n}) - \frac{n}{p+n} * log(\frac{n}{p+
 	\item[$p_\pi$=] Number of Class 1 Observations in the Partition
 	\item[$n_\pi$=] Number of Class 2 Observations in the Partition
 \end{itemize}
-
 
 \textbf{Gain Ratio}
 \begin{equation}
@@ -121,8 +123,12 @@ I(p,n) = -\frac{p}{(p+n)} * log(\frac{p}{p+n}) - \frac{n}{p+n} * log(\frac{n}{p+
 
 These equations can be expanded to a \textbf{k} Class Classification problems as follows:\newline
 INSERT HERA\newline
+\newpage
 
-These equations will be used in the overall process of building the decision tree in the ID3 algorithm. The following steps outline the algorithm. The algorithm uses recursion to build the tree to completion. 
+These equations will be used in the overall process of building the decision tree in the ID3 algorithm. The following steps outline the algorithm. The algorithm uses recursion to build the tree to completion.\\
+Generate Tree\\
+Calcaulte Entropy on Partition($\pi$) \\
+Create a leaf with the label of the majority class.\\
 
 
 

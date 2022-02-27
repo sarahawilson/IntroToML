@@ -82,25 +82,19 @@ The full experiment for Normal KNN is completed using the optimized K and $\sigm
 When the Training Set is created, we loop over every observation INSIDE the training set, not the test set, essentially the Query Point has changed. The process then still remains the same, the distance to all other observations in the Train Set is calculated with respect to the Query Inside the Test set.\newline 
 If the task is Classification, we get the closest K neighbors, determine the majority predictor value. If the Train Set Query point does not mach the majority predictor, then it is dropped completely from the data set. This dropping is the editing. 
 If the task is Regression, we get the closest K neighbors, determine the predictor based on the application of the Gaussian Kernel / Weighted Average. We define an $\epsilon$, this $\epsilon$ is then used in the equation $|Current Query Predictor - Weighted Average Prediction| \leq \epsilon$.\newline
-If the delta between the Current observation in the Train Set and the Weighted Average provided by the K nearest neighbors, this data point is dropped from the Train Set.\newline
+If the delta between the Current observation in the Train Set and the Weighted Average provided by the K nearest neighbors, is less than $\epsilon$, this data point is dropped from the Train Set.\newline
 
 Once the values have been dropped from the Train Set, then the Normal KNN Classification / Regression process takes place. (Here the Query Point is derived from the Test Set, and we run against our Edited Train Set and all other Error parameters are reported exactly as described in the Normal KNN description.)\newline
 
-$\epsilon$ is tuned for using 20\% of the entire data set that was set aside for validation. Once an optimal $\epsilon$ is determined then the full experiment is run using the other 80\% of the data.
+$\epsilon$ is tuned for using 20\% of the entire data set that was set aside for validation. Once an optimal $\epsilon$ is determined then the full experiment is run using the other 80\% of the data.\newline
 
 \textbf{Condensed \textit{k}NN}\\
-\hspace*{10mm} Edited KNN follows the same steps that were outlined above in regards to the 5 fold cross validation, classification and application of the Gaussian Kernel for regression. The major difference is in the generation of the Training set, must liked Edited KNN. In the case of Condensed nearest neighbors, 
+\hspace*{10mm} Edited KNN follows the same steps that were outlined above in regards to the 5 fold cross validation, classification and application of the Gaussian Kernel for regression. The major difference is in the generation of the Training set, much liked Edited KNN. In the case of Condensed nearest neighbors, the Training Set is built. Each observation point in the Training Set is examined, if running classification we get the closest K neighbors to the Query from the Training Set, determine the majority predictor value. If the Train Set Query point does mach the majority predictor, then it is added to the Condensed Training Set from the data set. The addition of these observations is what makes this condensed KNN. If the task is Regression, we get the closest K neighbors, determine the predictor based on the application of the Gaussian Kernel / Weighted Average. We define an $\epsilon$, this $\epsilon$ is then used in the equation $|Current Query Predictor - Weighted Average Prediction| \leq \epsilon$.\newline
+If the delta between the Current observation in the Train Set and the Weighted Average provided by the K nearest neighbors, is less than epsilon this data point is added to the newly formed Condensed Train Set.\newline
 
+Once the values have been added from the Train Set, then the Normal KNN Classification / Regression process takes place. (Here the Query Point is derived from the Test Set, and we run against our Edited Train Set and all other Error parameters are reported exactly as described in the Normal KNN description.)\newline
 
-\begin{center}
-%\includegraphics[scale=.6]{kfold1}\newline 
-%\includegraphics[scale=1]{kfold2}\newline 
-\end{center}
-
-
-
-
-
+$\epsilon$ is tuned for using 20\% of the entire data set that was set aside for validation. Once an optimal $\epsilon$ is determined then the full experiment is run using the other 80\% of the data.
 
 \newpage
 {\noindent}{\bf Data Sets}\newline
@@ -144,117 +138,64 @@ Link: \newline
 \newpage
 
 \section{Results}
-The following results were obtained from the Classification task data sets.
-Tables 1-9 display the results from the Breast Cancer, Car Evaluation and Congressional Vote data sets while running Normal KNN, Edited KNN and Condensed KNN. These tables show the results from the train set and the test set during each fold of the \textit{k}-fold validation process. The results of the tuning process were omitted from this report for brevity but can be found in the project submission, under Results Output. Each KNN variation was run using the optimal values as determined by the parameter tuning. Discussion of the tuning process will occur in the discussion section. The error used is classification error and can be described as the Number of Times Prediction was Wrong / Total Number of Comparisons. This error was averaged across the 5 folds to provide the Average Classification Error against each data set. 
+Tables 1-9 display the results from Classification Tasks: the Breast Cancer, Car Evaluation and Congressional Vote data sets while running Normal KNN, Edited KNN and Condensed KNN. These tables show the results from the train set and the test set during each fold of the \textit{k}-fold validation process. The results of the tuning process were omitted from this report for brevity but can be found in the project submission, under Results Output. Each KNN variation was run using the optimal values as determined by the parameter tuning. Discussion of the tuning process will occur in the discussion section. The error used is classification error and can be described as the Number of Times Prediction was Wrong / Total Number of Comparisons. This error was averaged across the 5 folds to provide the Average Classification Error against each data set.\\
+Tables 10-18 display the results from the Regression Tasks: the Albalone, Computer Hardware and Forest Fire data sets. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process.The results of the tuning process were omitted from this report for brevity but can be found in the project submission, under Results Output. Each KNN variation was run using the optimal values as determined by the parameter tuning. Discussion of the tuning process will occur in the discussion section. The error used is Root Mean Square Error. Root Mean Squared Error was used, since it provides how far off a measurement was in the units of the measurement that was taken. The higher the Root Mean Squared Error, the worse the prediction was to the actual value. Low Root Mean Squared Error is the objective.\newline
 
-\begin{table}[h!]
-	\begin{center}
-		\caption{Breast Cancer: Normal KNN - Experimental Results}
+\begin{table}[h]
+		\centering
+		\caption{Car Evaluation: KNN - Experimental Results}
 		\label{tab:table1}
-		\includegraphics[scale=.7]{BC_Results_NKNN}\newline
-	\end{center}
+		\includegraphics[scale=.7]{CV_ALL_Results}\newline
 \end{table}
 
-\begin{table}[h!]
-	\begin{center}
-		\caption{Breast Cancer: Edited KNN - Experimental Results}
+\begin{table}[h]
+		\centering
+		\caption{Breast Cancer: KNN - Experimental Results}
 		\label{tab:table2}
-		\includegraphics[scale=.7]{BC_Results_EKNN}\newline
-	\end{center}
+		\includegraphics[scale=.7]{BC_ALL_Results}\newline
 \end{table}
 
-\begin{table}[h!]
-	\begin{center}
-		\caption{Breast Cancer: Condensed KNN - Experimental Results}
+\begin{table}[h]
+		\centering
+		\caption{Congressional Vote: KNN - Experimental Results}
 		\label{tab:table3}
-		\includegraphics[scale=.7]{BC_Results_CKNN}\newline
-	\end{center}
+		\includegraphics[scale=.7]{CVote_ALL_Results}\newline
 \end{table}
 
-\begin{table}[h!]
-	\begin{center}
-		\caption{Car Evaluation: Normal KNN - Experimental Results}
-		\label{tab:table4}
-		\includegraphics[scale=.7]{CE_Results_NKNN}\newline
-	\end{center}
+\begin{table}[h]
+	\centering
+	\caption{Albalone: KNN - Experimental Results}
+	\label{tab:table4}
+	\includegraphics[scale=.7]{ABL_ALL_Results}\newline
 \end{table}
 
-\begin{table}[h!]
-	\begin{center}
-		\caption{Car Evaluation: Edited KNN - Experimental Results}
-		\label{tab:table5}
-		\includegraphics[scale=.7]{CE_Results_EKNN}\newline
-	\end{center}
+\begin{table}[h]
+	\centering
+	\caption{Computer Hardware: KNN - Experimental Results}
+	\label{tab:tale5}
+	\includegraphics[scale=.7]{CH_ALL_Results}\newline
 \end{table}
 
-\begin{table}[h!]
-	\begin{center}
-		\caption{Car Evaluation: Condensed KNN - Experimental Results}
-		\label{tab:table6}
-		\includegraphics[scale=.7]{CE_Results_CKNN}\newline
-	\end{center}
+\begin{table}[h]
+	\centering
+	\caption{Forest Fires: KNN - Experimental Results}
+	\label{tab:table6}
+	\includegraphics[scale=.7]{FF_ALL_Results}\newline
 \end{table}
 
-\begin{table}[h!]
-	\begin{center}
-		\caption{Congressional Vote: Normal KNN - Experimental Results}
-		\label{tab:table7}
-		\includegraphics[scale=.7]{CV_Results_NKNN}\newline
-	\end{center}
-\end{table}
 
-\begin{table}[h!]
-	\begin{center}
-		\caption{Congressional Vote: Edited KNN - Experimental Results}
-		\label{tab:table8}
-		\includegraphics[scale=.7]{CV_Results_EKNN}\newline
-	\end{center}
-\end{table}
-
-\begin{table}[h!]
-	\begin{center}
-		\caption{Congressional Vote: Condensed KNN - Experimental Results}
-		\label{tab:table9}
-		%\includegraphics[scale=.7]{CV_Results_CKNN}\newline
-	\end{center}
-\end{table}
-\newpage
-
-The following results were obtained from the Regression task data sets. Tables 10-18 display the results from the Albalone, Computer Hardware and Forest Fire data sets. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process.  The tables also display the error obtained during each fold, and the total error as averaged across each of the 5 \textit{k}-folds The error is the absolute error and was calculated as: $| Test Set Average - Train Set Average|$. This is meant as a measure of how far off the train set average was from the test set average. 
-
-\begin{table}[h!]
-	\begin{center}
-		\caption{Albalone: Naive Mean Predictor Results}
-		\label{tab:table4}
-		%\includegraphics[scale=.6]{AB_Results}\newline
-	\end{center}
-\end{table}
-
-\begin{table}[h!]
-	\begin{center}
-		\caption{Computer Hardware: Naive Mean Predictor Results}
-		\label{tab:table5}
-		%\includegraphics[scale=.6]{CH_Results}\newline
-	\end{center}
-\end{table}
-
-\begin{table}[h!]
-	\begin{center}
-		\caption{Forest Fire: Naive Mean Predictor Results}
-		\label{tab:table6}
-		%\includegraphics[scale=.6]{FF_Results}\newline
-	\end{center}
-\end{table}
 
 
 
 \newpage
-
+\newline
 \section{Discussion}
-INSERT\\ 
+\hspace*{10mm} The hypothesis presented at the start of this report was that for the Classification tasks, normal KNN will do better at classifying an instance when compared with Edited or Condensed KNN. For Regression tasks it is hypothesized, that Edited or Condensed KNN will be better at regressing a new instance than normal KNN and that results from Edited and Condensed will be reality similar.\\
+\hspace*{10mm} Looking at Classification results from the Congressional Vote, Breast Cancer and Car Evaluation data sets, it can be seen that the average classification error across the 5 folds, is lower than when compared with the average classification error from the edited and condensed experiments. These results seem to support the hypothesis. It may also be possible to see that based on the implementation details of the condensed and edited KNN, for classification a query is removed from the train set based solely on if it matches the classification of it's neighbors. If one predictor was dominate in train set compared to other, then outliers would get toss quickly. This same adding / removal process is not applied to the test set. Meaning that outliers that are naturally occurring in the Test Set, will be counted against the correct prediction count, leading to higher error. It can be noted that looking across all three data sets, the Edited KNN and Condensed KNN when looking at a specific data set are exactly equal. This seems suspect. It can be suspected that this is an error in the implementation code with the shuffling. The Entire Data Sets were not being shuffled prior to insertion into the KNN algorithm. If the random shuffling was occurring it would be likely that the results obtained for Edited and Condensed KNN in a data set would be similar, but not identical.\\
+\hspace*{10mm} Looking at the Regression results from the Computer Hardware, Alablone and Forest Fire data sets, in all three cases the RMSE values obtained from the Edited and Condensed are lower than the values obtained for Normal KNN. For regression, based on implementation this would seem to make sense, you're defining a range $\epsilon$ that predictions are allowed to match to in order to be added or removed as outliers or inliers. This tuning seems to be less susceptible to the fault identified for classification, since you're defined a range of values $\epsilon$ that can be let into the Train Set, there are more chances to not over edit the data. Again the Condensed and Edited results were exactly the same, this is most likely due to the shuffling error identified as par of classification. This is my best guess assumption as to what may be happening there, a full root cause investigation would need to be had in order to determine if that is true. 
 
 \section{Conclusion}
-INSERT\\ 
+\hspace*{10mm} The problem statement presented in this paper is to understand and implement a \textit{k}NN classifier and regressor on 6 different and unique data sets. That objective was met, through the explanation provided in Section 2 on the different variations of KNN, normal KNN, edited KNN and condensed KNN. During the implementation, tuning and review of the results, a few areas of improvement could have been applied. The results obtained from the Edited and Condensed nearest neighbors was the same inside compared unique data sets, the root cause for this discrepancy is most likely caused by and error in the implementation code where the Entire Data Sets were not being shuffled prior to insertion into the KNN algorithm. If the random shuffling was occurring it would be likely that the results obtained for Edited and Condensed KNN in a data set would be similar, but not identical. During the course of this project, tuning was introduced and it appears that different values of k, $\sigma$, and $\epsilon$ do impact the accuracy of the results that are seen out of the prediction algorithms. An area of future work would be to explore the different types of distance calculations that could be applied to the K Nearest Neighbors problem, such as Hamming or Manhattan, and seeing if one is better suited to a particular type of Learning problem.  
 
 \section{References}
 1. Alpaydin, E. (2004). Introduction to machine learning (Oip). Mit Press. 

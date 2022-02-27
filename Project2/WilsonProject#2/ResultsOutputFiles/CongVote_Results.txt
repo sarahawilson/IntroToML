@@ -1,0 +1,66 @@
+---NORMAL KNN---
+Tuning K: Congressional Vote
+K:1
+        Classification Error: 0.16666666666666666
+        Classification Error: 0.05555555555555555
+        Classification Error: 0.058823529411764705
+        Classification Error: 0.11764705882352941
+        Classification Error: 0.0
+Average Classification Error on Fold:   0.07973856209150328
+K:3
+        Classification Error: 0.1111111111111111
+        Classification Error: 0.05555555555555555
+        Classification Error: 0.0
+        Classification Error: 0.11764705882352941
+        Classification Error: 0.0
+Average Classification Error on Fold:   0.056862745098039215
+K:5
+        Classification Error: 0.16666666666666666
+        Classification Error: 0.05555555555555555
+        Classification Error: 0.0
+        Classification Error: 0.11764705882352941
+        Classification Error: 0.058823529411764705
+Average Classification Error on Fold:   0.07973856209150328
+K:7
+        Classification Error: 0.16666666666666666
+        Classification Error: 0.05555555555555555
+        Classification Error: 0.0
+        Classification Error: 0.058823529411764705
+        Classification Error: 0.058823529411764705
+Average Classification Error on Fold:   0.06797385620915034
+
+---NORMAL KNN---
+Full Exp:
+K:3
+        Classification Error: 0.04285714285714286
+        Classification Error: 0.05714285714285714
+        Classification Error: 0.05714285714285714
+        Classification Error: 0.028985507246376812
+        Classification Error: 0.14492753623188406
+Average Classification Error on Fold:   0.0662111801242236
+---EDITED KNN---
+K:3
+Fold:0
+        Classification Error: 0.44285714285714284
+Fold:1
+        Classification Error: 0.4142857142857143
+Fold:2
+        Classification Error: 0.5
+Fold:3
+        Classification Error: 0.4782608695652174
+Fold:4
+        Classification Error: 0.5072463768115942
+Average Classification Error on Folds:  0.46853002070393374
+---CONDENSED KNN---
+K:3
+Fold:0
+        Classification Error: 0.44285714285714284
+Fold:1
+        Classification Error: 0.4142857142857143
+Fold:2
+        Classification Error: 0.5
+Fold:3
+        Classification Error: 0.4782608695652174
+Fold:4
+        Classification Error: 0.5072463768115942
+Average Classification Error on Folds:  0.46853002070393374

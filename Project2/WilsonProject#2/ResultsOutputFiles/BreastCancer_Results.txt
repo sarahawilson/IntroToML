@@ -1,0 +1,66 @@
+---NORMAL KNN---
+Tuning K: Breast Cancer
+K:1
+        Classification Error: 0.5714285714285714
+        Classification Error: 0.5
+        Classification Error: 0.42857142857142855
+        Classification Error: 0.6428571428571429
+        Classification Error: 0.4642857142857143
+Average Classification Error on Fold:   0.5214285714285715
+K:3
+        Classification Error: 0.75
+        Classification Error: 0.4642857142857143
+        Classification Error: 0.2857142857142857
+        Classification Error: 0.42857142857142855
+        Classification Error: 0.5357142857142857
+Average Classification Error on Fold:   0.4928571428571429
+K:5
+        Classification Error: 0.5714285714285714
+        Classification Error: 0.35714285714285715
+        Classification Error: 0.2857142857142857
+        Classification Error: 0.39285714285714285
+        Classification Error: 0.4642857142857143
+Average Classification Error on Fold:   0.4142857142857143
+K:7
+        Classification Error: 0.5357142857142857
+        Classification Error: 0.25
+        Classification Error: 0.2857142857142857
+        Classification Error: 0.39285714285714285
+        Classification Error: 0.42857142857142855
+Average Classification Error on Fold:   0.37857142857142856
+
+---NORMAL KNN---
+Full Exp:
+K:7
+        Classification Error: 0.41964285714285715
+        Classification Error: 0.4642857142857143
+        Classification Error: 0.42857142857142855
+        Classification Error: 0.33035714285714285
+        Classification Error: 0.2702702702702703
+Average Classification Error on Fold:   0.38262548262548257
+---EDITED KNN---
+K:7
+Fold:0
+        Classification Error: 0.42857142857142855
+Fold:1
+        Classification Error: 0.48214285714285715
+Fold:2
+        Classification Error: 0.4107142857142857
+Fold:3
+        Classification Error: 0.5892857142857143
+Fold:4
+        Classification Error: 0.36936936936936937
+Average Classification Error on Folds:  0.456016731016731
+---CONDENSED KNN---
+K:7
+Fold:0
+        Classification Error: 0.42857142857142855
+Fold:1
+        Classification Error: 0.48214285714285715
+Fold:2
+        Classification Error: 0.4107142857142857
+Fold:3
+        Classification Error: 0.5892857142857143
+Fold:4
+        Classification Error: 0.36936936936936937
+Average Classification Error on Folds:  0.456016731016731
