@@ -127,9 +127,11 @@ INSERT HERA\newline
 
 These equations will be used in the overall process of building the decision tree in the ID3 algorithm. The following steps outline the algorithm. The algorithm uses recursion to build the tree to completion.\\
 Generate Tree\\
-Calcaulte Entropy on Partition($\pi$) \\
-Create a leaf with the label of the majority class.\\
-
+Calculate Entropy on Partition($\pi$) \\
+If Entropy == 0\\ 
+\hspace*{1mm} Create a leaf with the label of the majority class.\\
+\hspace*{1mm} Return\\
+Split
 
 
 

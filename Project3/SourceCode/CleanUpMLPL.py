@@ -198,6 +198,7 @@ if __name__ == "__main__":
     #Set up the ID3 Algo Helper
     id3_TennisHelper = ID3HelperModule.ID3Helper(allDataSets['Tennis'].name, 2, 'Play Tennis')
     id3_TennisHelper._calcPartitionEntropy(allDataSets['Tennis'].finalData)
+    id3_TennisHelper._calcExpectedEntropyAllFeaturesInCurrentParition(allDataSets['Tennis'].finalData)
     
     
     

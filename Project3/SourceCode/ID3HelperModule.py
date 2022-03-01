@@ -5,6 +5,7 @@
 
 import pandas as pd
 import math
+import numpy as np
 
 class ID3Helper:
     def __init__(self, dataSetName: str, numClassProblem: int, classHeaderName: str):
@@ -41,10 +42,83 @@ class ID3Helper:
             
         return entropyI_Pi 
     
-    def _calcExpectedEntropy(self, currentPartition):
-        expectedEntropyE_Pi = None
-        
-        return expectedEntropyE_Pi
+    def _calcGainAllFeaturesInCurrentParition(self, entropyOfPartition, expectedEntropyAllFeatures: dict):
+        #TODO: Add comments
+        gainAllFeatures = {}
+        for featureName in expectedEntropyAllFeatures:
+            featureExpectedEntropy = expectedEntropyAllFeatures[featureName]
+            gainAllFeatures[featureName] = entropyOfPartition - featureExpectedEntropy
+        print(gainAllFeatures)
+        return gainAllFeatures
+    
+    def _calcExpectedEntropyAllFeaturesInCurrentParition(self, currentPartition):
+        expectedEntropyAllFeatures = {}
+        for featureName in currentPartition:
+            if (featureName == self.classHeaderName):
+                continue
+            else:
+                print(featureName)
+                curFeatOptionsProb = self._calcProabilityOnOptions(currentPartition, featureName)
+                curFeatOptionsEntropy = self._calcEntropyOnOptions(currentPartition, featureName)
+                print(curFeatOptionsProb)
+                print(curFeatOptionsEntropy)
+                entropySum = 0 
+                for index in range(len(curFeatOptionsProb)):
+                    curProb = curFeatOptionsProb[index]
+                    curEntrop = curFeatOptionsEntropy[index]
+                    multTerm = curProb*curEntrop
+                    entropySum = entropySum + multTerm
+                expectedEntropyAllFeatures[featureName] = entropySum
+        print(expectedEntropyAllFeatures)
+            
+    def _calcProabilityOnOptions(self, currentPartition, featureName):
+        probsAllOptionsInCurFeature = []
+        numberObservations = len(currentPartition.index)
+        featureOptions = currentPartition[featureName].unique()
+        featureOptionCounts = currentPartition[featureName].value_counts()
+        #print(featureOptions)
+        for option in featureOptions:
+            optionCount = featureOptionCounts[option]
+            probibilityOption = optionCount / numberObservations
+            probsAllOptionsInCurFeature.append(probibilityOption)
+            
+        return probsAllOptionsInCurFeature
+    
+    def _calcEntropyOnOptions(self, currentPartition, featureName):
+        entropyAllOptionsInCurFeature = []
+        featureOptions = currentPartition[featureName].unique()
+        for option in featureOptions:
+            optionDF = currentPartition.loc[currentPartition[featureName] == option]
+            entropyAllOptionsInCurFeature.append(self._calcOptionEntropy(optionDF))
+            
+        return entropyAllOptionsInCurFeature
+            
+    def _calcOptionEntropy(self, optionDF):
+        entropyI = 0
+        if(self.numClassProblem == 2):
+            classOptionCounts = optionDF[self.classHeaderName].value_counts()
+            #Class 1 Option Name and Count
+            opt1Name = classOptionCounts.index[0]
+            opt1Count = classOptionCounts[opt1Name]
+
+            #TODO: If Unique only returns 1 this will be a problem
+            #Class 2 Option Name and Count
+            if(classOptionCounts.size == 1):
+                opt2Count = 0
+            else:
+                opt2Name = classOptionCounts.index[1]
+                opt2Count = classOptionCounts[opt2Name]
+            
+            termOpt1 = ((-opt1Count/(opt1Count + opt2Count))* math.log2(opt1Count/(opt1Count + opt2Count)))
+            
+            if(classOptionCounts.size == 1):
+                termOpt2 = 0
+            else:
+                termOpt2 = ((opt2Count/(opt1Count + opt2Count))* math.log2(opt2Count/(opt1Count + opt2Count)))
+            
+            entropyI = termOpt1 - termOpt2
+        return entropyI
+    
                 
     def runID3Algo(self, inputDataset):
         print('Running ID3')
