@@ -48,9 +48,58 @@ class ID3Helper:
         for featureName in expectedEntropyAllFeatures:
             featureExpectedEntropy = expectedEntropyAllFeatures[featureName]
             gainAllFeatures[featureName] = entropyOfPartition - featureExpectedEntropy
+        print('GAIN!!')
         print(gainAllFeatures)
         return gainAllFeatures
     
+    def _calcInformationValueAllFeaturesInCurretPartition(self, currentPartition):
+        informationValueAllFeatures = {}
+        for featureName in currentPartition:
+            if (featureName == self.classHeaderName):
+                continue
+            else:
+                curFeatOptionInfoValue = self._calcInfoValueOnOptions(currentPartition, featureName)
+                ivSum = 0
+                for index in range(len(curFeatOptionInfoValue)):
+                    curIV = curFeatOptionInfoValue[index]
+                    ivSum = curIV + ivSum
+                ivSum = -1*ivSum
+                informationValueAllFeatures[featureName] = ivSum
+        print('IV!!')
+        print(informationValueAllFeatures)
+        return informationValueAllFeatures
+    
+    def _calcInfoValueOnOptions(self, currentPartition, featureName):
+        infoValueAllOptionsInCurFeature = []
+        numberObservations = len(currentPartition.index)
+        featureOptions = currentPartition[featureName].unique()
+        for option in featureOptions:
+            optionDF = currentPartition.loc[currentPartition[featureName] == option]
+            infoValueAllOptionsInCurFeature.append(self._calcOptionInfoValue(optionDF, numberObservations))
+        return infoValueAllOptionsInCurFeature  
+    
+    def _calcOptionInfoValue(self, optionDF, numberObservations):
+        numberOfOccurancesOption = len(optionDF.index)
+        infoValueOption = ((numberOfOccurancesOption/(numberObservations))* math.log2(numberOfOccurancesOption/(numberObservations)))
+        return infoValueOption
+      
+    def _calGainRatioAllFeaturesInCurrentPartition(self, gainAllFeatures, ivAllFeatures):
+        gainRatioAllFeatures = {}
+        for featureName in gainAllFeatures:
+            curFeatureGain = gainAllFeatures[featureName]
+            curFeatureIV = ivAllFeatures[featureName]
+            if(curFeatureIV == 0):
+                print('WARNING encountered divide by zero')
+                print(featureName)
+                curGainRatio = 0
+            else:
+                curGainRatio = curFeatureGain / curFeatureIV
+            gainRatioAllFeatures[featureName] = curGainRatio
+        
+        print('GAIN RATIO!!')
+        print(gainRatioAllFeatures)
+        return(gainRatioAllFeatures)
+        
     def _calcExpectedEntropyAllFeaturesInCurrentParition(self, currentPartition):
         expectedEntropyAllFeatures = {}
         for featureName in currentPartition:
@@ -70,6 +119,7 @@ class ID3Helper:
                     entropySum = entropySum + multTerm
                 expectedEntropyAllFeatures[featureName] = entropySum
         print(expectedEntropyAllFeatures)
+        return expectedEntropyAllFeatures
             
     def _calcProabilityOnOptions(self, currentPartition, featureName):
         probsAllOptionsInCurFeature = []
@@ -90,7 +140,6 @@ class ID3Helper:
         for option in featureOptions:
             optionDF = currentPartition.loc[currentPartition[featureName] == option]
             entropyAllOptionsInCurFeature.append(self._calcOptionEntropy(optionDF))
-            
         return entropyAllOptionsInCurFeature
             
     def _calcOptionEntropy(self, optionDF):
