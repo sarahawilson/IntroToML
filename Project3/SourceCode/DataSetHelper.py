@@ -15,7 +15,8 @@ class DataSet:
              headers: List = None,
              dataTypes: Dict = None,
              missingValueAttributes: List = None,
-             applyConversionValueAttribues: Tuple = None
+             applyConversionValueAttribues: Tuple = None,
+             id3ColTypes: Dict = None
              ):
         self.name = dataSetName
         self.taskType = taskType
@@ -25,6 +26,7 @@ class DataSet:
         self.dataTypes = dataTypes
         self.missingValueAttributes = missingValueAttributes
         self.applyConversionValueAttributes = applyConversionValueAttribues
+        self.id3ColTypes = id3ColTypes
         self.rawData = None # Raw Data Frame
         self.rawDataWithDataTypes = None # Data Frame that has been corrected for data types of each Attribute
         self.finalData = None # Final Data Frame after all needed data clean ups have been applied

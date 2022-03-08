@@ -8,16 +8,25 @@ import math
 import numpy as np
 
 class ID3Helper:
-    def __init__(self, dataSetName: str, numClassProblem: int, classHeaderName: str):
+    def __init__(self, dataSetName: str, 
+                 numClassProblem: int, 
+                 classHeaderName: str,
+                 uniqueToDropHeader,
+                 id3AllDataSets
+                 ):
         self.name = "ID3 Helper"
         self.treeRootNode = Node()
         self.numClassProblem = numClassProblem
         self.classHeaderName = classHeaderName
         self.dataSetName = dataSetName
+        self.dropHeaderName = uniqueToDropHeader
+        self.ID3DecTreeRoot = Node()
+        self.ID3AllDataSets = id3AllDataSets
         
-    
-    def _dropUniqueIDs(self, currentParition, dropHeaderName):
-        print('')
+    def dropUniqueIDs(self, dataFrame):
+        if(self.dropHeaderName != None):
+            resultDF = dataFrame.drop([self.dropHeaderName], axis=1)
+        return resultDF
     
     def _calcPartitionEntropy(self, currentPartition):
         entropyI_Pi = None
@@ -168,33 +177,72 @@ class ID3Helper:
             entropyI = termOpt1 - termOpt2
         return entropyI
     
+    
+    
+    def _determineMaxGainRatioFeature(self, currentPartition):
+        entPar = self._calcPartitionEntropy(currentPartition)
+        expEnt = self._calcExpectedEntropyAllFeaturesInCurrentParition(currentPartition)
+        gainPar = self._calcGainAllFeaturesInCurrentParition(entPar, expEnt)
+        infoValPar = self._calcInformationValueAllFeaturesInCurretPartition(currentPartition)
+        gainRatio = self._calGainRatioAllFeaturesInCurrentPartition(gainPar, infoValPar)
+        maxGainRatioFeature = max(gainRatio, key=gainRatio.get)
+        print('Feature with Max Gain Ratio: \t' + maxGainRatioFeature)
+        return maxGainRatioFeature
+    
+    def _getDomainType(self, featureName):
+        domainTypeDict = self.ID3AllDataSets[self.dataSetName].id3ColTypes
+        domainType = domainTypeDict[featureName]
+        return domainType
+    
+
                 
     def runID3Algo(self, inputDataset):
         print('Running ID3')
-        self.generateTree(inputDataSet)
+        self.generateTree(inputDataset)
         
     def generateTree(self, currentPartition):
-        print('')
+        #First Time throuhg the tree, the root node is None
+        #Fill in that Root with the max GainRatio Feature from the Data Set
+        domainType = None
+        if(self.ID3DecTreeRoot.nodeContent == None):    
+            maxGRFeatureName = self._determineMaxGainRatioFeature(currentPartition)
+            self.ID3DecTreeRoot.nodeContent = maxGRFeatureName
+            domainType = self._getDomainType(maxGRFeatureName)
+        
+        #Numeric Domain 
+        if (domainType == 'Num'):
+            #TODO: Insert how to split based on this
+            print('Not Yet Implemented')
+        elif(domainType == 'Cat'):
+            #Determine the Range of the Feature 
+            #Pull it's unique attributes
+            featureOptions = currentPartition[maxGRFeatureName].unique()
+            for options in featureOptions:
+                self.ID3DecTreeRoot.addChildNode(options)
+                
+            print('Debug Break point')
+            
+            
+        
 
         
 
 
 class Node:
     def __init__(self):
-        self.leftNode = None
-        self.rightNode = None
         self.nodeContent = None
+        self.childrenNodes = []
         
-    def setLeftNode(self):
-        print('Setting the Left Node')
-    
-    def getLeftNode(self):
-        print('Getting the Left Node')
-        return self.leftNode
-    
-    def setRightNode(self):
-        print('Setting the Right Node')
+    def setNodeContent(self, nodeLabel: str):
+        self.nodeContent = nodeLabel;
         
-    def getRightNode(self):
-        print('Getting the Right Node')
-        return self.rightNode
+    def getNodeContent(self):
+        return self.nodeContent
+    
+    def addChildNode(self, inputNodeName):
+        newChild = Node()
+        newChild.setNodeContent = inputNodeName
+        self.childrenNodes.append(newChild)
+    
+    
+    

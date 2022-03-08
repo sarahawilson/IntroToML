@@ -33,6 +33,11 @@ def defineAllDataSets()->Dict:
                           'Bland Chromatin': 'int', 'Normal Nucleoli': 'int', 'Mitoses': 'int', 
                           'Class': 'int'}
     
+    
+    breastCancerID3Types = {'Sample Code Number': 'Num', 'Clump Thickness': 'Num', 'Uni. of Cell Size':'Num', 'Uni. of Cell Shape': 'Num', 
+                           'Marginal Adhesion': 'Num', 'Single Ep. Cell Size': 'Num', 'Bare Nuclei': 'Num',
+                            'Bland Chromatin': 'Num', 'Normal Nucleoli': 'Num', 'Mitoses': 'Num', 'Class': 'Num'}
+    
     #breastCancerDtypeConvterts = {'Bare Nuclei': convert_StringToIntOrNaN}
     breastCancerMissingValAttributes = ['Bare Nuclei']
     breastCancerApplyConversionAttributes = None
@@ -46,7 +51,8 @@ def defineAllDataSets()->Dict:
                              breastCancerHeaders,
                              breastCancerDtypes,
                              breastCancerMissingValAttributes,
-                             breastCancerApplyConversionAttributes
+                             breastCancerApplyConversionAttributes,
+                             breastCancerID3Types
                              )
     
     #Add to the Overall Data Set Dictonary 
@@ -176,11 +182,17 @@ def defineAllDataSets()->Dict:
     tennisDataSet_OverallType = 'Classification'
     tennisDataSet_Predictor = 'Play Tennis'
     tennisDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\DTreeExample.data"
+    tennisID3Types = {'Day': 'Num','Outlook': 'Cat','Temperature': 'Cat','Humidity': 'Cat','Wind': 'Cat','Play Tennis': 'Cat'}
     
     expDeTreeDS = DataSetHelper.DataSet(tennisDataSetName,
                                          tennisDataSet_OverallType,
                                          tennisDataSet_Predictor,
-                                         tennisDataSetPath)
+                                         tennisDataSetPath,
+                                         None,
+                                         None,
+                                         None,
+                                         None,
+                                         tennisID3Types)
     
     #Add to the Overall Data Set Dictonary 
     allDataSetObjects[tennisDataSetName] = expDeTreeDS
@@ -196,16 +208,37 @@ if __name__ == "__main__":
     myKCrossValHelper = KCrossValHelperModule.KCrossValHelper(allDataSets)
     
     #Set up the ID3 Algo Helper
-    id3_TennisHelper = ID3HelperModule.ID3Helper(allDataSets['Tennis'].name, 2, 'Play Tennis')
-    entPar = id3_TennisHelper._calcPartitionEntropy(allDataSets['Tennis'].finalData)
-    expEnt = id3_TennisHelper._calcExpectedEntropyAllFeaturesInCurrentParition(allDataSets['Tennis'].finalData)
-    gainPar = id3_TennisHelper._calcGainAllFeaturesInCurrentParition(entPar, expEnt)
-    infoValPar = id3_TennisHelper._calcInformationValueAllFeaturesInCurretPartition(allDataSets['Tennis'].finalData)
-    gainRatio = id3_TennisHelper._calGainRatioAllFeaturesInCurrentPartition(gainPar, infoValPar)
+#    id3_TennisHelper = ID3HelperModule.ID3Helper(allDataSets['Tennis'].name, 2, 'Play Tennis')
+#    id3_TennisHelper.generateTree(allDataSets['Tennis'].finalData)
     
     
+    #TODO: Need to wrap this up such that it happens for each parition 
+#    entPar = id3_TennisHelper._calcPartitionEntropy(allDataSets['Tennis'].finalData)
+#    expEnt = id3_TennisHelper._calcExpectedEntropyAllFeaturesInCurrentParition(allDataSets['Tennis'].finalData)
+#    gainPar = id3_TennisHelper._calcGainAllFeaturesInCurrentParition(entPar, expEnt)
+#    infoValPar = id3_TennisHelper._calcInformationValueAllFeaturesInCurretPartition(allDataSets['Tennis'].finalData)
+#    gainRatio = id3_TennisHelper._calGainRatioAllFeaturesInCurrentPartition(gainPar, infoValPar)
+#    maxGainRatio = max(gainRatio, key=gainRatio.get)
+#    print(maxGainRatio)
+    
+    #https://machinewithdata.com/2018/07/10/how-to-calculate-gain-ratio/
+    #https://machinewithdata.com/2020/06/17/deriving-decision-tree-using-entropy-id3-approach/
+    #https://stats.stackexchange.com/questions/49540/understanding-stratified-cross-validation#:~:text=Stratification%20is%20the%20process%20of,comprises%20around%20half%20the%20instances.
+    
+    #TODO: Then also need to pick a way that the one with the max gain raito is the base of the tree
+    #This would be a parition that only has data from One Feature in it. (the feature with max gain)
+    #Also need to figure how when to "stop" the recursive calls when building the tree
     
     
+        #Set up the ID3 Algo Helper
+    id3_TennisHelper = ID3HelperModule.ID3Helper(allDataSets['Tennis'].name, 2, 'Play Tennis', 'Day', allDataSets)
+    tennisFinalID3Data = id3_TennisHelper.dropUniqueIDs(allDataSets['Tennis'].finalData)
+    id3_TennisHelper.generateTree(tennisFinalID3Data)
+    
+    
+#    id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)
+#    bcFinalID3Data = id3_BreastCancerHelper.dropUniqueIDs(allDataSets['Breast Cancer'].finalData)
+#    id3_BreastCancerHelper.runID3Algo(bcFinalID3Data)
     
     
     
