@@ -189,49 +189,64 @@ class ID3Helper:
         print('Feature with Max Gain Ratio: \t' + maxGainRatioFeature)
         return maxGainRatioFeature
     
-    def _getDomainType(self, featureName):
+    def _getSplitType(self, featureName):
         domainTypeDict = self.ID3AllDataSets[self.dataSetName].id3ColTypes
-        domainType = domainTypeDict[featureName]
-        return domainType
+        splitType = domainTypeDict[featureName]
+        return splitType
     
 
                 
     def runID3Algo(self, inputDataset):
         print('Running ID3')
-        self.generateTree(inputDataset)
+        self.generateTree(inputDataset, self.ID3DecTreeRoot)
+        print('End of ID3 Tree Building')
         
-    def generateTree(self, currentPartition):
+    def generateTree(self, currentPartition, currentNode):
+        #Check if the currentPartition only has one Class Label in it
+        #if so return a leaf
+        classCount = currentPartition[self.classHeaderName].value_counts()
+        if(len(classCount) == 1):
+            currentNode.setNodeContent(classCount.index[0])
+            return
+        
         #First Time throuhg the tree, the root node is None
-        #Fill in that Root with the max GainRatio Feature from the Data Set
-        domainType = None
-        if(self.ID3DecTreeRoot.nodeContent == None):    
-            maxGRFeatureName = self._determineMaxGainRatioFeature(currentPartition)
-            self.ID3DecTreeRoot.nodeContent = maxGRFeatureName
-            domainType = self._getDomainType(maxGRFeatureName)
+        #Fill in that Root with the max GainRatio Feature from the Data Set 
+        maxGRFeatureName = self._determineMaxGainRatioFeature(currentPartition)
+        currentNode.setNodeContent(maxGRFeatureName)
+        splitType = self._getSplitType(maxGRFeatureName)
         
-        #Numeric Domain 
-        if (domainType == 'Num'):
+        #Numeric Split 
+        if (splitType == 'Num'):
             #TODO: Insert how to split based on this
             print('Not Yet Implemented')
-        elif(domainType == 'Cat'):
+            
+        #Categorical Split
+        elif(splitType == 'Cat'):
             #Determine the Range of the Feature 
             #Pull it's unique attributes
             featureOptions = currentPartition[maxGRFeatureName].unique()
-            for options in featureOptions:
-                self.ID3DecTreeRoot.addChildNode(options)
+            childIdx = 0;
+            for option in featureOptions:
+                currentNode.addChildNode(option)
+                currentNode.childNodePathDict[option] = childIdx;
+                print('Child Node is:' + option)
                 
-            print('Debug Break point')
+                #Want to build a new parition of that data that 
+                #only includes instances where that Feature has the Attribue
+                #that was added as the child 
+                newPartition = currentPartition[(currentPartition[maxGRFeatureName] == option)]
+                newBaseNode = currentNode.getChildNode(childIdx)
+                childIdx = childIdx + 1;
+                print('Debug Break point prior to entering recursive call')
+                self.generateTree(newPartition, newBaseNode)
             
             
-        
-
-        
-
 
 class Node:
     def __init__(self):
         self.nodeContent = None
         self.childrenNodes = []
+        self.childNodePathDict = {}  #Key will be option name, value will be childIdx
         
     def setNodeContent(self, nodeLabel: str):
         self.nodeContent = nodeLabel;
@@ -241,8 +256,9 @@ class Node:
     
     def addChildNode(self, inputNodeName):
         newChild = Node()
-        newChild.setNodeContent = inputNodeName
+        newChild.setNodeContent(inputNodeName)
         self.childrenNodes.append(newChild)
     
-    
+    def getChildNode(self, inputNodeChildIdx):
+        return self.childrenNodes[inputNodeChildIdx]
     

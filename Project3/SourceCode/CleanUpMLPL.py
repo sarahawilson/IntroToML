@@ -233,7 +233,7 @@ if __name__ == "__main__":
         #Set up the ID3 Algo Helper
     id3_TennisHelper = ID3HelperModule.ID3Helper(allDataSets['Tennis'].name, 2, 'Play Tennis', 'Day', allDataSets)
     tennisFinalID3Data = id3_TennisHelper.dropUniqueIDs(allDataSets['Tennis'].finalData)
-    id3_TennisHelper.generateTree(tennisFinalID3Data)
+    id3_TennisHelper.runID3Algo(tennisFinalID3Data)
     
     
 #    id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)
