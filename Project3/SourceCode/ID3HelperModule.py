@@ -32,9 +32,9 @@ class ID3Helper:
         entropyI_Pi = None
         if(self.numClassProblem == 2):
             classOptions = currentPartition[self.classHeaderName].unique()
-            print(classOptions)
+            #print(classOptions)
             classOptionCounts = currentPartition[self.classHeaderName].value_counts()
-            print(classOptionCounts)
+            #print(classOptionCounts)
             #Class 1 Option Name and Count
             opt1Name = classOptionCounts.index[0]
             opt1Count = classOptionCounts[opt1Name]
@@ -47,7 +47,7 @@ class ID3Helper:
             termOpt2 = ((opt2Count/(opt1Count + opt2Count))* math.log2(opt2Count/(opt1Count + opt2Count)))
             
             entropyI_Pi = termOpt1 - termOpt2
-            print(entropyI_Pi)
+            #print(entropyI_Pi)
             
         return entropyI_Pi 
     
@@ -57,8 +57,8 @@ class ID3Helper:
         for featureName in expectedEntropyAllFeatures:
             featureExpectedEntropy = expectedEntropyAllFeatures[featureName]
             gainAllFeatures[featureName] = entropyOfPartition - featureExpectedEntropy
-        print('GAIN!!')
-        print(gainAllFeatures)
+        #print('GAIN!!')
+        #print(gainAllFeatures)
         return gainAllFeatures
     
     def _calcInformationValueAllFeaturesInCurretPartition(self, currentPartition):
@@ -74,8 +74,8 @@ class ID3Helper:
                     ivSum = curIV + ivSum
                 ivSum = -1*ivSum
                 informationValueAllFeatures[featureName] = ivSum
-        print('IV!!')
-        print(informationValueAllFeatures)
+        #print('IV!!')
+        #print(informationValueAllFeatures)
         return informationValueAllFeatures
     
     def _calcInfoValueOnOptions(self, currentPartition, featureName):
@@ -105,8 +105,8 @@ class ID3Helper:
                 curGainRatio = curFeatureGain / curFeatureIV
             gainRatioAllFeatures[featureName] = curGainRatio
         
-        print('GAIN RATIO!!')
-        print(gainRatioAllFeatures)
+        #print('GAIN RATIO!!')
+        #print(gainRatioAllFeatures)
         return(gainRatioAllFeatures)
         
     def _calcExpectedEntropyAllFeaturesInCurrentParition(self, currentPartition):
@@ -115,11 +115,11 @@ class ID3Helper:
             if (featureName == self.classHeaderName):
                 continue
             else:
-                print(featureName)
+                #print(featureName)
                 curFeatOptionsProb = self._calcProabilityOnOptions(currentPartition, featureName)
                 curFeatOptionsEntropy = self._calcEntropyOnOptions(currentPartition, featureName)
-                print(curFeatOptionsProb)
-                print(curFeatOptionsEntropy)
+                #print(curFeatOptionsProb)
+                #print(curFeatOptionsEntropy)
                 entropySum = 0 
                 for index in range(len(curFeatOptionsProb)):
                     curProb = curFeatOptionsProb[index]
@@ -127,7 +127,7 @@ class ID3Helper:
                     multTerm = curProb*curEntrop
                     entropySum = entropySum + multTerm
                 expectedEntropyAllFeatures[featureName] = entropySum
-        print(expectedEntropyAllFeatures)
+        #print(expectedEntropyAllFeatures)
         return expectedEntropyAllFeatures
             
     def _calcProabilityOnOptions(self, currentPartition, featureName):
@@ -218,8 +218,39 @@ class ID3Helper:
         #Numeric Split 
         if (splitType == 'Num'):
             #TODO: Insert how to split based on this
-            print('Not Yet Implemented')
+            sortedPartition = currentPartition.sort_values(by=[maxGRFeatureName])
+            sortedPartition['Count Class Change'] = sortedPartition[self.classHeaderName].ne(sortedPartition[self.classHeaderName].shift()).cumsum()
+            sortedPartition['Change Occured'] = sortedPartition['Count Class Change'].diff()
+            sortedPartition['Before Change Occured'] = 0
+            sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+            beforeChangeDF = sortedPartition[sortedPartition['Before Change Occured']==1]
+            afterChangeDF = sortedPartition[sortedPartition['Change Occured']==1]
             
+            avgSplitValsList = []
+            numberOfChangePairs = len(beforeChangeDF)
+            for chgIdx in range(numberOfChangePairs):
+                beforeVal = beforeChangeDF[maxGRFeatureName].values[chgIdx]
+                afterVal = afterChangeDF[maxGRFeatureName].values[chgIdx]
+                avgVal = (beforeVal + afterVal)/2
+                avgSplitValsList.append(avgVal)
+                
+            childIdx = 0
+            for splitVal in avgSplitValsList:
+                stringVal = str(splitVal)
+                pathName = ">" + stringVal
+                currentNode.addChildNode()
+                currentNode.childNodePathDict[pathName] = childIdx
+                
+                #Want to build a new parition of that data that 
+                #only includes instances where that Feature has the Attribue greater than
+                #the split value 
+                newPartition = currentPartition[(currentPartition[maxGRFeatureName] > splitVal)]
+                newBaseNode = currentNode.getChildNode(childIdx)
+                childIdx = childIdx + 1;
+                print('Debug Break point prior to entering recursive call')
+                self.generateTree(newPartition, newBaseNode)
+                
+                    
         #Categorical Split
         elif(splitType == 'Cat'):
             #Determine the Range of the Feature 
@@ -227,13 +258,11 @@ class ID3Helper:
             featureOptions = currentPartition[maxGRFeatureName].unique()
             childIdx = 0;
             for option in featureOptions:
-                currentNode.addChildNode(option)
+                currentNode.addChildNode()
                 currentNode.childNodePathDict[option] = childIdx;
-                print('Child Node is:' + option)
                 
                 #Want to build a new parition of that data that 
                 #only includes instances where that Feature has the Attribue
-                #that was added as the child 
                 newPartition = currentPartition[(currentPartition[maxGRFeatureName] == option)]
                 newBaseNode = currentNode.getChildNode(childIdx)
                 childIdx = childIdx + 1;
@@ -254,9 +283,8 @@ class Node:
     def getNodeContent(self):
         return self.nodeContent
     
-    def addChildNode(self, inputNodeName):
+    def addChildNode(self):
         newChild = Node()
-        newChild.setNodeContent(inputNodeName)
         self.childrenNodes.append(newChild)
     
     def getChildNode(self, inputNodeChildIdx):

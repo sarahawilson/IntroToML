@@ -175,7 +175,7 @@ def defineAllDataSets()->Dict:
     
     
     ####################
-    # EXAMPLE DT DATA
+    # EXAMPLE DT DATA (Categorical)
     ####################
     #Day, Outlook, Temperature, Humidity, Wind, Play Tennis
     tennisDataSetName = 'Tennis'
@@ -196,6 +196,29 @@ def defineAllDataSets()->Dict:
     
     #Add to the Overall Data Set Dictonary 
     allDataSetObjects[tennisDataSetName] = expDeTreeDS
+    
+    ####################
+    # EXAMPLE DT DATA (Numeric)
+    ####################
+    #Day, Temp, Humd, Wind, Play Tennis
+    numTennisDataSetName = 'NumberTennis'
+    numTennisDataSet_OverallType = 'Classification'
+    numTennisDataSet_Predictor = 'Play Tennis'
+    numTennisDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\DTreeExample_Numeric.data"
+    numTennisID3Types = {'Day': 'Num','Temp': 'Num','Humd': 'Num','Play Tennis': 'Cat'}
+    
+    expDeTreeDS2 = DataSetHelper.DataSet(numTennisDataSetName,
+                                         numTennisDataSet_OverallType,
+                                         numTennisDataSet_Predictor,
+                                         numTennisDataSetPath,
+                                         None,
+                                         None,
+                                         None,
+                                         None,
+                                         numTennisID3Types)
+    
+    #Add to the Overall Data Set Dictonary 
+    allDataSetObjects[numTennisDataSetName] = expDeTreeDS2
     
     return allDataSetObjects
 
@@ -230,15 +253,20 @@ if __name__ == "__main__":
     #Also need to figure how when to "stop" the recursive calls when building the tree
     
     
-        #Set up the ID3 Algo Helper
-    id3_TennisHelper = ID3HelperModule.ID3Helper(allDataSets['Tennis'].name, 2, 'Play Tennis', 'Day', allDataSets)
-    tennisFinalID3Data = id3_TennisHelper.dropUniqueIDs(allDataSets['Tennis'].finalData)
-    id3_TennisHelper.runID3Algo(tennisFinalID3Data)
+    #Set up the ID3 Algo Helper
+#    id3_TennisHelper = ID3HelperModule.ID3Helper(allDataSets['Tennis'].name, 2, 'Play Tennis', 'Day', allDataSets)
+#    tennisFinalID3Data = id3_TennisHelper.dropUniqueIDs(allDataSets['Tennis'].finalData)
+#    id3_TennisHelper.runID3Algo(tennisFinalID3Data)
     
     
-#    id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)
-#    bcFinalID3Data = id3_BreastCancerHelper.dropUniqueIDs(allDataSets['Breast Cancer'].finalData)
-#    id3_BreastCancerHelper.runID3Algo(bcFinalID3Data)
+#    id3_Num_TennisHelper = ID3HelperModule.ID3Helper(allDataSets['NumberTennis'].name, 2, 'Play Tennis', 'Day', allDataSets)
+#    numTennisFinalID3Data = id3_Num_TennisHelper.dropUniqueIDs(allDataSets['NumberTennis'].finalData)
+#    id3_Num_TennisHelper.runID3Algo(numTennisFinalID3Data)
+    
+    
+    id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)
+    bcFinalID3Data = id3_BreastCancerHelper.dropUniqueIDs(allDataSets['Breast Cancer'].finalData)
+    id3_BreastCancerHelper.runID3Algo(bcFinalID3Data)
     
     
     
