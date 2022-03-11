@@ -259,14 +259,19 @@ if __name__ == "__main__":
 #    id3_TennisHelper.runID3Algo(tennisFinalID3Data)
     
     
+    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('NumberTennis', 'Play Tennis', 2, 'Day')
+    myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Breast Cancer', 'Class', 2, 'Sample Code Number')
+    
+    #id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)
+    
 #    id3_Num_TennisHelper = ID3HelperModule.ID3Helper(allDataSets['NumberTennis'].name, 2, 'Play Tennis', 'Day', allDataSets)
 #    numTennisFinalID3Data = id3_Num_TennisHelper.dropUniqueIDs(allDataSets['NumberTennis'].finalData)
 #    id3_Num_TennisHelper.runID3Algo(numTennisFinalID3Data)
     
     
-    id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)
-    bcFinalID3Data = id3_BreastCancerHelper.dropUniqueIDs(allDataSets['Breast Cancer'].finalData)
-    id3_BreastCancerHelper.runID3Algo(bcFinalID3Data)
+#    id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)
+#    bcFinalID3Data = id3_BreastCancerHelper.dropUniqueIDs(allDataSets['Breast Cancer'].finalData)
+#    id3_BreastCancerHelper.runID3Algo(bcFinalID3Data)
     
     
     

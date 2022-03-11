@@ -8,7 +8,7 @@ from typing import List, Tuple, Dict
 import numpy as np
 import pandas as pd
 import copy
-#import KNNAlgoHelperModule
+import ID3HelperModule
 
 class KCrossValHelper:
     def __init__(self,
@@ -19,8 +19,8 @@ class KCrossValHelper:
         self.numFolds = 5
         self.allDataSets = allDataSets
         
-        self._createValidation_TuneAndExperimentSets()
-        #self.algoHelper = KNNAlgoHelperModule.KNNAlgoHelper()
+        #self._createValidation_TuneAndExperimentSets()
+        self.ID3Tree = None
         
         
     def _createValidation_TuneAndExperimentSets(self, runOn = "AllDataSets"):
@@ -36,6 +36,15 @@ class KCrossValHelper:
                 #Create the 80% Set 
                 self.allDataSets[dataSetName].finalData_ExperimentSet = tempCurDataSet.drop(self.allDataSets[dataSetName].finalData_Validation20PercentSet.index)
             
+    def _createValidation_TuneAndExperimentSetsAfterDropUnique(self, dataSetName, dropedDF):
+        # Splits the overall data sets into the 20% that is needed for Validation
+       # The other 80% is left for the full algorithm experiment 
+    
+        #Create the 20% Set
+        self.allDataSets[dataSetName].finalData_Validation20PercentSet = dropedDF.sample(frac=0.2, random_state=1)
+            
+        #Create the 80% Set 
+        self.allDataSets[dataSetName].finalData_ExperimentSet = dropedDF.drop(self.allDataSets[dataSetName].finalData_Validation20PercentSet.index)
             
     def _create_folds(self, inputDataFrame):
         # Input data frame
@@ -82,6 +91,31 @@ class KCrossValHelper:
         return zStand       
     
 
+
+    def runKFoldCrossVal_ID3_Univariate(self, dataSetName, predictorName, numClassProb, dropLabel = None):
+        id3_Helper = ID3HelperModule.ID3Helper(self.allDataSets[dataSetName].name, numClassProb, predictorName, dropLabel, self.allDataSets)
+        finalID3Data = id3_Helper.dropUniqueIDs(self.allDataSets[dataSetName].finalData)
+        self._createValidation_TuneAndExperimentSetsAfterDropUnique(dataSetName, finalID3Data)
+        
+        curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_ExperimentSet)
+        
+        for iFoldIndex in range(self.numFolds):
+            print('Fold:' + str(iFoldIndex))
+            loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+            testDF = loopDataFrameFoldList.pop(iFoldIndex)
+            trainDF = pd.concat(loopDataFrameFoldList, axis=0)    
+            
+            self.ID3Tree = id3_Helper.runID3Algo(testDF, trainDF)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 #    def runKFoldCrossVal_NormalKNN(self, toRunOnDataSetName: str, kVal, sigmaVal, zStand = False, zStandHeaders = None):
 #        curDataFrameFoldList = self._create_folds(self.allDataSets[toRunOnDataSetName].finalData_ExperimentSet)

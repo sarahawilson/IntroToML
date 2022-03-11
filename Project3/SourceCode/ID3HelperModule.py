@@ -34,6 +34,9 @@ class ID3Helper:
             classOptions = currentPartition[self.classHeaderName].unique()
             #print(classOptions)
             classOptionCounts = currentPartition[self.classHeaderName].value_counts()
+            print(classOptionCounts)
+            if(classOptionCounts.size == 1):
+                test = 2
             #print(classOptionCounts)
             #Class 1 Option Name and Count
             opt1Name = classOptionCounts.index[0]
@@ -193,14 +196,31 @@ class ID3Helper:
         domainTypeDict = self.ID3AllDataSets[self.dataSetName].id3ColTypes
         splitType = domainTypeDict[featureName]
         return splitType
-    
-
-                
-    def runID3Algo(self, inputDataset):
-        print('Running ID3')
-        self.generateTree(inputDataset, self.ID3DecTreeRoot)
+                    
+    def runID3Algo(self, testDF, trainDF):
+        print('Running ID3 - Univariate')
+        print('Building Tree')
+        self.generateTree(trainDF, self.ID3DecTreeRoot)
         print('End of ID3 Tree Building')
         
+        #self.runTestDFThroughTree(testDF)
+        #return self.ID3DecTreeRoot
+      
+    def runTestDFThroughTree(self, testDF):
+        for rowIdx in range(len(testDF)):
+            self.passObservationThroughTree(testDF, rowIdx, self.ID3DecTreeRoot)
+            
+        
+    def passObservationThroughTree(self, testDF, rowIdx, currentNode):
+        curNodeFeature = currentNode.getNodeContent()
+        splitType = self._getSplitType(curNodeFeature)
+        
+        #Have run into a leaf node stop
+        numChildren = len(currentNode.childrenNodes)
+        if(numChildren == 0):
+            return 
+        
+    
     def generateTree(self, currentPartition, currentNode):
         #Check if the currentPartition only has one Class Label in it
         #if so return a leaf
@@ -245,6 +265,9 @@ class ID3Helper:
                 #only includes instances where that Feature has the Attribue greater than
                 #the split value 
                 newPartition = currentPartition[(currentPartition[maxGRFeatureName] > splitVal)]
+                if(len(newPartition) == 0):
+                    print('WHOA WHOA WHOA')
+                    print('something is not right')
                 newBaseNode = currentNode.getChildNode(childIdx)
                 childIdx = childIdx + 1;
                 print('Debug Break point prior to entering recursive call')
