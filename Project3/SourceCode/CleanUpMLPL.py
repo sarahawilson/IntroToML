@@ -247,6 +247,7 @@ if __name__ == "__main__":
     #https://machinewithdata.com/2018/07/10/how-to-calculate-gain-ratio/
     #https://www.cse.unsw.edu.au/~cs9417ml/DT1/decisiontreealgorithm.html
     #https://machinewithdata.com/2020/06/17/deriving-decision-tree-using-entropy-id3-approach/
+    #https://beginningwithml.wordpress.com/2019/01/14/9-2-improving-the-id3-algorithm/
     #https://stats.stackexchange.com/questions/49540/understanding-stratified-cross-validation#:~:text=Stratification%20is%20the%20process%20of,comprises%20around%20half%20the%20instances.
     
     #TODO: Then also need to pick a way that the one with the max gain raito is the base of the tree
