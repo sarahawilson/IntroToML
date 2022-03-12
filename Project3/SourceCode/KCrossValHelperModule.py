@@ -94,7 +94,10 @@ class KCrossValHelper:
 
     def runKFoldCrossVal_ID3_Univariate(self, dataSetName, predictorName, numClassProb, dropLabel = None):
         id3_Helper = ID3HelperModule.ID3Helper(self.allDataSets[dataSetName].name, numClassProb, predictorName, dropLabel, self.allDataSets)
-        finalID3Data = id3_Helper.dropUniqueIDs(self.allDataSets[dataSetName].finalData)
+        if(dropLabel != None):
+            finalID3Data = id3_Helper.dropUniqueIDs(self.allDataSets[dataSetName].finalData)
+        else:
+            finalID3Data = self.allDataSets[dataSetName].finalData
         
         #Sanity Check on Tree Building - For Simple Data Sets
         #self.ID3Tree = id3_Helper.runID3Algo(None, finalID3Data)

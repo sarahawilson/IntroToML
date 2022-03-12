@@ -96,13 +96,20 @@ def defineAllDataSets()->Dict:
     congVoteHeaders = ['Class Name', 'handicapped-infants', 'water-project-cost-sharing', 'adoption-of-the-budget-resolution', 'physician-fee-freeze', 'el-salvador-aid',
                        'religious-groups-in-schools', 'anti-satellite-test-ban', 'aid-to-nicaraguan-contras', 'mx-missile', 'immigration', 'synfuels-corporation-cutback',
                        'education-spending', 'superfund-right-to-sue', 'crime', 'duty-free-exports', 'export-administration-act-south-africa']
+    congVoteID3Types = {'Class Name': 'Cat', 'handicapped-infants': 'Cat', 'water-project-cost-sharing': 'Cat', 'adoption-of-the-budget-resolution': 'Cat', 'physician-fee-freeze': 'Cat', 'el-salvador-aid': 'Cat',
+                       'religious-groups-in-schools': 'Cat', 'anti-satellite-test-ban': 'Cat', 'aid-to-nicaraguan-contras': 'Cat', 'mx-missile': 'Cat', 'immigration': 'Cat', 'synfuels-corporation-cutback': 'Cat',
+                       'education-spending': 'Cat', 'superfund-right-to-sue': 'Cat', 'crime': 'Cat', 'duty-free-exports': 'Cat', 'export-administration-act-south-africa': 'Cat'}
     
     #Create an Instance of the Data Set Class
     congVoteDS = DataSetHelper.DataSet(congVoteDataSetName,
                                        congVoteDataSet_OverallType,
                                        congVoteDataSet_Predictor,
                                        congVoteDataSetPath,
-                                       congVoteHeaders)
+                                       congVoteHeaders,
+                                       None,
+                                       None,
+                                       None,
+                                       congVoteID3Types)
     
     #Add to the Overall Data Set Dictonary 
     allDataSetObjects[congVoteDataSetName] = congVoteDS
@@ -260,9 +267,10 @@ if __name__ == "__main__":
 #    tennisFinalID3Data = id3_TennisHelper.dropUniqueIDs(allDataSets['Tennis'].finalData)
 #    id3_TennisHelper.runID3Algo(tennisFinalID3Data)
     
-    myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Tennis', 'Play Tennis', 2, 'Day')
+    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Tennis', 'Play Tennis', 2, 'Day')
     #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('NumberTennis', 'Play Tennis', 2, 'Day')
     #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Breast Cancer', 'Class', 2, 'Sample Code Number')
+    myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Congressional Vote', 'Class Name', 2, None)
     
     #id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)
     
