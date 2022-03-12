@@ -245,6 +245,7 @@ if __name__ == "__main__":
 #    print(maxGainRatio)
     
     #https://machinewithdata.com/2018/07/10/how-to-calculate-gain-ratio/
+    #https://www.cse.unsw.edu.au/~cs9417ml/DT1/decisiontreealgorithm.html
     #https://machinewithdata.com/2020/06/17/deriving-decision-tree-using-entropy-id3-approach/
     #https://stats.stackexchange.com/questions/49540/understanding-stratified-cross-validation#:~:text=Stratification%20is%20the%20process%20of,comprises%20around%20half%20the%20instances.
     
@@ -259,8 +260,8 @@ if __name__ == "__main__":
 #    id3_TennisHelper.runID3Algo(tennisFinalID3Data)
     
     
-    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('NumberTennis', 'Play Tennis', 2, 'Day')
-    myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Breast Cancer', 'Class', 2, 'Sample Code Number')
+    myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('NumberTennis', 'Play Tennis', 2, 'Day')
+    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Breast Cancer', 'Class', 2, 'Sample Code Number')
     
     #id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)
     

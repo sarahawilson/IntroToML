@@ -95,6 +95,18 @@ class ID3Helper_ROUND2:
                 print('Debug Break point prior to entering recursive call')
                 self.generateTree(newPartition, newBaseNode)
               
+     
+    def _determineMaxGainRatioFeature(self, currentPartition):
+        entPar = self._calcPartitionEntropy(currentPartition) #Same for Num/Cat Data
+        expEnt = self._calcExpectedEntropyAllFeaturesInCurrentParition(currentPartition)
+        gainPar = self._calcGainAllFeaturesInCurrentParition(entPar, expEnt)
+        
+        infoValPar = self._calcInformationValueAllFeaturesInCurretPartition(currentPartition)
+        gainRatio = self._calGainRatioAllFeaturesInCurrentPartition(gainPar, infoValPar)
+        maxGainRatioFeature = max(gainRatio, key=gainRatio.get)
+        print('Feature with Max Gain Ratio: \t' + maxGainRatioFeature)
+        return maxGainRatioFeature
+        
         
     def dropUniqueIDs(self, dataFrame):
         if(self.dropHeaderName != None):
@@ -324,18 +336,6 @@ class ID3Helper_ROUND2:
             entropyI = termOpt1 - termOpt2
         return entropyI
     
-    
-    def _determineMaxGainRatioFeature(self, currentPartition):
-        
-        entPar = self._calcPartitionEntropy(currentPartition) #Same for Num/Cat Data
-        expEnt = self._calcExpectedEntropyAllFeaturesInCurrentParition(currentPartition)
-        gainPar = self._calcGainAllFeaturesInCurrentParition(entPar, expEnt)
-        
-        infoValPar = self._calcInformationValueAllFeaturesInCurretPartition(currentPartition)
-        gainRatio = self._calGainRatioAllFeaturesInCurrentPartition(gainPar, infoValPar)
-        maxGainRatioFeature = max(gainRatio, key=gainRatio.get)
-        print('Feature with Max Gain Ratio: \t' + maxGainRatioFeature)
-        return maxGainRatioFeature
     
     def _getFeatureType(self, featureName):
         domainTypeDict = self.ID3AllDataSets[self.dataSetName].id3ColTypes

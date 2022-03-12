@@ -108,7 +108,10 @@ class ID3Helper:
         for rowIdx in range(len(beforeChangeDF)):
             possSplitVals.append(beforeChangeDF[featureName].values[rowIdx])
             
-        for splitVal in possSplitVals:
+        uniquePossSplits = np.unique(np.array(possSplitVals))
+        uniquePossSplitsList = uniquePossSplits.tolist()
+        
+        for splitVal in uniquePossSplitsList:
             lessThanEqToDF = sortedPartition[sortedPartition[featureName] <= splitVal]
             if(self._calcOptionInfoValue(lessThanEqToDF, numberObservations) == 0):
                 print('DB')
@@ -219,7 +222,10 @@ class ID3Helper:
         for rowIdx in range(len(beforeChangeDF)):
             possSplitVals.append(beforeChangeDF[featureName].values[rowIdx])
             
-        for splitVal in possSplitVals:
+        uniquePossSplits = np.unique(np.array(possSplitVals))
+        uniquePossSplitsList = uniquePossSplits.tolist()
+        
+        for splitVal in uniquePossSplitsList:
             lessThanEqToDF = sortedPartition[sortedPartition[featureName] <= splitVal]
             entropyAllSplitsInCurFeature.append(self._calcOptionEntropy(lessThanEqToDF))
 
@@ -291,7 +297,21 @@ class ID3Helper:
         numChildren = len(currentNode.childrenNodes)
         if(numChildren == 0):
             return 
-        
+     
+    def _determineSplitValueList(self, currentPartition, useFeatureName):
+        sortedPartition = currentPartition.sort_values(by=[useFeatureName])
+        sortedPartition['Count Class Change'] = sortedPartition[self.classHeaderName].ne(sortedPartition[self.classHeaderName].shift()).cumsum()
+        sortedPartition['Change Occured'] = sortedPartition['Count Class Change'].diff()
+        sortedPartition['Before Change Occured'] = 0
+        sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+        beforeChangeDF = sortedPartition[sortedPartition['Before Change Occured']==1]
+        possSplitVals = []
+        for rowIdx in range(len(beforeChangeDF)):
+            possSplitVals.append(beforeChangeDF[useFeatureName].values[rowIdx])
+                  
+        uniquePossSplits = np.unique(np.array(possSplitVals))
+        uniquePossSplitsList = uniquePossSplits.tolist()
+        return uniquePossSplitsList
     
     def generateTree(self, currentPartition, currentNode):
         #Check if the currentPartition only has one Class Label in it
@@ -309,6 +329,11 @@ class ID3Helper:
         
         #Numeric Split 
         if (splitType == 'Num'):
+            #TODO:
+            # Need to determine the best split value c 
+            spltValList = self._determineSplitValueList(currentPartition, maxGRFeatureName)
+            self._determineMaxGainRatioSplit(currentPartition, spltValList)
+            
             #TODO: Insert how to split based on this
             sortedPartition = currentPartition.sort_values(by=[maxGRFeatureName])
             sortedPartition['Count Class Change'] = sortedPartition[self.classHeaderName].ne(sortedPartition[self.classHeaderName].shift()).cumsum()
@@ -319,9 +344,12 @@ class ID3Helper:
             possSplitVals = []
             for rowIdx in range(len(beforeChangeDF)):
                 possSplitVals.append(beforeChangeDF[maxGRFeatureName].values[rowIdx])
-                                        
+                  
+            uniquePossSplits = np.unique(np.array(possSplitVals))
+            uniquePossSplitsList = uniquePossSplits.tolist()
+                   
             childIdx = 0
-            for splitVal in possSplitVals:
+            for splitVal in uniquePossSplitsList:
                 stringVal = str(splitVal)
                 pathName = "<=" + stringVal
                 currentNode.addChildNode()
@@ -358,7 +386,7 @@ class ID3Helper:
                 print('Debug Break point prior to entering recursive call')
                 self.generateTree(newPartition, newBaseNode)
             
-            
+          
 
 class Node:
     def __init__(self):
