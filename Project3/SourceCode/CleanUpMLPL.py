@@ -260,8 +260,8 @@ if __name__ == "__main__":
 #    tennisFinalID3Data = id3_TennisHelper.dropUniqueIDs(allDataSets['Tennis'].finalData)
 #    id3_TennisHelper.runID3Algo(tennisFinalID3Data)
     
-    
-    myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('NumberTennis', 'Play Tennis', 2, 'Day')
+    myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Tennis', 'Play Tennis', 2, 'Day')
+    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('NumberTennis', 'Play Tennis', 2, 'Day')
     #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Breast Cancer', 'Class', 2, 'Sample Code Number')
     
     #id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)

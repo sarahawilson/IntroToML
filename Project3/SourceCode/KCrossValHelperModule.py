@@ -20,7 +20,7 @@ class KCrossValHelper:
         self.allDataSets = allDataSets
         
         #self._createValidation_TuneAndExperimentSets()
-        self.ID3Tree = None
+        self.ID3TreeFoldDict = {}
         
         
     def _createValidation_TuneAndExperimentSets(self, runOn = "AllDataSets"):
@@ -95,6 +95,10 @@ class KCrossValHelper:
     def runKFoldCrossVal_ID3_Univariate(self, dataSetName, predictorName, numClassProb, dropLabel = None):
         id3_Helper = ID3HelperModule.ID3Helper(self.allDataSets[dataSetName].name, numClassProb, predictorName, dropLabel, self.allDataSets)
         finalID3Data = id3_Helper.dropUniqueIDs(self.allDataSets[dataSetName].finalData)
+        
+        #Sanity Check on Tree Building - For Simple Data Sets
+        #self.ID3Tree = id3_Helper.runID3Algo(None, finalID3Data)
+        
         self._createValidation_TuneAndExperimentSetsAfterDropUnique(dataSetName, finalID3Data)
         
         curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_ExperimentSet)
@@ -105,9 +109,11 @@ class KCrossValHelper:
             testDF = loopDataFrameFoldList.pop(iFoldIndex)
             trainDF = pd.concat(loopDataFrameFoldList, axis=0)    
             
-            self.ID3Tree = id3_Helper.runID3Algo(testDF, trainDF)
-    
-    
+            curFoldID3Tree = id3_Helper.runID3Algo(testDF, trainDF)
+            foldName = 'Fold' + str(iFoldIndex)
+            self.ID3TreeFoldDict[foldName] = curFoldID3Tree
+            #Clear the Tree for the Next time through
+            id3_Helper.clearTree()
     
     
     
