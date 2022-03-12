@@ -7,7 +7,7 @@ import pandas as pd
 import math
 import numpy as np
 
-class ID3Helper:
+class ID3Helper_ROUND2:
     def __init__(self, dataSetName: str, 
                  numClassProblem: int, 
                  classHeaderName: str,
@@ -22,6 +22,79 @@ class ID3Helper:
         self.dropHeaderName = uniqueToDropHeader
         self.ID3DecTreeRoot = Node()
         self.ID3AllDataSets = id3AllDataSets
+        
+        
+    def runID3Algo(self, testDF, trainDF):
+        print('Running ID3 - Univariate')
+        print('Building Tree')
+        self.generateTree(trainDF, self.ID3DecTreeRoot)
+        print('End of ID3 Tree Building')
+        #self.runTestDFThroughTree(testDF)
+        #return self.ID3DecTreeRoot
+        
+    def generateTree(self, currentPartition, currentNode):
+        #Check if the currentPartition only has one Class Label in it
+        #if so return a leaf
+        classCount = currentPartition[self.classHeaderName].value_counts()
+        if(len(classCount) == 1):
+            currentNode.setNodeContent(classCount.index[0])
+            return
+        
+        #Determine the maximum gain ratio feature 
+        maxGRFeatureName = self._determineMaxGainRatioFeature(currentPartition)
+        currentNode.setNodeContent(maxGRFeatureName)
+        featureType = self._getFeatureType(maxGRFeatureName)
+        
+        #Numeric Feature 
+        if (featureType == 'Num'):
+            sortedPartition = currentPartition.sort_values(by=[maxGRFeatureName])
+            sortedPartition['Count Class Change'] = sortedPartition[self.classHeaderName].ne(sortedPartition[self.classHeaderName].shift()).cumsum()
+            sortedPartition['Change Occured'] = sortedPartition['Count Class Change'].diff()
+            sortedPartition['Before Change Occured'] = 0
+            sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+            beforeChangeDF = sortedPartition[sortedPartition['Before Change Occured']==1]
+            possSplitVals = []
+            for rowIdx in range(len(beforeChangeDF)):
+                possSplitVals.append(beforeChangeDF[maxGRFeatureName].values[rowIdx])
+                                        
+            childIdx = 0
+            for splitVal in possSplitVals:
+                stringVal = str(splitVal)
+                pathName = "<=" + stringVal
+                currentNode.addChildNode()
+                currentNode.childNodePathDict[pathName] = childIdx
+                
+                #Want to build a new parition of that data that 
+                #only includes instances where that Feature has the Attribue less  than or equal to
+                #the split value 
+                newPartition = currentPartition[(currentPartition[maxGRFeatureName] <= splitVal)]
+                if(len(newPartition) == 0):
+                    print('WHOA WHOA WHOA')
+                    print('something is not right')
+                newBaseNode = currentNode.getChildNode(childIdx)
+                childIdx = childIdx + 1;
+                print('Debug Break point prior to entering recursive call')
+                self.generateTree(newPartition, newBaseNode)
+                
+                    
+        #Categorical Feature
+        elif(featureType == 'Cat'):
+            #Determine the Range of the Feature 
+            #Pull it's unique attributes
+            featureOptions = currentPartition[maxGRFeatureName].unique()
+            childIdx = 0;
+            for option in featureOptions:
+                currentNode.addChildNode()
+                currentNode.childNodePathDict[option] = childIdx;
+                
+                #Want to build a new parition of that data that 
+                #only includes instances where that Feature has the Attribue
+                newPartition = currentPartition[(currentPartition[maxGRFeatureName] == option)]
+                newBaseNode = currentNode.getChildNode(childIdx)
+                childIdx = childIdx + 1;
+                print('Debug Break point prior to entering recursive call')
+                self.generateTree(newPartition, newBaseNode)
+              
         
     def dropUniqueIDs(self, dataFrame):
         if(self.dropHeaderName != None):
@@ -269,15 +342,6 @@ class ID3Helper:
         featureType = domainTypeDict[featureName]
         return featureType
                     
-    def runID3Algo(self, testDF, trainDF):
-        print('Running ID3 - Univariate')
-        print('Building Tree')
-        self.generateTree(trainDF, self.ID3DecTreeRoot)
-        print('End of ID3 Tree Building')
-        
-        #self.runTestDFThroughTree(testDF)
-        #return self.ID3DecTreeRoot
-      
     def runTestDFThroughTree(self, testDF):
         for rowIdx in range(len(testDF)):
             self.passObservationThroughTree(testDF, rowIdx, self.ID3DecTreeRoot)
@@ -293,71 +357,7 @@ class ID3Helper:
             return 
         
     
-    def generateTree(self, currentPartition, currentNode):
-        #Check if the currentPartition only has one Class Label in it
-        #if so return a leaf
-        classCount = currentPartition[self.classHeaderName].value_counts()
-        if(len(classCount) == 1):
-            currentNode.setNodeContent(classCount.index[0])
-            return
-        
-        #First Time throuhg the tree, the root node is None
-        #Fill in that Root with the max GainRatio Feature from the Data Set 
-        maxGRFeatureName = self._determineMaxGainRatioFeature(currentPartition)
-        currentNode.setNodeContent(maxGRFeatureName)
-        splitType = self._getFeatureType(maxGRFeatureName)
-        
-        #Numeric Split 
-        if (splitType == 'Num'):
-            #TODO: Insert how to split based on this
-            sortedPartition = currentPartition.sort_values(by=[maxGRFeatureName])
-            sortedPartition['Count Class Change'] = sortedPartition[self.classHeaderName].ne(sortedPartition[self.classHeaderName].shift()).cumsum()
-            sortedPartition['Change Occured'] = sortedPartition['Count Class Change'].diff()
-            sortedPartition['Before Change Occured'] = 0
-            sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
-            beforeChangeDF = sortedPartition[sortedPartition['Before Change Occured']==1]
-            possSplitVals = []
-            for rowIdx in range(len(beforeChangeDF)):
-                possSplitVals.append(beforeChangeDF[maxGRFeatureName].values[rowIdx])
-                                        
-            childIdx = 0
-            for splitVal in possSplitVals:
-                stringVal = str(splitVal)
-                pathName = "<=" + stringVal
-                currentNode.addChildNode()
-                currentNode.childNodePathDict[pathName] = childIdx
-                
-                #Want to build a new parition of that data that 
-                #only includes instances where that Feature has the Attribue less  than or equal to
-                #the split value 
-                newPartition = currentPartition[(currentPartition[maxGRFeatureName] <= splitVal)]
-                if(len(newPartition) == 0):
-                    print('WHOA WHOA WHOA')
-                    print('something is not right')
-                newBaseNode = currentNode.getChildNode(childIdx)
-                childIdx = childIdx + 1;
-                print('Debug Break point prior to entering recursive call')
-                self.generateTree(newPartition, newBaseNode)
-                
-                    
-        #Categorical Split
-        elif(splitType == 'Cat'):
-            #Determine the Range of the Feature 
-            #Pull it's unique attributes
-            featureOptions = currentPartition[maxGRFeatureName].unique()
-            childIdx = 0;
-            for option in featureOptions:
-                currentNode.addChildNode()
-                currentNode.childNodePathDict[option] = childIdx;
-                
-                #Want to build a new parition of that data that 
-                #only includes instances where that Feature has the Attribue
-                newPartition = currentPartition[(currentPartition[maxGRFeatureName] == option)]
-                newBaseNode = currentNode.getChildNode(childIdx)
-                childIdx = childIdx + 1;
-                print('Debug Break point prior to entering recursive call')
-                self.generateTree(newPartition, newBaseNode)
-            
+
             
 
 class Node:
