@@ -71,6 +71,7 @@ def defineAllDataSets()->Dict:
     carDtypes = {'Buying': 'str', 'Maint': 'str', 'Lug_Boot': 'str', 'Safety': 'str', 'Car Acceptability': 'str'}
     carMissingValAttributes = None
     carApplyConversionValueAttribues = [('Doors', 5), ('Persons', 5)]
+    carEvalID3Types = {'Buying': 'Cat', 'Maint': 'Cat', 'Doors': 'Num', 'Persons': 'Num', 'Lug_Boot': 'Cat', 'Safety': 'Cat', 'Car Acceptability': 'Cat'}
     
     #Create an Instance of the Data Set Class
     carEvalDS = DataSetHelper.DataSet(carEvalDataSetName,
@@ -80,7 +81,8 @@ def defineAllDataSets()->Dict:
                                       carEvalHeaders,
                                       carDtypes,
                                       carMissingValAttributes,
-                                      carApplyConversionValueAttribues
+                                      carApplyConversionValueAttribues,
+                                      carEvalID3Types
                                       )
     
     #Add to the Overall Data Set Dictonary 
@@ -270,7 +272,10 @@ if __name__ == "__main__":
     #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Tennis', 'Play Tennis', 2, 'Day')
     #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('NumberTennis', 'Play Tennis', 2, 'Day')
     #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Breast Cancer', 'Class', 2, 'Sample Code Number')
-    myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Congressional Vote', 'Class Name', 2, None)
+    
+    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Congressional Vote', 'Class Name', 2, None)
+    
+    myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Car Eval', 'Car Acceptability', 4, None)
     
     #id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)
     

@@ -65,10 +65,10 @@ class ID3Helper:
             obsClassLabel = testDF[self.classHeaderName].values[rowIdx]
             nodeClassLabel = currentNode.getNodeContent()
             if(obsClassLabel == nodeClassLabel):
-                classificationValue = 1
+                classificationWrongValue = 0
             else:
-                classificationValue = 0
-            return classificationValue
+                classificationWrongValue = 1
+            return classificationWrongValue
         
         #Get the feature name stored in the node
         nodeFeature = currentNode.getNodeContent()
@@ -79,8 +79,8 @@ class ID3Helper:
         #Check that the observation key exsits, if not the tree doesn't know about
         #this data type, return a classificaitonValue of zero
         if not(obsVal in currentNode.childNodePathDict):
-            classificationValue = 0
-            return classificationValue
+            classificationWrongValue = 1
+            return classificationWrongValue
         
         #Get the Child Index in Tree based on Observation Value
         childIdx = currentNode.childNodePathDict[obsVal]
@@ -169,7 +169,7 @@ class ID3Helper:
         gainRatio = self._calGainRatioAllFeaturesInCurrentPartition(gainPar, infoValPar)
         
         maxGainRatioFeature = max(gainRatio, key=gainRatio.get)
-        print('Feature with Max Gain Ratio: \t' + maxGainRatioFeature)
+        #print('Feature with Max Gain Ratio: \t' + maxGainRatioFeature)
         return maxGainRatioFeature
    
     def _calcGainAllFeaturesInCurrentParition(self, entropyOfPartition, expectedEntropyAllFeatures: dict):
@@ -188,8 +188,8 @@ class ID3Helper:
             curFeatureGain = gainAllFeatures[featureName]
             curFeatureIV = ivAllFeatures[featureName]
             if(curFeatureIV == 0):
-                print('WARNING encountered divide by zero')
-                print(featureName)
+                #print('WARNING encountered divide by zero')
+                #print(featureName)
                 curGainRatio = 0
             else:
                 curGainRatio = curFeatureGain / curFeatureIV
@@ -224,6 +224,25 @@ class ID3Helper:
                 termOpt2 = ((opt2Count/(opt1Count + opt2Count))* math.log2(opt2Count/(opt1Count + opt2Count)))
             
             entropyI = termOpt1 - termOpt2
+            
+        if(self.numClassProblem == 4):
+            classOptionCounts = runOnDataFrame[self.classHeaderName].value_counts()
+            
+            #Car Eval Dict
+            carEvalClassList = ['unacc', 'acc', 'good', 'vgood']
+            
+            classSum = 0 
+            for classOption in carEvalClassList:
+                classSum = classOptionCounts[classOption] + classSum
+            
+            entropySum = 0 
+            for classOption in carEvalClassList:
+                curClassCount = classOptionCounts[classOption]
+                terms = curClassCount / classSum
+                curClassEnt = terms * math.log2(terms)
+                entropySum = entropySum + curClassEnt
+                
+            entropyI = -1*entropySum
         return entropyI
 
 
@@ -371,7 +390,7 @@ class ID3Helper:
         infoValPar = self._calcInformationValueAllSplits(maxGRFeatureObservations, maxGRFeatureName)
         gainRatio = self._calGainRatioAllSplits(gainPar, infoValPar)
         maxGainRatioSplit = max(gainRatio, key=gainRatio.get)
-        print('Feature with Max Gain Split: \t' + maxGainRatioSplit)
+        #print('Feature with Max Gain Split: \t' + maxGainRatioSplit)
         return float(maxGainRatioSplit)
 
 
