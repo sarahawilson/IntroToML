@@ -1,0 +1,32 @@
+MLPL - Machine Learning Pipeline - ID3 and CART
+FOREST FIRE
+Fold:0
+Running CART - Univariate
+Building Tree
+End of CART Tree Building
+Regression Error:
+565.4062385542168
+Fold:1
+Running CART - Univariate
+Building Tree
+End of CART Tree Building
+Regression Error:
+606.1957614457832
+Fold:2
+Running CART - Univariate
+Building Tree
+End of CART Tree Building
+Regression Error:
+16434.98699397591
+Fold:3
+Running CART - Univariate
+Building Tree
+End of CART Tree Building
+Regression Error:
+729.3447951807229
+Fold:4
+Running CART - Univariate
+Building Tree
+End of CART Tree Building
+Regression Error:
+1146.9989743902443

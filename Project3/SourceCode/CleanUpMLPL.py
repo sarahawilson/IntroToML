@@ -229,6 +229,29 @@ def defineAllDataSets()->Dict:
     #Add to the Overall Data Set Dictonary 
     allDataSetObjects[numTennisDataSetName] = expDeTreeDS2
     
+    
+    ####################
+    # EXAMPLE DT DATA (Regression)
+    ####################
+    #Day, Temp, Humd, Wind, Play Tennis
+    regWinDataSetname = 'SimpleRegression'
+    regWinDataSet_OverallType = 'Regression'
+    regWinDataSet_Predictor = 'Percentage Won'
+    regWinDataSetSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\DTreeExample_Regression.data"
+    
+    expDeTreeDS3 = DataSetHelper.DataSet(regWinDataSetname,
+                                         regWinDataSet_OverallType,
+                                         regWinDataSet_Predictor,
+                                         regWinDataSetSetPath,
+                                         None,
+                                         None,
+                                         None,
+                                         None,
+                                         None)
+    
+    #Add to the Overall Data Set Dictonary 
+    allDataSetObjects[regWinDataSetname] = expDeTreeDS3
+    
     return allDataSetObjects
 
 if __name__ == "__main__":
@@ -239,19 +262,7 @@ if __name__ == "__main__":
     #Set up the KCross Val Helper 
     myKCrossValHelper = KCrossValHelperModule.KCrossValHelper(allDataSets)
     
-    #Set up the ID3 Algo Helper
-#    id3_TennisHelper = ID3HelperModule.ID3Helper(allDataSets['Tennis'].name, 2, 'Play Tennis')
-#    id3_TennisHelper.generateTree(allDataSets['Tennis'].finalData)
-    
-    
-    #TODO: Need to wrap this up such that it happens for each parition 
-#    entPar = id3_TennisHelper._calcPartitionEntropy(allDataSets['Tennis'].finalData)
-#    expEnt = id3_TennisHelper._calcExpectedEntropyAllFeaturesInCurrentParition(allDataSets['Tennis'].finalData)
-#    gainPar = id3_TennisHelper._calcGainAllFeaturesInCurrentParition(entPar, expEnt)
-#    infoValPar = id3_TennisHelper._calcInformationValueAllFeaturesInCurretPartition(allDataSets['Tennis'].finalData)
-#    gainRatio = id3_TennisHelper._calGainRatioAllFeaturesInCurrentPartition(gainPar, infoValPar)
-#    maxGainRatio = max(gainRatio, key=gainRatio.get)
-#    print(maxGainRatio)
+
     
     #https://machinewithdata.com/2018/07/10/how-to-calculate-gain-ratio/
     #https://www.cse.unsw.edu.au/~cs9417ml/DT1/decisiontreealgorithm.html
@@ -259,34 +270,22 @@ if __name__ == "__main__":
     #https://beginningwithml.wordpress.com/2019/01/14/9-2-improving-the-id3-algorithm/
     #https://stats.stackexchange.com/questions/49540/understanding-stratified-cross-validation#:~:text=Stratification%20is%20the%20process%20of,comprises%20around%20half%20the%20instances.
     
-    #TODO: Then also need to pick a way that the one with the max gain raito is the base of the tree
-    #This would be a parition that only has data from One Feature in it. (the feature with max gain)
-    #Also need to figure how when to "stop" the recursive calls when building the tree
-    
-    
-    #Set up the ID3 Algo Helper
-#    id3_TennisHelper = ID3HelperModule.ID3Helper(allDataSets['Tennis'].name, 2, 'Play Tennis', 'Day', allDataSets)
-#    tennisFinalID3Data = id3_TennisHelper.dropUniqueIDs(allDataSets['Tennis'].finalData)
-#    id3_TennisHelper.runID3Algo(tennisFinalID3Data)
-    
+
     #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Tennis', 'Play Tennis', 2, 'Day')
     #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('NumberTennis', 'Play Tennis', 2, 'Day')
+    
     #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Breast Cancer', 'Class', 2, 'Sample Code Number')
     
     #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Congressional Vote', 'Class Name', 2, None)
     
-    myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Car Eval', 'Car Acceptability', 4, None)
+    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Car Eval', 'Car Acceptability', 4, None)
     
-    #id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)
+    myKCrossValHelper.runKFoldCrossVal_CART_Univariate('SimpleRegression', 'Percentage Won')
+    #myKCrossValHelper.runKFoldCrossVal_CART_Univariate('Albalone', 'Rings')
+    #myKCrossValHelper.runKFoldCrossVal_CART_Univariate('Forest Fire', 'area')
+    #myKCrossValHelper.runKFoldCrossVal_CART_Univariate('Computer Hardware', 'PRP')
     
-#    id3_Num_TennisHelper = ID3HelperModule.ID3Helper(allDataSets['NumberTennis'].name, 2, 'Play Tennis', 'Day', allDataSets)
-#    numTennisFinalID3Data = id3_Num_TennisHelper.dropUniqueIDs(allDataSets['NumberTennis'].finalData)
-#    id3_Num_TennisHelper.runID3Algo(numTennisFinalID3Data)
-    
-    
-#    id3_BreastCancerHelper = ID3HelperModule.ID3Helper(allDataSets['Breast Cancer'].name, 2, 'Class', 'Sample Code Number', allDataSets)
-#    bcFinalID3Data = id3_BreastCancerHelper.dropUniqueIDs(allDataSets['Breast Cancer'].finalData)
-#    id3_BreastCancerHelper.runID3Algo(bcFinalID3Data)
+
     
     
     

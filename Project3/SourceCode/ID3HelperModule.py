@@ -233,14 +233,23 @@ class ID3Helper:
             
             classSum = 0 
             for classOption in carEvalClassList:
-                classSum = classOptionCounts[classOption] + classSum
+                if not (classOption in classOptionCounts):
+                    classSum = 0 + classSum
+                else:
+                    classSum = classOptionCounts[classOption] + classSum
             
             entropySum = 0 
             for classOption in carEvalClassList:
-                curClassCount = classOptionCounts[classOption]
+                if not (classOption in classOptionCounts):
+                    curClassCount = 0
+                else:
+                    curClassCount = classOptionCounts[classOption]
                 terms = curClassCount / classSum
-                curClassEnt = terms * math.log2(terms)
-                entropySum = entropySum + curClassEnt
+                if(terms == 0):
+                    entropySum = entropySum + 0
+                else:
+                    curClassEnt = terms * math.log2(terms)
+                    entropySum = entropySum + curClassEnt
                 
             entropyI = -1*entropySum
         return entropyI
@@ -279,8 +288,12 @@ class ID3Helper:
                     curFeatOptionsProb = self._calcProbabilityOnNumOptions(currentPartition, featureName, splitValueList)
                     curFeatOptionsEntropy = self._calcEntropyOnNumOptions(currentPartition, featureName, splitValueList)
                 elif(featureType == 'Cat'):
-                    curFeatOptionsProb = self._calcProbabilityOnCatOptions(currentPartition, featureName)
-                    curFeatOptionsEntropy = self._calcEntropyOnCatOptions(currentPartition, featureName)
+                    if(self.numClassProblem == 2):
+                        curFeatOptionsProb = self._calcProbabilityOnCatOptions(currentPartition, featureName)
+                        curFeatOptionsEntropy = self._calcEntropyOnCatOptions(currentPartition, featureName)
+                    elif(self.numClassProblem == 4):
+                        curFeatOptionsProb = self._calcProbabilityOnCatOptionsMultClass(currentPartition)
+                        curFeatOptionsEntropy = self._calcEntropyOnCatOptions(currentPartition, featureName)
             entropySum = 0 
             for index in range(len(curFeatOptionsProb)):
                 curProb = curFeatOptionsProb[index]
@@ -368,6 +381,25 @@ class ID3Helper:
             probsAllOptionsInCurFeature.append(probibilityOption)   
         return probsAllOptionsInCurFeature
     
+    #Calcualte the Probability on Categorical Options multiple class problem
+    def _calcProbabilityOnCatOptionsMultClass(self, currentPartition):
+        probsAllOptionsInCurFeature = []
+        #Car Eval Dict
+        carEvalClassList = ['unacc', 'acc', 'good', 'vgood']
+        numberObservations = len(currentPartition.index)
+        featureClasses = currentPartition[self.classHeaderName].unique()
+        featureClassCounts = currentPartition[self.classHeaderName].value_counts()
+        classCountSum = 0
+        for classOptCnt in featureClassCounts:
+            classCountSum = classCountSum + classOptCnt
+            
+        #print(featureOptions)
+        for classOpt in featureClasses:
+            classCount = featureClassCounts[classOpt]
+            probibilityClassOpt = classCount / classCountSum
+            probsAllOptionsInCurFeature.append(probibilityClassOpt)   
+        return probsAllOptionsInCurFeature
+    
     #Calculate the Entropy on Categorical Options
     def _calcEntropyOnCatOptions(self, currentPartition, featureName):
         entropyAllOptionsInCurFeature = []
@@ -376,6 +408,18 @@ class ID3Helper:
             optionDF = currentPartition.loc[currentPartition[featureName] == option]
             entropyAllOptionsInCurFeature.append(self._calcEntropy(optionDF))
         return entropyAllOptionsInCurFeature
+    
+    #Calculate the Entropy on Categorical Options
+    def _calcEntropyOnCatOptionsMultClass(self, currentPartition, featureName):
+        entropyAllOptionsInCurFeature = []
+        carEvalClassList = ['unacc', 'acc', 'good', 'vgood']
+        featureOptions = currentPartition[self.classHeaderName].unique()
+        for option in featureOptions:
+            optionDF = currentPartition.loc[currentPartition[self.classHeaderName] == option]
+            entropyAllOptionsInCurFeature.append(self._calcEntropy(optionDF))
+        return entropyAllOptionsInCurFeature
+    
+    
     
 #######################
 # Split Value Max Gain Ratio 

@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import copy
 import ID3HelperModule
+import CARTHelperModule
 
 class KCrossValHelper:
     def __init__(self,
@@ -21,6 +22,7 @@ class KCrossValHelper:
         
         #self._createValidation_TuneAndExperimentSets()
         self.ID3TreeFoldDict = {}
+        self.CARTTreeFoldDict = {}
         
         
     def _createValidation_TuneAndExperimentSets(self, runOn = "AllDataSets"):
@@ -118,78 +120,48 @@ class KCrossValHelper:
             #Clear the Tree for the Next time through
             id3_Helper.clearTree()
     
-    
-    
-    
-    
-    
-    
-    
-    
-#    def runKFoldCrossVal_NormalKNN(self, toRunOnDataSetName: str, kVal, sigmaVal, zStand = False, zStandHeaders = None):
-#        curDataFrameFoldList = self._create_folds(self.allDataSets[toRunOnDataSetName].finalData_ExperimentSet)
-#        curDataFramePredictor = self.allDataSets[toRunOnDataSetName].predictor
-#        curDataFrameTaskType = self.allDataSets[toRunOnDataSetName].taskType
-#        
-#        allFoldRMSError = []
-#        allFoldClassificationError = []
-#        zStandTestTrainDict = {'Train Set': None, 'Test Set': None}
-#        
-#        if(curDataFrameTaskType == 'Regression'):
-#            print('---NORMAL KNN---')
-#            print('Full Exp:')
-#            print('K:' + str(kVal))
-#            print('Sigma:' + str(sigmaVal))
-#            for iFoldIndex in range(self.numFolds):
-#                print('Fold:' + str(iFoldIndex))
-#                loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
-#                testDF = loopDataFrameFoldList.pop(iFoldIndex)
-#                trainDF = pd.concat(loopDataFrameFoldList, axis=0)
-#            
-#                zStandTestTrainDict['Test Set'] = testDF
-#                zStandTestTrainDict['Train Set'] = trainDF
-#            
-#                if(zStand):
-#                    meanStdTuple = self.cal_mean_std(zStandTestTrainDict['Train Set'], zStandHeaders)
-#                    testdf_zStandTrainSet = self.zStanderdize_data(zStandTestTrainDict['Train Set'], meanStdTuple)
-#                    testdf_zStandTestSet = self.zStanderdize_data(zStandTestTrainDict['Test Set'], meanStdTuple)
-#                
-#                    testDF = testdf_zStandTrainSet
-#                    testDF = testdf_zStandTestSet
-#    
-#    
-#                #INSERT RUN NORMAL KNN
-#                (curFoldRMSE, curFoldClassErr) = self.algoHelper.RunNormalKNN(kVal, sigmaVal, testDF, trainDF, curDataFramePredictor, curDataFrameTaskType)
-#                allFoldRMSError.append(curFoldRMSE)
-#    
-#            #Determine the overall Error for the Folds
-#            avgAllFoldError= sum(allFoldRMSError)/(self.numFolds)
-#            print('Average Root Mean Square Error on Fold: \t' + str(avgAllFoldError))
-#            #Reset for next k/sigma Value
-#            allFoldRMSError = []
-#                    
-#                        
-#        if(curDataFrameTaskType == 'Classification'):
-#            print('---NORMAL KNN---')
-#            print('Full Exp:')
-#            print('K:' + str(kVal))
-#            for iFoldIndex in range(self.numFolds):
-#                loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
-#                testDF = loopDataFrameFoldList.pop(iFoldIndex)
-#                trainDF = pd.concat(loopDataFrameFoldList, axis=0)
-#                    
-#                (curFoldRMSE, curFoldClassErr) = self.algoHelper.RunNormalKNN(kVal, None, testDF, trainDF, curDataFramePredictor, curDataFrameTaskType)
-#                allFoldClassificationError.append(curFoldClassErr)
-#                    
-#                    
-#            #Determine the overall Error for the Folds
-#            avgAllFoldError= sum(allFoldClassificationError)/(self.numFolds)
-#            print('Average Classification Error on Fold: \t' + str(avgAllFoldError))
-#            #Reset for next k value
-#            allFoldClassificationError = []    
- 
-    
+    def runKFoldCrossVal_CART_Univariate(self, dataSetName, predictorName, dropLabel = None):
+        cart_Helper = CARTHelperModule.CARTHelper(self.allDataSets[dataSetName].name, predictorName, dropLabel, self.allDataSets)
+            
+        if(dataSetName == 'Albalone'):
+            self.allDataSets[dataSetName].applyOneHotEncoding(['Sex'])
+        elif (dataSetName == 'Forest Fire'):
+            self.allDataSets[dataSetName].applyOneHotEncoding(['month', 'day'])
+            #self.allDataSets[dataSetName].finalData = self.allDataSets[dataSetName].finalData.drop(['month', 'day'], axis =1)
+        elif (dataSetName == 'Computer Hardware'):
+            self.allDataSets[dataSetName].applyOneHotEncoding(['Vendor Name', 'Model Name'])
+            #self.allDataSets[dataSetName].finalData = self.allDataSets[dataSetName].finalData.drop(['month', 'day'], axis =1)
+            
+        if(dropLabel != None):
+            finalCARTData = cart_Helper.dropUniqueIDs(self.allDataSets[dataSetName].finalData)
+        else:
+            finalCARTData = self.allDataSets[dataSetName].finalData
         
+        #Sanity Check on Tree Building - For Simple Data Sets
+        #self.ID3Tree = id3_Helper.runID3Algo(None, finalID3Data)
+        
+        self._createValidation_TuneAndExperimentSetsAfterDropUnique(dataSetName, finalCARTData)
+        
+        curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_ExperimentSet)
+        
+        for iFoldIndex in range(self.numFolds):
+            print('Fold:' + str(iFoldIndex))
+            loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+            testDF = loopDataFrameFoldList.pop(iFoldIndex)
+            trainDF = pd.concat(loopDataFrameFoldList, axis=0)    
+            
+            curFoldID3Tree = cart_Helper.runCARTAlgo(testDF, trainDF)
+            foldName = 'Fold' + str(iFoldIndex)
+            self.CARTTreeFoldDict[foldName] = curFoldID3Tree
+            #Clear the Tree for the Next time through
+            cart_Helper.clearTree()
+    
+    
+    
+    
+    
+    
+    
     
     
     
