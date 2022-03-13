@@ -20,7 +20,7 @@ class CARTHelper:
         self.dropHeaderName = uniqueToDropHeader
         self.CARTDecTreeRoot = Node()
         self.CARTAllDataSets = cartAllDataSets
-        self.epsilon = 10
+        self.epsilon = 0.01
         
     def dropUniqueIDs(self, dataFrame):
         if(self.dropHeaderName != None):

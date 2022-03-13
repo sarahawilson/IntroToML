@@ -115,6 +115,8 @@ class KCrossValHelper:
             trainDF = pd.concat(loopDataFrameFoldList, axis=0)    
             
             curFoldID3Tree = id3_Helper.runID3Algo(testDF, trainDF)
+            
+            
             foldName = 'Fold' + str(iFoldIndex)
             self.ID3TreeFoldDict[foldName] = curFoldID3Tree
             #Clear the Tree for the Next time through

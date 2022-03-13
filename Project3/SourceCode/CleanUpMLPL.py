@@ -280,10 +280,15 @@ if __name__ == "__main__":
     
     #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Car Eval', 'Car Acceptability', 4, None)
     
-    myKCrossValHelper.runKFoldCrossVal_CART_Univariate('SimpleRegression', 'Percentage Won')
+    #myKCrossValHelper.runKFoldCrossVal_CART_Univariate('SimpleRegression', 'Percentage Won')
     #myKCrossValHelper.runKFoldCrossVal_CART_Univariate('Albalone', 'Rings')
     #myKCrossValHelper.runKFoldCrossVal_CART_Univariate('Forest Fire', 'area')
     #myKCrossValHelper.runKFoldCrossVal_CART_Univariate('Computer Hardware', 'PRP')
+    
+
+    #Video Section
+    myKCrossValHelper.runKFoldCrossVal_CART_Univariate('SimpleRegression', 'Percentage Won')
+    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Tennis', 'Play Tennis', 2, 'Day')
     
 
     

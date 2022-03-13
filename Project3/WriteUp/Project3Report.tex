@@ -44,8 +44,6 @@
 
 \hspace*{5mm} The hypothesis of this report is that for the both the classification and regression tasks the trees that are error pruned or early stopped will perform better than trees that are grown uni-variate to completion. The hypothesis assumes that trees grown to full completion will exhibit over fitting to the data. Over-fitting is where in a learning system the model has been so tightly fit to the training data, that results on new un-trained data are highly inaccurate. The hypothesis assumes that in allowing the trees to grow to full completion of nodes that additional patterns may be learned in the training data that might not apply to new data feed into the algorithm. The results from experiments ran on the provided data sets will be discussed and presented against the outlined hypothesis.\\
 
-INSERT WHY YOU THINK THIS FOR HYPOTHESIS.\\
-
 \hspace*{5mm} Section 1 has provided the introduction, problem statement and hypothesis in regards to two major decision tree algorithms that will be explored.. Section 2 will provide an in-depth explanation of the ID3 and CART algorithms, how these algorithms will be modified during the early stopping and error pruning processes and discuss each of the 6 data sets used. Section 3 will present the results obtained by variations of ID3 and CART as uni-variate, early stopping and error pruning implementations on the provided data sets. Section 4 will discuss the results that were obtained and compare them to the hypothesis that was outlined in the introduction. This report will conclude in Section 5 with a discussion of lessons learned and areas of possible future work.\\
 
 
@@ -181,8 +179,8 @@ Link: \newline
 \newpage
 
 \section{Results}
-Tables 1-9 display the results from Classification Tasks: the Breast Cancer, Car Evaluation and Congressional Vote data sets while running Normal KNN, Edited KNN and Condensed KNN. These tables show the results from the train set and the test set during each fold of the \textit{k}-fold validation process. The results of the tuning process were omitted from this report for brevity but can be found in the project submission, under Results Output. Each KNN variation was run using the optimal values as determined by the parameter tuning. Discussion of the tuning process will occur in the discussion section. The error used is classification error and can be described as the Number of Times Prediction was Wrong / Total Number of Comparisons. This error was averaged across the 5 folds to provide the Average Classification Error against each data set.\\
-Tables 10-18 display the results from the Regression Tasks: the Albalone, Computer Hardware and Forest Fire data sets. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process.The results of the tuning process were omitted from this report for brevity but can be found in the project submission, under Results Output. Each KNN variation was run using the optimal values as determined by the parameter tuning. Discussion of the tuning process will occur in the discussion section. The error used is Root Mean Square Error. Root Mean Squared Error was used, since it provides how far off a measurement was in the units of the measurement that was taken. The higher the Root Mean Squared Error, the worse the prediction was to the actual value. Low Root Mean Squared Error is the objective.\newline
+Tables 1-3 display the results from Classification Tasks: the Breast Cancer, Car Evaluation and Congressional Vote data sets while running a full uni-variate tree and reduced error pruning. The number of nodes to prune was determined using the tuning process that was discussed earlier. These tables show the results from the train set and the test set during each fold of the \textit{k}-fold validation process. The results of each iteration of the tuning process were omitted from this report for brevity. The error used is Classification error and can be described as the Number of Times the Prediction was Wrong / Total Number of Comparisons. This error was averaged across the 5 folds to provide the Average Classification Error against each data set.\\
+Tables 4-6 display the results from the Regression Tasks: the Albalone, Computer Hardware and Forest Fire data sets while running a full uni-variate tree and early stopping. The value $\epsilon$ used in the early stopping was determined using the tuning process for regression that was discussed earlier. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process.The results of the tuning process were omitted from this report for brevity.The error used is  Mean Square Error. INSERT DECRIPTION OF MSE!!!!!!!\newline
 
 \begin{table}[h]
 		\centering
@@ -209,21 +207,21 @@ Tables 10-18 display the results from the Regression Tasks: the Albalone, Comput
 	\centering
 	\caption{Albalone: CART - Experimental Results}
 	\label{tab:table4}
-	%\includegraphics[scale=.7]{ABL_ALL_Results}\newline
+	\includegraphics[scale=.7]{Albalone_Results}\newline
 \end{table}
 
 \begin{table}[h]
 	\centering
 	\caption{Computer Hardware: CART - Experimental Results}
 	\label{tab:tale5}
-	%\includegraphics[scale=.7]{CH_ALL_Results}\newline
+	\includegraphics[scale=.7]{CompHardware_Results}\newline
 \end{table}
 
 \begin{table}[h]
 	\centering
 	\caption{Forest Fires: CART - Experimental Results}
 	\label{tab:table6}
-	%\includegraphics[scale=.7]{FF_ALL_Results}\newline
+	\includegraphics[scale=.7]{ForestFire_Results}\newline
 \end{table}
 
 
@@ -231,8 +229,9 @@ Tables 10-18 display the results from the Regression Tasks: the Albalone, Comput
 \newpage
 
 \section{Discussion}
-\hspace*{10mm} 
-
+\hspace*{10mm} The hypothesis that was presented at the start of this report for the both the classification and regression tasks the trees that are error pruned or early stopped will perform better than trees that are grown uni-variate to completion.\\
+\hspace*{10mm} Looking at the classification data sets\\
+\hspace*{10mm} Looking at the Regression data sets, the values of $\epsilon$ that were evaluated were 0, 0.01, 0.1, 1, 10. During the tuning process it was determined that 10 was the optimal value to use for $\epsilon$ and it was observed that there was not large difference between the results obtained for $\epsilon$ values such as 0, 0.01, 0.1, 1. One reason for this might that due to range of possible values for the prediction value in the regression data sets, a large $\epsilon$ makes a larger impact as it allows for the account of outliers in the data. The Albalone data set was the only one that had measurable improvement, with an Average MSE dropping from 12.5 to 10.2 between the uni-variate tree and the early stopped tree. The Forest Fire and Computer Hardware data sets, did not see measurable improvements between the uni-variate tree and the early stopped tree. The Albalone data set did not include multiple features that needed to be one hot encoded, Sex was the only attributes and it only provided 3 options to one hot encode. The Forest Fire and Computer Hardware data sets on the other hand had multiple attributes that were one hot encoded, and each of those attributes had multiple options that were derived because of this one hot encoding. It is possible that one hot encoding this data was the wrong approach, and alternative methods should have been used, such as dropping those attributes completely. Since one hot encoding offers only 0 or 1 for the options the splits that will be generated when performing the regression might be highly skewed towards on particular branch as the data is classified through the regression tree.\\
 \section{Conclusion}
 \hspace*{10mm} 
 

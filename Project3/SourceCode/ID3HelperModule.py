@@ -21,7 +21,9 @@ class ID3Helper:
         self.dataSetName = dataSetName
         self.dropHeaderName = uniqueToDropHeader
         self.ID3DecTreeRoot = Node()
+        self.prunedID3DecTreeRoot = Node()
         self.ID3AllDataSets = id3AllDataSets
+        self.numNodesToPrune = 5
         
     def dropUniqueIDs(self, dataFrame):
         if(self.dropHeaderName != None):
@@ -88,7 +90,6 @@ class ID3Helper:
         classificationValue = self.runTestDFThroughTree(testDF, nextNode, rowIdx)
         return classificationValue
 
-        
 
     def generateTree(self, currentPartition, currentNode):
         #Check if the currentPartition only has one Class Label in it
