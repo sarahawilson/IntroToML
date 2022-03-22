@@ -1,0 +1,2 @@
+https://machinelearningmastery.com/logistic-regression-with-maximum-likelihood-estimation/
+https://machinelearningmastery.com/implement-logistic-regression-stochastic-gradient-descent-scratch-python/
