@@ -88,16 +88,16 @@ class KCrossValHelper:
         
         print('---TUNE LINEAR REGRESSION---')
         print('Tuning N On: ' + dataSetName)
-            for nVal in nVals:
-                print('N:' + str(nVal))
-                for sigmaVal in sigmaVals:
-                    print('Sigma:' + str(sigmaVal))
-                    for iFoldIndex in range(self.numFolds):
-                        print('Fold:' + str(iFoldIndex))
-                        loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
-                        testDF = loopDataFrameFoldList.pop(iFoldIndex)
-                        trainDF = pd.concat(loopDataFrameFoldList, axis=0)
-                        linRegHelper.runLinearRegression(testDF, trainDF, nVal)
+        for nVal in nVals:
+            print('N:' + str(nVal))
+            for sigmaVal in sigmaVals:
+                print('Sigma:' + str(sigmaVal))
+                for iFoldIndex in range(self.numFolds):
+                    print('Fold:' + str(iFoldIndex))
+                    loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+                    testDF = loopDataFrameFoldList.pop(iFoldIndex)
+                    trainDF = pd.concat(loopDataFrameFoldList, axis=0)
+                    linRegHelper.runLinearRegression(testDF, trainDF, nVal)
             
 
             
