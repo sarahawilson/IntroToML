@@ -79,7 +79,7 @@ class KCrossValHelper:
         return zStand      
     
     
-    def runKFoldCrossVal_Linear_Regression_Tune(self, dataSetName: str, nVals: list, sigmaVals: list):
+    def runKFoldCrossVal_Linear_Regression_Tune(self, dataSetName: str, nVals: list, epVals: list):
         #Runs the Linear Regression algorithm using 5 fold cross validation
         
         linRegHelper = LinearRegHelperModule.LinearRegHelper(self.allDataSets[dataSetName])
@@ -87,35 +87,41 @@ class KCrossValHelper:
         curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_Validation20PercentSet)
         
         print('---TUNE LINEAR REGRESSION---')
-        print('Tuning N On: ' + dataSetName)
+        print('Tuning Learning Factor (N) On: ' + dataSetName)
+        print('Tuning Convergence Factor (EP) On: ' + dataSetName)
         for nVal in nVals:
             print('N:' + str(nVal))
-            for sigmaVal in sigmaVals:
-                print('Sigma:' + str(sigmaVal))
+            for epVal in epVals:
+                print('EP:' + str(epVal))
                 for iFoldIndex in range(self.numFolds):
                     print('Fold:' + str(iFoldIndex))
                     loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
                     testDF = loopDataFrameFoldList.pop(iFoldIndex)
                     trainDF = pd.concat(loopDataFrameFoldList, axis=0)
-                    linRegHelper.runLinearRegression(testDF, trainDF, nVal)
+                    linRegHelper.runLinearRegression(testDF, trainDF, nVal, epVal)
             
 
             
-    def runKFoldCrossVal_Linear_Regression(self, dataSetName):
-        #Runs the Linear Regression algorithm using 5 fold cross validation
+    def runKFoldCrossVal_Linear_Regression(self, dataSetName, nVal, epVal):
+        #Runs the Linear Regression algorithm using 5 fold cross validation after the 
+        #Tuning process has occured
         
         linRegHelper = LinearRegHelperModule.LinearRegHelper(self.allDataSets[dataSetName])
         
-
         curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_ExperimentSet)
+        
+        print('---LINEAR REGRESSION---')
+        print('DataSet: ' + dataSetName)
+        print('Learning Factor (N): ' + nVal)
+        print('Convergence Factor (EP): ' + epVal)
         
         for iFoldIndex in range(self.numFolds):
             print('Fold:' + str(iFoldIndex))
             loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
             testDF = loopDataFrameFoldList.pop(iFoldIndex)
-            trainDF = pd.concat(loopDataFrameFoldList, axis=0)    
+            trainDF = pd.concat(loopDataFrameFoldList, axis=0)   
+            linRegHelper.runLinearRegression(testDF, trainDF, nVal, epVal)
             
-            foldName = 'Fold' + str(iFoldIndex)
 
 
         

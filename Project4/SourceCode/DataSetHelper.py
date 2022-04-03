@@ -108,7 +108,8 @@ class DataSet:
                             oneHotAttributes: List = None):
         
         if(oneHotAttributes != None):
-            self.finalData = pd.get_dummies(self.finalData, columns = oneHotAttributes)
+            self.finalData = pd.get_dummies(self.finalData, columns = oneHotAttributes,  dtype=int)
+            
             
             
             
@@ -128,6 +129,7 @@ def ConvertDataSetsToNumeric(allDataSets: Dict):
                                   'Maint': {'vhigh': 4, 'high': 3, 'med': 2, 'low': 1},
                                   'Lug_Boot': {'big': 3, 'med': 2, 'small': 1},
                                   'Safety': {'high': 3, 'med': 2, 'low': 1}
+                                  #'Car Acceptability': {'vgood': 4, 'good': 3, 'acc': 2, 'unacc': 1}
                                   }
         
         
@@ -171,4 +173,52 @@ def ConvertDataSetsToNumeric(allDataSets: Dict):
                 allDataSets[dataSetName].finalData.replace(to_replace=curOrdTuple[1], inplace = True)    
                 
     return allDataSets
+
+
+def NormailzeDataSets(allDataSets: Dict):
+    #Loop over all the data sets
+    #scale the data between 1 and 0
+    for dataSetName in allDataSets:
+        newFinalData = allDataSets[dataSetName].finalData.copy(deep=True)
+        for featureName in allDataSets[dataSetName].finalData:
+            #Skip the Classifier 
+            if(featureName == allDataSets[dataSetName].predictor):
+                continue
+            maxColVal = allDataSets[dataSetName].finalData[featureName].max()
+            minColVal = allDataSets[dataSetName].finalData[featureName].min()
+            divZeroCheck = (maxColVal - minColVal)
+            if (divZeroCheck == 0):
+                print('Division by Zero Encountered!')
+            else:
+                newFinalData[featureName] = (allDataSets[dataSetName].finalData[featureName] - minColVal) / (maxColVal - minColVal)
+                
+        allDataSets[dataSetName].finalData = newFinalData
+        
+    return allDataSets
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
             

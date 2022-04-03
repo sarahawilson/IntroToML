@@ -236,15 +236,15 @@ if __name__ == "__main__":
     carEval_N = 0
     carEval_EP = 0
     
-    #Linear Regression - Regression Problems TUNING
-    myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Computer Hardware', learningRateN, convergeFactorEP)
-    myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Albalone', learningRateN, convergeFactorEP)
-    myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Forest Fire', learningRateN, convergeFactorEP)
+    #Linear Regression - Regression Problems Post Tune
+    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Computer Hardware', compHW_N, compHW_EP)
+    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Albalone', albalone_N, albalone_EP)
+    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Forest Fire', forestFire_N, forestFie_EP)
     
-    #Linear Regression - Classification Problems TUNING
-    myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Congressional Vote', learningRateN, convergeFactorEP)
-    myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Car Eval', learningRateN, convergeFactorEP)
-    myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Breast Cancer', learningRateN, convergeFactorEP)
+    #Linear Regression - Classification Problems Post Tune
+    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Congressional Vote', congVote_N, congVote_EP)
+    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Car Eval', carEval_N, carEval_EP)
+    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Breast Cancer', bc_N, bc_EP)
     
     
 
