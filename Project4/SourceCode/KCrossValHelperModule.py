@@ -18,6 +18,7 @@ class KCrossValHelper:
         self.name = 'KCrossVal'
         self.numFolds = 5
         self.allDataSets = allDataSets
+        self._createValidation_TuneAndExperimentSets()
                 
         
     def _createValidation_TuneAndExperimentSets(self, runOn = "AllDataSets"):
@@ -98,7 +99,7 @@ class KCrossValHelper:
                     loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
                     testDF = loopDataFrameFoldList.pop(iFoldIndex)
                     trainDF = pd.concat(loopDataFrameFoldList, axis=0)
-                    linRegHelper.runLinearRegression(testDF, trainDF, nVal, epVal)
+                    linRegHelper.reportError_LinearReg(testDF, trainDF, nVal, epVal)
             
 
             
