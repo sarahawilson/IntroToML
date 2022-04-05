@@ -9,23 +9,47 @@ import random
 import math
 
 class LinearRegHelper:
-    def __init__(self, dataSet):
+    def __init__(self, dataSet, numClassProblem, classA, classB):
         self.name = "Linear Regression Helper"
         self.dataSetName = dataSet.name
         self.dataSet = dataSet
         self.predictor = dataSet.predictor
         self.probType = dataSet.taskType
+        self.numClassProb = numClassProblem
+        self.zeroToPntFive = classA
+        self.abovePntFive = classB
         
     
     def reportError_LinearReg(self, testDF, trainDF, N_VAL, EP_VAL):
-        linRegPredicitions = self.runLinearRegression(testDF, trainDF, N_VAL, EP_VAL)
+        linReg_Test_Set_Predicitions = self.runLinearRegression(testDF, trainDF, N_VAL, EP_VAL)
+        print(linReg_Test_Set_Predicitions)
+        
+        #Get the Actual Predictions
+        actual_Test_Set_Values = testDF[self.predictor].tolist()
         
         if (self.probType == 'Regression'):
-            test = 0 
-        elif (self.probType == 'Classificaiton'):
-            test = 0
+            precentCorrect = 0 
             
-        
+        elif (self.probType == 'Classification'):
+            numCorrect = 0
+            for predictionIdx in range(len(linReg_Test_Set_Predicitions)):
+                cur_algo_pred = linReg_Test_Set_Predicitions[predictionIdx]
+                cur_act_class = actual_Test_Set_Values[predictionIdx]
+                
+                if(cur_algo_pred > 0.5):
+                    cur_algo_pred_class = self.abovePntFive
+                else:
+                    cur_algo_pred_class = self.zeroToPntFive
+                    
+                if(cur_algo_pred_class == cur_act_class):
+                    numCorrect = numCorrect + 1
+                    
+            precentCorrect = numCorrect / (len(linReg_Test_Set_Predicitions))
+            
+        return precentCorrect
+                    
+                    
+    
     
     def runLinearRegression(self, testDF, trainDF, N_VAL, EP_VAL):
         #Run Linear Regression
@@ -36,7 +60,8 @@ class LinearRegHelper:
         predictions_On_TestSet = []
 
         #Determine the Weights
-        weights_Vector = self.determine_weights(trainDF, N_VAL, EP_VAL)
+        Weights_J_Vector = self.determine_weights(trainDF, N_VAL, EP_VAL)
+        print(Weights_J_Vector)
         
         #Leverage the Test Set now
         #Drop the Predictor from the testDF
@@ -49,7 +74,7 @@ class LinearRegHelper:
             X_j_Vector = curObservation.to_numpy()
             X_j_Vector = X_j_Vector[0]
             
-            prediction = self._calcRegPrediction(X_j_Vector, weights_Vector)
+            prediction = self._calcRegPrediction(X_j_Vector, Weights_J_Vector)
             predictions_On_TestSet.append(prediction)
         return predictions_On_TestSet
             
@@ -86,18 +111,31 @@ class LinearRegHelper:
                 #Take the Sigmod of O_VAL to get the Predicted Value Y_VAL
                 Y_Val = 1 / (1 + math.exp(-1*O_Val))
                 
+                #Convert the Y_Val to be a Class Label
+                if(Y_Val > 0.5):
+                    Y_Val_Predictor = self.abovePntFive
+                else:
+                    Y_Val_Predictor = self.zeroToPntFive
+                    
+                    
                 #Get the Current Observation Predictor
                 curObservationPredictor = trainDF[self.predictor].values[observationIDx]
                 
                 #Calculate the Error between predicted and actual
-                error = (curObservationPredictor - Y_Val)
+                if(self.probType == 'Classification'):
+                    if(curObservationPredictor == Y_Val_Predictor):
+                        error = 0
+                    elif(curObservationPredictor != Y_Val_Predictor):
+                        error = 1 
                
                 #Update the Bias
                 W_j_Vector[0] = W_j_Vector[0] + (N_VAL * error)
+                #Set the Bias always to one maybe??
+                #W_j_Vector[0] = 1
                
                 #Update the Other Weights based on the error
                 for colIdx in range(numberOfColumns):
-                    W_j_Vector[colIdx + 1] = W_j_Vector[colIdx + 1] + (N_VAL * error * curObservation)
+                    W_j_Vector[colIdx + 1] = W_j_Vector[colIdx + 1] + (N_VAL * error * X_j_Vector[colIdx])
         
         return W_j_Vector      
         
@@ -107,6 +145,19 @@ class LinearRegHelper:
         for colIdx in range(numberOfColumns):
             O_VAL = O_VAL + (W_j_Vector[colIdx+1] * X_j_Vector[colIdx])
         return O_VAL 
+    
+    def _calcRegPrediction(self, X_j_Vector, W_j_Vector):
+        curPrediction = W_j_Vector[0] 
+        #curPrediction = 0 #When bias is always set to one 
+        for colIdx in range(len(X_j_Vector)):
+            curPrediction = curPrediction + (W_j_Vector[colIdx +1] * X_j_Vector[colIdx])
+        
+        #Apply the Sigmoid Function
+        sigmoidPrediction = 1 / (1 + math.exp(-1*curPrediction))
+        print(sigmoidPrediction)
+        
+        
+        return sigmoidPrediction
    
         
         

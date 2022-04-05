@@ -80,10 +80,10 @@ class KCrossValHelper:
         return zStand      
     
     
-    def runKFoldCrossVal_Linear_Regression_Tune(self, dataSetName: str, nVals: list, epVals: list):
+    def runKFoldCrossVal_Linear_Regression_Tune(self, dataSetName: str, nVals: list, epVals: list, numClassProblem, classA, classB):
         #Runs the Linear Regression algorithm using 5 fold cross validation
         
-        linRegHelper = LinearRegHelperModule.LinearRegHelper(self.allDataSets[dataSetName])
+        linRegHelper = LinearRegHelperModule.LinearRegHelper(self.allDataSets[dataSetName],numClassProblem, classA, classB)
         
         curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_Validation20PercentSet)
         
@@ -94,12 +94,23 @@ class KCrossValHelper:
             print('N:' + str(nVal))
             for epVal in epVals:
                 print('EP:' + str(epVal))
+                curFoldResultList = []
                 for iFoldIndex in range(self.numFolds):
                     print('Fold:' + str(iFoldIndex))
                     loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
                     testDF = loopDataFrameFoldList.pop(iFoldIndex)
                     trainDF = pd.concat(loopDataFrameFoldList, axis=0)
-                    linRegHelper.reportError_LinearReg(testDF, trainDF, nVal, epVal)
+                    error = linRegHelper.reportError_LinearReg(testDF, trainDF, nVal, epVal)
+                    curFoldResultList.append(error)
+                    print('\t Fold Results:' + str(error))
+                
+                #Calcaulte the Average Across the Folds
+                curSum = 0
+                for res in curFoldResultList:
+                    curSum = curSum + res
+                resultAvg = curSum / self.numFolds
+                print('Folds Average:' + str(resultAvg))
+                
             
 
             

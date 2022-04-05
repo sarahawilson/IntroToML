@@ -204,8 +204,8 @@ if __name__ == "__main__":
     myKCrossValHelper = KCrossValHelperModule.KCrossValHelper(allDataSets)
     
     ##TUNING!!!!!
-    learningRateN = [0.01, 0.1, 1, 10]
-    convergeFactorEP = [10, 50, 100, 150]
+    learningRateN = [0.001]
+    convergeFactorEP = [10]
     
     #Linear Regression - Regression Problems TUNING
 #    myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Computer Hardware', learningRateN, convergeFactorEP)
@@ -213,9 +213,9 @@ if __name__ == "__main__":
 #    myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Forest Fire', learningRateN, convergeFactorEP)
     
     #Linear Regression - Classification Problems TUNING
-    myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Congressional Vote', learningRateN, convergeFactorEP)
+    #myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Congressional Vote', learningRateN, convergeFactorEP, 2, 'republican', 'democrat')
 #    myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Car Eval', learningRateN, convergeFactorEP)
-#    myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Breast Cancer', learningRateN, convergeFactorEP)
+    myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Breast Cancer', learningRateN, convergeFactorEP, 2, 2, 4)
     
 #    #Optimal Values Gathered from the Tuning
 #    compHW_N = 0
