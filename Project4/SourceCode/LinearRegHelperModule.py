@@ -22,13 +22,24 @@ class LinearRegHelper:
     
     def reportError_LinearReg(self, testDF, trainDF, N_VAL, EP_VAL):
         linReg_Test_Set_Predicitions = self.runLinearRegression(testDF, trainDF, N_VAL, EP_VAL)
-        print(linReg_Test_Set_Predicitions)
+        #print(linReg_Test_Set_Predicitions)
+        
         
         #Get the Actual Predictions
         actual_Test_Set_Values = testDF[self.predictor].tolist()
+        #print(actual_Test_Set_Values)
         
         if (self.probType == 'Regression'):
             precentCorrect = 0 
+            sumDiffsSqrd = 0
+            for predictionIdx in range(len(linReg_Test_Set_Predicitions)):
+                cur_algo_pred = linReg_Test_Set_Predicitions[predictionIdx]
+                cur_act_class = actual_Test_Set_Values[predictionIdx]
+                
+                difSqred = (cur_act_class - cur_algo_pred)**2
+                sumDiffsSqrd = sumDiffsSqrd + difSqred
+            
+            precentCorrect = sumDiffsSqrd / (len(linReg_Test_Set_Predicitions))
             
         elif (self.probType == 'Classification'):
             numCorrect = 0
@@ -61,7 +72,7 @@ class LinearRegHelper:
 
         #Determine the Weights
         Weights_J_Vector = self.determine_weights(trainDF, N_VAL, EP_VAL)
-        print(Weights_J_Vector)
+        #print(Weights_J_Vector)
         
         #Leverage the Test Set now
         #Drop the Predictor from the testDF
@@ -108,14 +119,18 @@ class LinearRegHelper:
                 #Get the Weighted Sum of this Row (O_VAL)
                 O_Val = self._calcWeightSumRow_OVAL(numberOfColumns, W_j_Vector, X_j_Vector)
                 
-                #Take the Sigmod of O_VAL to get the Predicted Value Y_VAL
-                Y_Val = 1 / (1 + math.exp(-1*O_Val))
+                if(self.probType == 'Classification'):
+                    #Take the Sigmod of O_VAL to get the Predicted Value Y_VAL
+                    Y_Val = 1 / (1 + math.exp(-1*O_Val))
                 
-                #Convert the Y_Val to be a Class Label
-                if(Y_Val > 0.5):
-                    Y_Val_Predictor = self.abovePntFive
-                else:
-                    Y_Val_Predictor = self.zeroToPntFive
+                    #Convert the Y_Val to be a Class Label
+                    if(Y_Val > 0.5):
+                        Y_Val_Predictor = self.abovePntFive
+                    else:
+                        Y_Val_Predictor = self.zeroToPntFive
+                        
+                elif(self.probType == 'Regression'):
+                    Y_Val_Predictor = O_Val
                     
                     
                 #Get the Current Observation Predictor
@@ -127,6 +142,9 @@ class LinearRegHelper:
                         error = 0
                     elif(curObservationPredictor != Y_Val_Predictor):
                         error = 1 
+                        
+                elif(self.probType == 'Regression'):
+                    error = (curObservationPredictor - Y_Val_Predictor)
                
                 #Update the Bias
                 W_j_Vector[0] = W_j_Vector[0] + (N_VAL * error)
@@ -152,12 +170,16 @@ class LinearRegHelper:
         for colIdx in range(len(X_j_Vector)):
             curPrediction = curPrediction + (W_j_Vector[colIdx +1] * X_j_Vector[colIdx])
         
-        #Apply the Sigmoid Function
-        sigmoidPrediction = 1 / (1 + math.exp(-1*curPrediction))
-        print(sigmoidPrediction)
+        if(self.probType == 'Classification'):
+            #Apply the Sigmoid Function
+            sigmoidPrediction = 1 / (1 + math.exp(-1*curPrediction))
+            madePrediction = sigmoidPrediction
+            #print(sigmoidPrediction)
+        elif(self.probType == 'Regression'):
+            madePrediction = curPrediction
         
         
-        return sigmoidPrediction
+        return madePrediction
    
         
         

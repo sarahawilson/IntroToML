@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import copy
 import LinearRegHelperModule
+import LinearRegHelperModule_REWRITE
 
 class KCrossValHelper:
     def __init__(self,
@@ -79,6 +80,37 @@ class KCrossValHelper:
         zStand = (inputDataVaule - mean)/std;
         return zStand      
     
+    def DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune(self, dataSetName: str, nVals: list, epVals: list, numClassProblem, classA, classB):
+        #Runs the Linear Regression algorithm using 5 fold cross validation
+        
+        linRegHelper = LinearRegHelperModule_REWRITE.LinearRegHelper_REWRITE(self.allDataSets[dataSetName],numClassProblem, classA, classB)
+        
+        curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_Validation20PercentSet)
+        
+        print('---TUNE LINEAR REGRESSION---')
+        print('Tuning Learning Factor (N) On: ' + dataSetName)
+        print('Tuning Convergence Factor (EP) On: ' + dataSetName)
+        for nVal in nVals:
+            print('N:' + str(nVal))
+            for epVal in epVals:
+                print('EP:' + str(epVal))
+                curFoldResultList = []
+                for iFoldIndex in range(self.numFolds):
+                    print('Fold:' + str(iFoldIndex))
+                    loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+                    testDF = loopDataFrameFoldList.pop(iFoldIndex)
+                    trainDF = pd.concat(loopDataFrameFoldList, axis=0)
+                    error = linRegHelper.deadSimple_LinReg(testDF, trainDF, nVal, epVal)
+                    curFoldResultList.append(error)
+                    print('\t Fold Results:' + str(error))
+                
+                #Calcaulte the Average Across the Folds
+                curSum = 0
+                for res in curFoldResultList:
+                    curSum = curSum + res
+                resultAvg = curSum / self.numFolds
+                print('Folds Average:' + str(resultAvg))
+
     
     def runKFoldCrossVal_Linear_Regression_Tune(self, dataSetName: str, nVals: list, epVals: list, numClassProblem, classA, classB):
         #Runs the Linear Regression algorithm using 5 fold cross validation
