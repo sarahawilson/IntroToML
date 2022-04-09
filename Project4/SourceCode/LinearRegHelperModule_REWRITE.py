@@ -41,8 +41,21 @@ class LinearRegHelper_REWRITE:
         #Convert the List to a Numpy Array
         W_j_Vector = np.array(weightList, dtype=np.float)
         
+        #Seed the Inital Delta Weight Values (delta_w_j)
+        deltaWeightList = []
+        for featureIdx in range(numberOfColumns):
+            curDelta_Weight_J = 0
+            deltaWeightList.append(curDelta_Weight_J)
+            
+        #Convert the List to a Numpy Array
+        Delta_W_j_Vector = np.array(deltaWeightList, dtype=np.float)
+        
         biasTerm = 0 
         
+        delta_bais = 0
+        
+        #Init to zero and have be as big as dims
+        #detla_W_J_Vector = np.array()
         #Let the Weights Update Until they Converge
         for curEP in range(EP_VAL):
             for observationIDx in range(numberOfObservations):
@@ -54,7 +67,7 @@ class LinearRegHelper_REWRITE:
                 #Get the Actual Classifier
                 actual_Y_Class = trainDF[self.predictor].values[observationIDx]
                 if (self.probType == 'Regression'):
-                    test = 0
+                    actual_Y_Val = actual_Y_Class
                     
                 elif (self.probType == 'Classification'):
                     if(actual_Y_Class == self.zeroClass):
@@ -63,20 +76,28 @@ class LinearRegHelper_REWRITE:
                         actual_Y_Val = 1
                             
                 
-            o_val = np.dot(W_j_Vector, X_j_Vector) + biasTerm
+                o_val = np.dot(W_j_Vector, X_j_Vector) + biasTerm
             
-            if (self.probType == 'Regression'):
-                prediction_Y_Val = 0
+                if (self.probType == 'Regression'):
+                    prediction_Y_Val = o_val
         
-            elif (self.probType == 'Classification'):
-                prediction_Y_Val = 1 / (1 + np.exp(-1*o_val))
+                elif (self.probType == 'Classification'):
+                    prediction_Y_Val = 1 / (1 + np.exp(-1*o_val))
                 
             
-            deltaPredictionToActual = prediction_Y_Val - actual_Y_Val
-            deltaWeight_GradDesc = np.dot(deltaPredictionToActual, X_j_Vector.T)
-            deltaBias_GradDesc = np.sum(deltaPredictionToActual)
-            W_j_Vector = W_j_Vector - (N_VAL*deltaWeight_GradDesc)
-            biasTerm = biasTerm - (N_VAL*deltaBias_GradDesc)
+                deltaPredictionToActual = prediction_Y_Val - actual_Y_Val
+                deltaWeight_GradDesc = np.dot(deltaPredictionToActual, X_j_Vector.T)
+                
+                Delta_W_j_Vector = Delta_W_j_Vector + deltaWeight_GradDesc
+                
+                delta_bais = delta_bais + deltaPredictionToActual
+                
+            #deltaBias_GradDesc = np.sum(deltaPredictionToActual)
+            #W_j_Vector = W_j_Vector + (N_VAL*deltaWeight_GradDesc)
+            
+            W_j_Vector = W_j_Vector + (N_VAL*Delta_W_j_Vector)
+            #biasTerm = biasTerm - (N_VAL*deltaBias_GradDesc)
+            biasTerm = biasTerm + (N_VAL * delta_bais)
     
         ######
         #Generate Predictions for Every Observation in the Test Set 
@@ -97,7 +118,7 @@ class LinearRegHelper_REWRITE:
             #Get the Actual Classifier
             actual_Y_Class = testDF[self.predictor].values[observationIdx]
             if (self.probType == 'Regression'):
-                test = 0
+                actual_Y_Val = actual_Y_Class
             elif (self.probType == 'Classification'):
                 if(actual_Y_Class == self.zeroClass):
                     actual_Y_Val = 0
@@ -107,7 +128,7 @@ class LinearRegHelper_REWRITE:
             
             o_val = np.dot(W_j_Vector, X_j_Vector) + biasTerm
             if (self.probType == 'Regression'):
-                prediction_Y_Val = 0
+                prediction_Y_Val = o_val
         
             elif (self.probType == 'Classification'):
                 prediction_Y_Val = 1 / (1 + np.exp(-1*o_val))
@@ -129,7 +150,7 @@ class LinearRegHelper_REWRITE:
                 difSqred = (cur_act_class - cur_algo_pred)**2
                 sumDiffsSqrd = sumDiffsSqrd + difSqred
             
-            precentCorrect = sumDiffsSqrd / (len(predictions_On_TestSet))
+            precentCorrect = np.sqrt(sumDiffsSqrd / (len(predictions_On_TestSet)))
             
         elif (self.probType == 'Classification'):
             numCorrect = 0

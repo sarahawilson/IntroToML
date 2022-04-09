@@ -1,0 +1,152 @@
+MLPL - Machine Learning Pipeline - Linear and Logistic Regression
+---TUNE LINEAR REGRESSION---
+Tuning Learning Factor (N) On: Breast Cancer
+Tuning Convergence Factor (EP) On: Breast Cancer
+N:0.001
+EP:10
+Fold:0
+         Fold Results:0.03571428571428571
+Fold:1
+         Fold Results:0.03571428571428571
+Fold:2
+         Fold Results:0.0
+Fold:3
+         Fold Results:0.0
+Fold:4
+         Fold Results:0.03571428571428571
+Folds Average:0.02142857142857143
+EP:100
+Fold:0
+         Fold Results:0.03571428571428571
+Fold:1
+         Fold Results:0.03571428571428571
+Fold:2
+         Fold Results:0.03571428571428571
+Fold:3
+         Fold Results:0.07142857142857142
+Fold:4
+         Fold Results:0.03571428571428571
+Folds Average:0.04285714285714285
+EP:1000
+Fold:0
+         Fold Results:0.10714285714285714
+Fold:1
+         Fold Results:0.07142857142857142
+Fold:2
+         Fold Results:0.0
+Fold:3
+         Fold Results:0.0
+Fold:4
+         Fold Results:0.03571428571428571
+Folds Average:0.04285714285714285
+N:0.01
+EP:10
+Fold:0
+         Fold Results:0.03571428571428571
+Fold:1
+         Fold Results:0.03571428571428571
+Fold:2
+         Fold Results:0.03571428571428571
+Fold:3
+         Fold Results:0.07142857142857142
+Fold:4
+         Fold Results:0.03571428571428571
+Folds Average:0.04285714285714285
+EP:100
+Fold:0
+         Fold Results:0.07142857142857142
+Fold:1
+         Fold Results:0.07142857142857142
+Fold:2
+         Fold Results:0.0
+Fold:3
+         Fold Results:0.0
+Fold:4
+         Fold Results:0.03571428571428571
+Folds Average:0.03571428571428571
+EP:1000
+Fold:0
+         Fold Results:0.10714285714285714
+Fold:1
+         Fold Results:0.03571428571428571
+Fold:2
+         Fold Results:0.0
+Fold:3
+         Fold Results:0.0
+Fold:4
+         Fold Results:0.03571428571428571
+Folds Average:0.03571428571428571
+N:0.1
+EP:10
+Fold:0
+         Fold Results:0.03571428571428571
+Fold:1
+         Fold Results:0.07142857142857142
+Fold:2
+         Fold Results:0.0
+Fold:3
+         Fold Results:0.0
+Fold:4
+         Fold Results:0.03571428571428571
+Folds Average:0.02857142857142857
+EP:100
+Fold:0
+         Fold Results:0.10714285714285714
+Fold:1
+         Fold Results:0.03571428571428571
+Fold:2
+         Fold Results:0.0
+Fold:3
+         Fold Results:0.0
+Fold:4
+         Fold Results:0.03571428571428571
+Folds Average:0.03571428571428571
+EP:1000
+Fold:0
+         Fold Results:0.10714285714285714
+Fold:1
+         Fold Results:0.03571428571428571
+Fold:2
+         Fold Results:0.0
+Fold:3
+         Fold Results:0.0
+Fold:4
+         Fold Results:0.03571428571428571
+Folds Average:0.03571428571428571
+N:1
+EP:10
+Fold:0
+         Fold Results:0.10714285714285714
+Fold:1
+         Fold Results:0.03571428571428571
+Fold:2
+         Fold Results:0.0
+Fold:3
+         Fold Results:0.0
+Fold:4
+         Fold Results:0.03571428571428571
+Folds Average:0.03571428571428571
+EP:100
+Fold:0
+         Fold Results:0.10714285714285714
+Fold:1
+         Fold Results:0.03571428571428571
+Fold:2
+         Fold Results:0.0
+Fold:3
+         Fold Results:0.0
+Fold:4
+         Fold Results:0.03571428571428571
+Folds Average:0.03571428571428571
+EP:1000
+Fold:0
+         Fold Results:0.10714285714285714
+Fold:1
+         Fold Results:0.03571428571428571
+Fold:2
+         Fold Results:0.0
+Fold:3
+         Fold Results:0.0
+Fold:4
+         Fold Results:0.03571428571428571
+Folds Average:0.03571428571428571

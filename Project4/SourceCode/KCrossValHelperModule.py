@@ -10,6 +10,8 @@ import pandas as pd
 import copy
 import LinearRegHelperModule
 import LinearRegHelperModule_REWRITE
+import LinearNNHelperModule
+
 
 class KCrossValHelper:
     def __init__(self,
@@ -146,25 +148,82 @@ class KCrossValHelper:
             
 
             
-    def runKFoldCrossVal_Linear_Regression(self, dataSetName, nVal, epVal):
+    def runKFoldCrossVal_Linear_Regression(self, dataSetName: str, nVal, epVal, numClassProblem, classA, classB):
         #Runs the Linear Regression algorithm using 5 fold cross validation after the 
         #Tuning process has occured
         
-        linRegHelper = LinearRegHelperModule.LinearRegHelper(self.allDataSets[dataSetName])
+        linRegHelper = LinearRegHelperModule_REWRITE.LinearRegHelper_REWRITE(self.allDataSets[dataSetName],numClassProblem, classA, classB)
         
         curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_ExperimentSet)
         
         print('---LINEAR REGRESSION---')
         print('DataSet: ' + dataSetName)
-        print('Learning Factor (N): ' + nVal)
-        print('Convergence Factor (EP): ' + epVal)
-        
+        print('Learning Factor (N): ' + str(nVal))
+        print('Convergence Factor (EP): ' + str(epVal))
+        curFoldResultList = []
         for iFoldIndex in range(self.numFolds):
             print('Fold:' + str(iFoldIndex))
             loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
             testDF = loopDataFrameFoldList.pop(iFoldIndex)
             trainDF = pd.concat(loopDataFrameFoldList, axis=0)   
-            linRegHelper.runLinearRegression(testDF, trainDF, nVal, epVal)
+            error = linRegHelper.deadSimple_LinReg(testDF, trainDF, nVal, epVal)
+            curFoldResultList.append(error)
+            print('\t Fold Results:' + str(error))
+                
+        #Calcaulte the Average Across the Folds
+        curSum = 0
+        for res in curFoldResultList:
+            curSum = curSum + res
+        resultAvg = curSum / self.numFolds
+        print('Folds Average:' + str(resultAvg))
+        
+        
+    def runKFoldCrossVal_Linear_NN(self, dataSetName: str, numClassProblem, classA, classB):
+        #Runs the Linear Regression algorithm using 5 fold cross validation after the 
+        #Tuning process has occured
+        
+        nnHelper = LinearNNHelperModule.Linear_NN_Helper(self.allDataSets[dataSetName], numClassProblem, classA, classB)
+        
+        
+        #Get the Size of the Input (minus one to account for the predictor column)
+        numberOfInputs = len(self.allDataSets[dataSetName].finalData_ExperimentSet.columns) - 1
+        
+        outputNodes = 1
+
+        network = nnHelper.build_template_network(numberOfInputs, 2, numberOfInputs, outputNodes)
+        
+        
+        #Quick Test
+        curObservation = self.allDataSets[dataSetName].finalData_ExperimentSet.iloc[[0]]
+        curObservation_noPred = curObservation.drop(['Class'], axis =1)
+        row = curObservation_noPred.to_numpy()
+        row = row[0]
+        test =1 
+        
+        output = nnHelper.feedforward_prop(row, network)
+        
+        #curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_ExperimentSet)
+        
+#        print('---LINEAR NN---')
+#        print('DataSet: ' + dataSetName)
+#        print('Learning Factor (N): ' + str(nVal))
+#        print('Convergence Factor (EP): ' + str(epVal))
+#        curFoldResultList = []
+#        for iFoldIndex in range(self.numFolds):
+#            print('Fold:' + str(iFoldIndex))
+#            loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+#            testDF = loopDataFrameFoldList.pop(iFoldIndex)
+#            trainDF = pd.concat(loopDataFrameFoldList, axis=0)   
+#            error = linRegHelper.deadSimple_LinReg(testDF, trainDF, nVal, epVal)
+#            curFoldResultList.append(error)
+#            print('\t Fold Results:' + str(error))
+#                
+#        #Calcaulte the Average Across the Folds
+#        curSum = 0
+#        for res in curFoldResultList:
+#            curSum = curSum + res
+#        resultAvg = curSum / self.numFolds
+#        print('Folds Average:' + str(resultAvg))
             
 
 

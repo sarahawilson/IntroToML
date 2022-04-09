@@ -39,7 +39,7 @@ class LinearRegHelper:
                 difSqred = (cur_act_class - cur_algo_pred)**2
                 sumDiffsSqrd = sumDiffsSqrd + difSqred
             
-            precentCorrect = sumDiffsSqrd / (len(linReg_Test_Set_Predicitions))
+            precentCorrect = np.sqrt(sumDiffsSqrd / (len(linReg_Test_Set_Predicitions)))
             
         elif (self.probType == 'Classification'):
             numCorrect = 0
