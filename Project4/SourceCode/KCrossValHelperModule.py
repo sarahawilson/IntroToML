@@ -193,7 +193,7 @@ class KCrossValHelper:
         network = nnHelper.build_template_network(numberOfInputs, 2, numberOfInputs, outputNodes)
         
         
-        #Quick Test
+        #Quick Test - On the feed foward
         curObservation = self.allDataSets[dataSetName].finalData_ExperimentSet.iloc[[0]]
         curObservation_noPred = curObservation.drop(['Class'], axis =1)
         row = curObservation_noPred.to_numpy()
@@ -201,6 +201,18 @@ class KCrossValHelper:
         test =1 
         
         output = nnHelper.feedforward_prop(row, network)
+        
+        
+        #Quick Test - On the Back Prop
+        actual_Y_Class = self.allDataSets[dataSetName].finalData_ExperimentSet['Class'].values[0]
+        nnHelper.backwards_prop(actual_Y_Class)
+        
+        
+        
+        
+        
+        
+        
         
         #curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_ExperimentSet)
         
