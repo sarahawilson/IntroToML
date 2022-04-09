@@ -204,7 +204,27 @@ if __name__ == "__main__":
     myKCrossValHelper = KCrossValHelperModule.KCrossValHelper(allDataSets)
     
     
-    myKCrossValHelper.runKFoldCrossVal_Linear_NN('Breast Cancer', 2, 2, 4)
+    
+    #    #Optimal Values Gathered from the Tuning
+    #compHW_N = 0.001 
+    #compHW_EP = 100
+#    
+#    albalone_N = 0
+#    albalone_EP = 0
+#    
+#    forestFire_N = 0
+#    forestFie_EP = 0
+#    
+    #congVote_N = 0.001  
+    #congVote_EP = 100
+#    
+    bc_N = 0.001
+    bc_EP = 10
+#    
+#    carEval_N = 0
+#    carEval_EP = 0
+    
+    myKCrossValHelper.runKFoldCrossVal_Linear_NN('Breast Cancer', bc_N, bc_EP, 2, 2, 4)
     
 
     

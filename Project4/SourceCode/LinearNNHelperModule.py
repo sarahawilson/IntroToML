@@ -84,7 +84,7 @@ class Linear_NN_Helper:
         return sigmoidDerivative
      
         
-    def feedforward_prop(self, observation, network):
+    def feedforward_prop(self, observation):
         #Takes an observation from the data set and passes it through the network
         #layerNameList = list(network.keys())
         layerIdx = 0
@@ -171,11 +171,102 @@ class Linear_NN_Helper:
         returnNetwork = copy.deepcopy(flippedNetwork)
         returnNetwork.reverse()
         self.NN_Network = returnNetwork
+               
+    def calc_Updated_Weights(self, observation, NP_Val):
+        updatedWeightNetwork = copy.deepcopy(self.NN_Network)
         
-        test =1
+        numActWeights = len(observation)
         
+        
+        for layer in updatedWeightNetwork:
+            layerNameList = list(layer.keys())
+            curLayerName = layerNameList[0]
+            currentInput = []
+            #If we aren't the first layer
+            #then the input is not the obsevation 
+            #but a collection of the previous layers outputs
+            if (curLayerName != 'HiddenLayer_1'):
+                for neuron in layer[curLayerName]:
+                    currentInput.append(neuron['Output'])
+            else:
+                currentInput = observation
+
+            for neuron in layer[curLayerName]:
+                for weightIdx in range(len(currentInput)):
+                    neuron['Weight'][weightIdx] = neuron['Weight'][weightIdx] + (NP_Val * neuron['Updated_Weight'] * currentInput[weightIdx])
+                #Adjust the Biast Weight
+                neuron['Weight'][(numActWeights-1)] = neuron['Weight'][(numActWeights-1)] + (NP_Val * neuron['Updated_Weight'])
+                        
+        test = 1        
            
-                    
+      
+    def updateWeightsUntilConvergance(self, trainDF, NP_Val, EP_Val):
+        
+        #Drop the Predictor from the trainDF
+        noPred_trainDF = trainDF.drop([self.predictor], axis =1)
+        numberOfObservations = len(noPred_trainDF)
+                
+        for curEp in range(EP_Val):
+            print('epoch')
+            print(str(curEp))
+            
+            for observationIdx in range(numberOfObservations):
+                print('observation indx')
+                print(str(observationIdx))
+                curObservationDF = noPred_trainDF.iloc[[observationIdx]]
+                curObservationDF_Array = curObservationDF.to_numpy()
+                curObservation = curObservationDF_Array[0]
+                
+                outputOfUntrainedNN = self.feedforward_prop(curObservation)
+                #TODO: This will return a vector of outptus for a multiple class problem
+                # figure out how to handle this
+                
+                actual_Y_Class = trainDF[self.predictor].values[observationIdx]
+                self.backwards_prop(actual_Y_Class)
+                self.calc_Updated_Weights(curObservation, NP_Val)
+    
+    def makePrediction(self, curObservationTEST):
+        prediction = self.feedforward_prop(curObservationTEST)
+        return prediction
+    
+          
+    def run_LinearNN_withBackProp(self, trainDF, testDF, NP_Val, EP_Val):
+        #Runs Linear NN using Back propigation 
+        
+        numberOfInputs = len(trainDF.columns) - 1
+        
+        if(self.probType == 'Classification'):
+            #TODO: Update for a multiple class problem
+            #OutputNodes of 1 means that it is a two class problem
+            outputNodes = 1
+        elif(self.probType == 'Regression'):
+            #TODO:
+            outputNodes = 0
+        
+        #Build the Inital Network 
+        self.build_template_network(numberOfInputs, 2, numberOfInputs, outputNodes)
+        
+        #Train the Weights until they Converge
+        self.updateWeightsUntilConvergance(trainDF, NP_Val, EP_Val)
+        
+        
+        #Start Making Predictions on the test Set
+        #Drop the Predictor from the trainDF
+        noPred_testDF = testDF.drop([self.predictor], axis =1)
+        
+        
+        numberOfObservations_In_TEST = len(testDF)
+        algoPredictions = []
+        for obserIdx in range(numberOfObservations_In_TEST):
+            curObservationIn_TestDF = noPred_testDF.iloc[[obserIdx]]
+            curObservationIn_TestDF_Array = curObservationIn_TestDF.to_numpy()
+            curObservationTEST = curObservationIn_TestDF_Array[0]
+            cur_algo_pred = self.makePrediction(curObservationTEST)
+            algoPredictions.append(cur_algo_pred)
+            
+        return algoPredictions
+                
+            
                     
                     
             
