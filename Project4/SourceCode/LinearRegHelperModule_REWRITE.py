@@ -94,8 +94,11 @@ class LinearRegHelper_REWRITE:
                 
             #deltaBias_GradDesc = np.sum(deltaPredictionToActual)
             #W_j_Vector = W_j_Vector + (N_VAL*deltaWeight_GradDesc)
-            
+            #print('PreUpdate')
+            #print(W_j_Vector)
             W_j_Vector = W_j_Vector + (N_VAL*Delta_W_j_Vector)
+            #print('PreUpdate')
+            #print(W_j_Vector)
             #biasTerm = biasTerm - (N_VAL*deltaBias_GradDesc)
             biasTerm = biasTerm + (N_VAL * delta_bais)
     
@@ -138,8 +141,10 @@ class LinearRegHelper_REWRITE:
         ####
         #Compare predictions on test set to actual values in the test set
         
+        print(predictions_On_TestSet)
         #Get the Actual Predictions
         actual_Test_Y_Classes = testDF[self.predictor].tolist()
+        print(actual_Test_Y_Classes)
         if (self.probType == 'Regression'):
             precentCorrect = 0 
             sumDiffsSqrd = 0

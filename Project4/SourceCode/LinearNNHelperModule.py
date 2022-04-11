@@ -193,7 +193,11 @@ class Linear_NN_Helper:
 
             for neuron in layer[curLayerName]:
                 for weightIdx in range(len(currentInput)):
+                    #print('PreUpdate')
+                    #zz_preUpdateWeight = (neuron['Weight'][weightIdx])
                     neuron['Weight'][weightIdx] = neuron['Weight'][weightIdx] + (NP_Val * neuron['Updated_Weight'] * currentInput[weightIdx])
+                    #print('PreUpdate')
+                    #zz_postUpdateWeight = (neuron['Weight'][weightIdx])
                 #Adjust the Biast Weight
                 neuron['Weight'][(numActWeights-1)] = neuron['Weight'][(numActWeights-1)] + (NP_Val * neuron['Updated_Weight'])
                         
@@ -207,12 +211,12 @@ class Linear_NN_Helper:
         numberOfObservations = len(noPred_trainDF)
                 
         for curEp in range(EP_Val):
-            print('epoch')
-            print(str(curEp))
+            #print('epoch')
+            #print(str(curEp))
             
             for observationIdx in range(numberOfObservations):
-                print('observation indx')
-                print(str(observationIdx))
+                #print('observation indx')
+                #print(str(observationIdx))
                 curObservationDF = noPred_trainDF.iloc[[observationIdx]]
                 curObservationDF_Array = curObservationDF.to_numpy()
                 curObservation = curObservationDF_Array[0]
@@ -228,7 +232,46 @@ class Linear_NN_Helper:
     def makePrediction(self, curObservationTEST):
         prediction = self.feedforward_prop(curObservationTEST)
         return prediction
+   
     
+    def reportError_LinearNN_withBackProp(self, testDF, trainDF, N_VAL, EP_VAL):
+        linNN_Test_Set_Predicitions = self.run_LinearNN_withBackProp(trainDF, testDF, N_VAL, EP_VAL)
+        #print(linReg_Test_Set_Predicitions)
+        
+        
+        #Get the Actual Predictions
+        actual_Test_Set_Values = testDF[self.predictor].tolist()
+        #print(actual_Test_Set_Values)
+        
+        if (self.probType == 'Regression'):
+            precentCorrect = 0 
+            sumDiffsSqrd = 0
+            for predictionIdx in range(len(linNN_Test_Set_Predicitions)):
+                cur_algo_pred = linNN_Test_Set_Predicitions[predictionIdx]
+                cur_act_class = actual_Test_Set_Values[predictionIdx]
+                
+                difSqred = (cur_act_class - cur_algo_pred)**2
+                sumDiffsSqrd = sumDiffsSqrd + difSqred
+            
+            precentCorrect = np.sqrt(sumDiffsSqrd / (len(linNN_Test_Set_Predicitions)))
+            
+        elif (self.probType == 'Classification'):
+            numCorrect = 0
+            for predictionIdx in range(len(linNN_Test_Set_Predicitions)):
+                cur_algo_pred = linNN_Test_Set_Predicitions[predictionIdx]
+                cur_act_class = actual_Test_Set_Values[predictionIdx]
+                
+                if(cur_algo_pred > 0.5):
+                    cur_algo_pred_class = self.oneClass
+                else:
+                    cur_algo_pred_class = self.zeroClass
+                    
+                if(cur_algo_pred_class == cur_act_class):
+                    numCorrect = numCorrect + 1
+                    
+            precentCorrect = numCorrect / (len(linNN_Test_Set_Predicitions))
+            
+        return precentCorrect
           
     def run_LinearNN_withBackProp(self, trainDF, testDF, NP_Val, EP_Val):
         #Runs Linear NN using Back propigation 
@@ -240,8 +283,9 @@ class Linear_NN_Helper:
             #OutputNodes of 1 means that it is a two class problem
             outputNodes = 1
         elif(self.probType == 'Regression'):
-            #TODO:
-            outputNodes = 0
+            #TODO: I think for regression the number of nodes is probably 1 
+            # need to check with Shane
+            outputNodes = 1
         
         #Build the Inital Network 
         self.build_template_network(numberOfInputs, 2, numberOfInputs, outputNodes)
@@ -262,6 +306,7 @@ class Linear_NN_Helper:
             curObservationIn_TestDF_Array = curObservationIn_TestDF.to_numpy()
             curObservationTEST = curObservationIn_TestDF_Array[0]
             cur_algo_pred = self.makePrediction(curObservationTEST)
+            cur_algo_pred = cur_algo_pred[0]
             algoPredictions.append(cur_algo_pred)
             
         return algoPredictions

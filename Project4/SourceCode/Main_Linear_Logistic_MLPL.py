@@ -208,9 +208,9 @@ if __name__ == "__main__":
     convergeFactorEP = [10,100,1000]
     
     #Linear Regression - Regression Problems TUNING
-    #myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Computer Hardware', learningRateN, convergeFactorEP, None, None, None)
-    #myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Albalone', learningRateN, convergeFactorEP, None, None, None)
-    #myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Forest Fire', learningRateN, convergeFactorEP, None, None, None)
+    myKCrossValHelper.DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune('Computer Hardware', learningRateN, convergeFactorEP, None, None, None)
+    #myKCrossValHelper.DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune('Albalone', learningRateN, convergeFactorEP, None, None, None)
+    #myKCrossValHelper.DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune('Forest Fire', learningRateN, convergeFactorEP, None, None, None)
     
     #Linear Regression - Classification Problems TUNING
     #myKCrossValHelper.DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune('Congressional Vote', learningRateN, convergeFactorEP, 2, 'republican', 'democrat')
@@ -239,7 +239,7 @@ if __name__ == "__main__":
 #    carEval_EP = 0
 #    
 #    #Linear Regression - Regression Problems Post Tune
-    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Computer Hardware', compHW_N, compHW_EP, None, None, None)
+    #myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Computer Hardware', compHW_N, compHW_EP, None, None, None)
 #    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Albalone', albalone_N, albalone_EP)
 #    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Forest Fire', forestFire_N, forestFie_EP)
 #    

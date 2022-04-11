@@ -38,16 +38,10 @@
 
 
 \section{Introduction}
-\hspace*{10mm} Decision trees are tree structures than can be built by machine learning algorithms by training on a data set. A decision tree is a hierarchical structure, consisting of nodes, which can have left or right nodes (children). The root node is the start of the tree and has left and right nodes that would go on to build sub-trees. A node that does not have a left or right child is considered a leaf. Decision trees are built or grown from the training data by deciding which features to build sub-trees on and knowing when to split the data to produce the next node, along with knowing when a leaf node has been encountered. Decision trees can be used in both classification and regression machine learning problems. Decision trees ask "questions" at each node and determine, based on feature observations from the data set, if the left or right node should be taken when traversing the tree. When the leaf node is encountered that will end with the answer for the classification or regression problem.\\ 
-
-\hspace*{5mm} The problem statement presented in this paper is to understand an implement three major categories of networks; Linear, Feed-Forward and  Feed-Forward with an Autoencoder. For the Linear Network: a Linear Regression will be applied to Regression problems while a Logistic Regression will be applied to the Classification Problems.
-
-\\
-
-\hspace*{5mm} The hypothesis of this report is that the  Feed-Forward Network with an Autoencoder will perform better than the Feed-Forward and Linear regression approaches on both the Classification and Regression problems.
-INSERT WHY
-The results from experiments ran on the provided data sets will be discussed and presented against the outlined hypothesis.
-
+\hspace*{10mm} Neural Networks are collection of algorithms that are taught the underlying patterns in a data set through a process of supervised learning. Neural Networks operate using a process that is similar to the human brain, they contain simple processing nodes, called neurons that are connected in layers. These layers contain weights that determine an output based on a given input. The basis of an understanding of Neural Networks actually starts with Linear Regression.\\ 
+\hspace*{10mm} Linear Regression is a supervised Machine Learning algorithm that can be applied to Regression problems. Linear Regression assumes there is some sort of linear relationship between the input data and the output value that can be represented by a line or plane of best fit between the inputs and the output. Linear Regression is meant for continuous outputs, when Classification tasks are required (tasks that have outputs with class labels), then the concepts of linear regression can be applied, but instead the Sigmoid function is used, hence the name Logistic Regression. The sigmoid function is able to take classifiers that are not numeric and map them to values between 0 and 1. Linear and Logistic regression are the basic concepts that build the foundation for Neural Networks. Neural Networks can be thought of as a series of Logisitc regression tasks that happen across many layers and nodes. Neural Networks can also be augmented through the use of developing an Auto Encoder. The Auto Encoders are trained such that an output pattern to a network always matches the input pattern. The Auto Encoder process can be thought of a method to fine tune the weights feeding the prediction output from a Neural Network.\\
+\hspace*{5mm} The problem statement presented in this paper is to understand an implement three major categories of networks; Linear, Feed-Forward Back Propagation and  Feed-Forward Back Propagation with an Auto Encoder. For the Linear Network: a Linear Regression will be applied to Regression problems while a Logistic Regression will be applied to the Classification Problems.\\
+\hspace*{5mm} The hypothesis of this report is that the  Feed-Forward Network with an Auto Encoder will perform better than the Feed-Forward Back Propagation and Linear regression approaches on both the Classification and Regression problems. The reason for this hypothesis is that the Auto Encoder builds upon the Linear Regression and basic Neural Regression. Both Linear Regression and Neural Networks rely on updating weight based on the error between the predicted output and the actual output of a training set. The Auto Encoder improves upon this process by trying to learn and mimic the input pattern of the data and apply that to the output or predicted value. This extra encoding and decoding steps, serve to fine tune the weights feeding the neural network. The hypothesis is based around the concept that fine tuned weights should out preform coarsely tuned weights in making predictions based on new input data to the network. The results from experiments ran on the provided data sets will be discussed and presented against the outlined hypothesis.\\
 \hspace*{5mm} Section 1 has provided the introduction, problem statement and hypothesis in regards to three major learning algorithms that will be explored. Section 2 will provide an in-depth explanation of the algorithms. Section 3 will present the results obtained by the different algorithms. Section 4 will discuss the results that were obtained and compare them to the hypothesis that was outlined in the introduction. This report will conclude in Section 5 with a discussion of lessons learned and areas of possible future work.\\
 
 
@@ -63,9 +57,6 @@ Repeat the Following Steps Until the Error has Converged to a Value ()\\
 \tab \tab $\delta W_j$ = 0\\
  \tab For each Feature (\textit{j}) in the Domain(\textit{d}) of the Data Set\\
  
-
-
-
 
 \newpage
 {\noindent}{\bf Data Sets}\newline
@@ -109,19 +100,19 @@ Link: \newline
 \newpage
 
 \section{Results}
-Tables 1-3 display the results from Classification Tasks: the Breast Cancer, Car Evaluation and Congressional Vote data sets while running a full uni-variate tree and reduced error pruning. The number of nodes to prune was determined using the tuning process that was discussed earlier. These tables show the results from the train set and the test set during each fold of the \textit{k}-fold validation process. The results of each iteration of the tuning process were omitted from this report for brevity. The error used is Classification error and can be described as the Number of Times the Prediction was Wrong / Total Number of Comparisons. This error was averaged across the 5 folds to provide the Average Classification Error against each data set.\\
-Tables 4-6 display the results from the Regression Tasks: the Albalone, Computer Hardware and Forest Fire data sets while running a full uni-variate tree and early stopping. The value $\epsilon$ used in the early stopping was determined using the tuning process for regression that was discussed earlier. These tables show the result from the train set and the test set during each fold of the \textit{k}-fold validation process.The results of the tuning process were omitted from this report for brevity.The error used is  Mean Square Error.\newline
+Tables 1-3 display the results from Classification Tasks: the Breast Cancer, Car Evaluation and Congressional Vote data sets while running all three algorithms. Tables 4-6 display the results from the Regression Tasks: the Albalone, Computer Hardware and Forest Fire data sets while running all three algorithms. Each algorithm was tuned prior to being run on the full experiment set and optimal values were chosen out of that tuning process for the Learning Rate and the Convergence Factor. These tables show the results obtained during each fold of the \textit{k}-fold validation process. The results from each iteration of the tuning process was omitted from this report for brevity. The error used is Classification error and can be described as the Number of Times the Prediction was Wrong / Total Number of Comparisons. This error was averaged across the 5 folds to provide the Average Classification Error against each of the Classification data sets. The error used for Regression Tasks was the Mean Root Squared Error. This error was averaged across the 5 folds to provide the Average Mean Root Squared Error against each of the Regression data sets.\newline
+
 
 \begin{table}[h]
 		\centering
-		\caption{Car Evaluation: ID3 - Experimental Results}
+		\caption{Car Evaluation:Linear Networks - Experimental Results}
 		\label{tab:table1}
 		%\includegraphics[scale=.7]{CarEval_Results}\newline
 \end{table}
 
 \begin{table}[h]
 		\centering
-		\caption{Breast Cancer: ID3 - Experimental Results}
+		\caption{Breast Cancer: Linear Networks - Experimental Results}
 		\label{tab:table2}
 		%\includegraphics[scale=.7]{BC_Results}\newline
 \end{table}
@@ -129,28 +120,28 @@ Tables 4-6 display the results from the Regression Tasks: the Albalone, Computer
 
 \begin{table}[h]
 		\centering
-		\caption{Congressional Vote: ID3 - Experimental Results}
+		\caption{Congressional Vote: Linear Networks - Experimental Results}
 		\label{tab:table3}
 		%\includegraphics[scale=.7]{CongVote_Results}\newline
 \end{table}
 
 \begin{table}[h]
 	\centering
-	\caption{Albalone: CART - Experimental Results}
+	\caption{Albalone: Linear Networks - Experimental Results}
 	\label{tab:table4}
 	%\includegraphics[scale=.7]{Albalone_Results}\newline
 \end{table}
 
 \begin{table}[h]
 	\centering
-	\caption{Computer Hardware: CART - Experimental Results}
+	\caption{Computer Hardware: Linear Networks - Experimental Results}
 	\label{tab:tale5}
 	%\includegraphics[scale=.7]{CompHardware_Results}\newline
 \end{table}
 
 \begin{table}[h]
 	\centering
-	\caption{Forest Fires: CART - Experimental Results}
+	\caption{Forest Fires: Linear Networks - Experimental Results}
 	\label{tab:table6}
 	%\includegraphics[scale=.7]{ForestFire_Results}\newline
 \end{table}
@@ -161,12 +152,17 @@ Tables 4-6 display the results from the Regression Tasks: the Albalone, Computer
 
 \section{Discussion}
 \hspace*{10mm} The hypothesis that was presented at the start of this report for the both the classification and regression tasks the trees that are error pruned or early stopped will perform better than trees that are grown uni-variate to completion.\\
-\hspace*{10mm} Looking at the classification data sets, the only data set that was able to run to full completion was the Congressional Vote data set. The Car Evaluation and Breast Cancer data sets, were unable to be fully built, this was most likley due to an implementation error as they never returned from the recursive calls that were used to build the trees. Too much time was spent trying to debug these data sets, such that Prunning was also unable to be implemented in time for submission. This is unfortunate, as no meaningful comparisons can be made towards the support of the hypothesis presented in the Introduction section. However, it does afford some lessons learned that will be applied to next implementation attempts of such algorithms.  \\
-\hspace*{10mm} Looking at the Regression data sets, the values of $\epsilon$ that were evaluated were 0, 0.01, 0.1, 1, 10. During the tuning process it was determined that 10 was the optimal value to use for $\epsilon$ and it was observed that there was not large difference between the results obtained for $\epsilon$ values such as 0, 0.01, 0.1, 1. One reason for this might that due to range of possible values for the prediction value in the regression data sets, a large $\epsilon$ makes a larger impact as it allows for the account of outliers in the data. The Albalone data set was the only one that had measurable improvement, with an Average MSE dropping from 12.5 to 10.2 between the uni-variate tree and the early stopped tree. The Forest Fire and Computer Hardware data sets, did not see measurable improvements between the uni-variate tree and the early stopped tree. The Albalone data set did not include multiple features that needed to be one hot encoded, Sex was the only attributes and it only provided 3 options to one hot encode. The Forest Fire and Computer Hardware data sets on the other hand had multiple attributes that were one hot encoded, and each of those attributes had multiple options that were derived because of this one hot encoding. It is possible that one hot encoding this data was the wrong approach, and alternative methods should have been used, such as dropping those attributes completely. Since one hot encoding offers only 0 or 1 for the options the splits that will be generated when performing the regression might be highly skewed towards on particular branch as the data is classified through the regression tree.\\
+\hspace*{10mm} Looking at the classification data sets,  \\
+
+\hspace*{10mm} Looking at the Regression data sets,\\
+
+
 \section{Conclusion}
-\hspace*{10mm} Overall there seemed to be some trends in the data that supported the hypothesis, that both the classification and regression tasks the trees that are error pruned or early stopped will perform better than trees that are grown uni-variate to completion. However, it was noted that implementation issues did not allow for the classification data sets to have many meaningful trees built, so no conclusions can be drawn toward the hypothesis for classification. The lesson learned that can be applied is that for recursive problems it is important to have debugging methodology in place that cane be used to determine quickly at what level of the recursion were issue encountered.\newline
-\hspace*{10mm} The regression data sets were able to be fully grown and implement early stopping. It was noticed that early stopping in some cases did tend to improve the MSE that was obtained fold to fold, but there were other details such as one hot encoding that might have impacted the results for other data sets, that had more data that needed one hot encoding to be applied to.\newline
-\hspace*{10mm} A suggested area of future work, after fixing basic implementation details, would be to consider other methods of prunning or early stopping. For Classification and Regression machine learning problems, other such methods include Cost-Complexity Pruning.\newline
+\hspace*{10mm} Overall there seemed to be some trends that supported the general hypothesis. \newline
+
+\hspace*{10mm} The .\newline
+
+\hspace*{10mm} A suggested area of future work, after fixing basic implementation details, would be to explore as part of the tuning process the shape of the network. In the experiment the Neural Network that was built for the algorithm that included and input layer, 2 hidden layers and an output layer. This network could have been built with a different number of hidden layers and a variable number of nodes with in those hidden layers, that could have lead to different results. That structure of the network is an area that could be looked into for future work. \newline
 
 \section{References}
 1. Alpaydin, E. (2004). Introduction to machine learning (Oip). Mit Press. 

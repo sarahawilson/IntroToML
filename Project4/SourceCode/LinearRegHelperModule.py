@@ -22,12 +22,12 @@ class LinearRegHelper:
     
     def reportError_LinearReg(self, testDF, trainDF, N_VAL, EP_VAL):
         linReg_Test_Set_Predicitions = self.runLinearRegression(testDF, trainDF, N_VAL, EP_VAL)
-        #print(linReg_Test_Set_Predicitions)
+        print(linReg_Test_Set_Predicitions)
         
         
         #Get the Actual Predictions
         actual_Test_Set_Values = testDF[self.predictor].tolist()
-        #print(actual_Test_Set_Values)
+        print(actual_Test_Set_Values)
         
         if (self.probType == 'Regression'):
             precentCorrect = 0 
