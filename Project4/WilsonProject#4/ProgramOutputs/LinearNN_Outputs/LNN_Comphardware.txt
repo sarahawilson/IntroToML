@@ -1,0 +1,16 @@
+---TUNE LINEAR NN---
+Tuning Learning Factor (N) On: Computer Hardware
+Tuning Convergence Factor (EP) On: Computer Hardware
+N:0.001
+EP:10
+Fold:0
+         Fold Results:121.4511118224415
+Fold:1
+         Fold Results:103.39617065192074
+Fold:2
+         Fold Results:139.12420323038592
+Fold:3
+         Fold Results:91.59228699912254
+Fold:4
+         Fold Results:260.60982081326586
+Folds Average:143.2347187034273

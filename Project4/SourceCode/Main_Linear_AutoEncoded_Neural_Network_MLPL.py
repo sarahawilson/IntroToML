@@ -3,10 +3,12 @@
 # Project 4
 # Introduction to Machine Learning
 
+
+##### MAIN FOR AUTOENCODED LINEAR NN
+
 from typing import List, Tuple, Dict;
 import DataSetHelper 
 import KCrossValHelperModule
-import LinearRegHelperModule
 
 
 def defineAllDataSets()->Dict:
@@ -206,11 +208,11 @@ if __name__ == "__main__":
     
     ##TUNING!!!!!
     learningRateN = [0.001]
-    convergeFactorEP = [100]
+    convergeFactorEP = [10]
     
-    #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Breast Cancer', learningRateN, convergeFactorEP, 2, 2, 4)
+    myKCrossValHelper.runKFoldCrossVal_Linear_AutoEncoded_NN_Tune('Breast Cancer', learningRateN, convergeFactorEP, 2, 2, 4)
     #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Congressional Vote', learningRateN, convergeFactorEP, 2, 'republican', 'democrat')
-    myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Computer Hardware', learningRateN, convergeFactorEP, None, None, None)
+    #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Computer Hardware', learningRateN, convergeFactorEP, None, None, None)
     #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Albalone', learningRateN, convergeFactorEP, None, None, None)
     
     #    #Optimal Values Gathered from the Tuning

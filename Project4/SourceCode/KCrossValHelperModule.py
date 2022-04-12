@@ -11,6 +11,7 @@ import copy
 import LinearRegHelperModule
 import LinearRegHelperModule_REWRITE
 import LinearNNHelperModule
+import LinearAutoEncodedNNHelperModule
 
 
 class KCrossValHelper:
@@ -177,8 +178,7 @@ class KCrossValHelper:
         print('Folds Average:' + str(resultAvg))
         
      
-        
-        
+
     def runKFoldCrossVal_Linear_NN_Tune(self, dataSetName: str, nVals: list, epVals: list, numClassProblem, classA, classB):
         #Runs the Linear Regression algorithm using 5 fold cross validation
         
@@ -238,27 +238,65 @@ class KCrossValHelper:
         resultAvg = curSum / self.numFolds
         print('Folds Average:' + str(resultAvg))   
         
-#        #Get the Size of the Input (minus one to account for the predictor column)
-#        numberOfInputs = len(self.allDataSets[dataSetName].finalData_ExperimentSet.columns) - 1
-#        
-#        outputNodes = 1
-#
-#        network = nnHelper.build_template_network(numberOfInputs, 2, numberOfInputs, outputNodes)
-#        
-#        
-#        #Quick Test - On the feed foward
-#        curObservation = self.allDataSets[dataSetName].finalData_ExperimentSet.iloc[[0]]
-#        curObservation_noPred = curObservation.drop(['Class'], axis =1)
-#        row = curObservation_noPred.to_numpy()
-#        row = row[0]
-#        test =1 
-#        
-#        output = nnHelper.feedforward_prop(row)
-#        
-#        
-#        #Quick Test - On the Back Prop
-#        actual_Y_Class = self.allDataSets[dataSetName].finalData_ExperimentSet['Class'].values[0]
-#        nnHelper.backwards_prop(actual_Y_Class)
+    def runKFoldCrossVal_Linear_AutoEncoded_NN_Tune(self, dataSetName: str, nVals: list, epVals: list, numClassProblem, classA, classB):
+        #Runs the Linear Autoencoded NN through the 5 fold cross validation process for the tuning of the parameters
+        
+        encoded_nnHelper = LinearAutoEncodedNNHelperModule.LinearAutoEncoded_NN_Helper(self.allDataSets[dataSetName], numClassProblem, classA, classB)
+        
+        curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_Validation20PercentSet)
+        
+        print('---TUNE LINEAR AUTOENCODED NN---')
+        print('Tuning Learning Factor (N) On: ' + dataSetName)
+        print('Tuning Convergence Factor (EP) On: ' + dataSetName)
+        for nVal in nVals:
+            print('N:' + str(nVal))
+            for epVal in epVals:
+                print('EP:' + str(epVal))
+                curFoldResultList = []
+                for iFoldIndex in range(self.numFolds):
+                    print('Fold:' + str(iFoldIndex))
+                    loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+                    testDF = loopDataFrameFoldList.pop(iFoldIndex)
+                    trainDF = pd.concat(loopDataFrameFoldList, axis=0)
+                    error = encoded_nnHelper.reportError_LinearAutoEncodedNN_withBackProp(testDF, trainDF, nVal, epVal)
+                    curFoldResultList.append(error)
+                    print('\t Fold Results:' + str(error))
+                
+                #Calcaulte the Average Across the Folds
+                curSum = 0
+                for res in curFoldResultList:
+                    curSum = curSum + res
+                resultAvg = curSum / self.numFolds
+                print('Folds Average:' + str(resultAvg))
+                          
+                
+    def runKFoldCrossVal_Linear_AutoEncoded_NN(self, dataSetName: str, nVal, epVal, numClassProblem, classA, classB):
+        #Runs the Linear Autoencoded NN through the 5 fold cross validation process after the 
+        #Tuning process has occured
+        
+        encoded_nnHelper = LinearAutoEncodedNNHelperModule.LinearAutoEncoded_NN_Helper(self.allDataSets[dataSetName], numClassProblem, classA, classB)
+        
+        curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_ExperimentSet)
+        print('---LINEAR AUTOENCODED NN---')
+        print('DataSet: ' + dataSetName)
+        print('Learning Factor (N): ' + str(nVal))
+        print('Convergence Factor (EP): ' + str(epVal))
+        curFoldResultList = []
+        for iFoldIndex in range(self.numFolds):
+            print('Fold:' + str(iFoldIndex))
+            loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
+            testDF = loopDataFrameFoldList.pop(iFoldIndex)
+            trainDF = pd.concat(loopDataFrameFoldList, axis=0)   
+            error = encoded_nnHelper.reportError_LinearAutoEncodedNN_withBackProp(trainDF, testDF, nVal, epVal)
+            curFoldResultList.append(error)
+            print('\t Fold Results:' + str(error))
+                
+        #Calcaulte the Average Across the Folds
+        curSum = 0
+        for res in curFoldResultList:
+            curSum = curSum + res
+        resultAvg = curSum / self.numFolds
+        print('Folds Average:' + str(resultAvg))  
         
         
         
