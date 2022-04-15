@@ -205,13 +205,14 @@ if __name__ == "__main__":
     
     
     ##TUNING!!!!!
-    learningRateN = [0.001]
-    convergeFactorEP = [100]
+    learningRateN = [0.001, 0.01, 0.1, 1]
+    convergeFactorEP = [10,100]
     
     #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Breast Cancer', learningRateN, convergeFactorEP, 2, 2, 4)
     #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Congressional Vote', learningRateN, convergeFactorEP, 2, 'republican', 'democrat')
-    myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Computer Hardware', learningRateN, convergeFactorEP, None, None, None)
+    #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Computer Hardware', learningRateN, convergeFactorEP, None, None, None)
     #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Albalone', learningRateN, convergeFactorEP, None, None, None)
+    myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Forest Fire', learningRateN, convergeFactorEP, None, None, None)
     
     #    #Optimal Values Gathered from the Tuning
     #compHW_N = 0.001 

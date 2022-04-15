@@ -46,17 +46,43 @@
 
 
 \section{Algorithms and Experimental Methods}
-\hspace*{10mm} Regression is an a problem solving approach in Machine Learning that models a target predictor based on independent variables or values.  Linear Regression and Logistic Regression both are discriminant-based approaches that do not care about estimating the densities inside a particular class region, instead the discriminant-based approach aims to estimate the boundaries between the class regression. Linear and Logistic Regression provide a simple model that is the form of a linear formula, in order to determine the class of a particular observation from the data. The output of the model is a weighted sum of the input attributes or features. The magnitude of the weight applied against each feature, shows the importance of that feature towards the overall prediction. The weights are learned by the model during training. Linear Regression is used on Regression problems because the data that is being predicted is continuous. This Linear model will not work for Classification problems, as the output of the linear model would be a real value, when in Classification a class label is desired. Logistic Regression is used for Classification problems, as it maps the output of the weight sum presented in Linear Regression and maps it to a non-linear function that ensures the outputs are between 0 and 1. The function used to achieve this is the Sigmoid or Logistic function.\newline
-\hspace*{10mm} The objective of training in both Linear and Logistic Regression is to determine the weights that will be used in the final model. The weight coefficients can be determined using the process of Gradient Descent. The general procedure for applying Gradient Descent is to first calculate the prediction based on the current weight coefficients and then calculate new coefficients based off the error in the prediction. This process is repeated until the coefficients are deemed accurate enough, the process used in this paper to determine the prediction is accurate enough will be to determine that the error has dropped to a desirable enough level. At this point the model can be considered trained and will be evaluated for performance on the test data set.
+\hspace*{10mm} \textbf{Linear and Logistic Regression}\\
+\hspace*{10mm} Regression is an a problem solving approach in Machine Learning that models a target predictor based on independent variables or values.  Linear Regression and Logistic Regression both are discriminant-based approaches that do not care about estimating the densities inside a particular class region, instead the discriminant-based approach aims to estimate the boundaries between the class regression. The output of Linear and Logistic regression models is a weighted sum of the input attributes or features. The magnitude of the weight applied against each feature, shows the importance of that feature towards the overall prediction. The weights are learned by the model during training. Linear Regression is used on Regression problems because the data that is being predicted is continuous. This Linear model will not work for Classification problems, as the output of the linear model would be a real value, when in Classification a class label is desired. Logistic Regression is used for Classification problems, as it maps the output of the weight sum presented in Linear Regression and maps it to a non-linear function that ensures the outputs are between 0 and 1. The function used to achieve this is the Sigmoid or Logistic function.\\
+\hspace*{10mm} The objective of training in both Linear and Logistic Regression is to determine the weights that will be used in the final model. The weight coefficients can be determined using the process of Gradient Descent. The general procedure for applying Gradient Descent is to first calculate the prediction based on the current weight coefficients and then calculate new coefficients based off the error in the prediction. This process is repeated until the coefficients are deemed accurate enough. The weight convergence process used in this paper to determine if the prediction is accurate enough will be to a set number of iterations. After the set number of iterations through the weight update process, the weights will be deemed good enough. At this point the model can be considered trained and will be evaluated for performance on the test data set.
+\newpage
 
-The general algorithm steps for Linear and Logistic Regression are outlined below:\newline
-For each Feature (\textit{j}) in the Domain(\textit{d}) of the Data Set\\
+\textbf{Linear and Logistic Regression Algorithm}\newline
+For each Feature (\textit{j}) in the Domain(\textit{d}) of the Data Set:\\
 \tab Set $W_j$ to a random value between -0.01 and 0.01\\
-Repeat the Following Steps Until the Error has Converged to a Value ()\\
-\tab For each Feature (\textit{j}) in the Domain(\textit{d}) of the Data Set\\
+Repeat the Following Steps Until the Number of Iterations for Convergence has been Reached\\
+\tab For each Feature (\textit{j}) in the Domain(\textit{d}) of the Data Set:\\
 \tab \tab $\delta W_j$ = 0\\
- \tab For each Feature (\textit{j}) in the Domain(\textit{d}) of the Data Set\\
- 
+\tab For each observation (\textit{t}) in the Data Set:\\
+\tab \tab Set the Temp Prediction (\textit{o}) to 0.\\
+\tab \tab \tab For each Feature (\textit{j}) in the Domain(\textit{d}) of the Data Set:\\
+\tab \tab \tab \tab  (\textit{o}) =  (\textit{o}) + $W_j * X_j$\\
+\tab \tab \tab If the problem is Regression:\\
+\tab \tab \tab \tab Set the Model Prediction (\textit{y}) to the Temp Prediction Value (\textit{o})\\
+\tab \tab \tab If the problem is Classification:\\
+\tab \tab \tab \tab Set the Model Prediction (\textit{y}) to the Sigmoid(\textit{o})\\
+\tab \tab \tab For each Feature (\textit{j}) in the Domain(\textit{d}) of the Data Set:\\
+
+\newpage
+
+\hspace*{10mm} \textbf{Linear Neural Networks}\\
+\hspace*{10mm} With a basic understand of the Linear and Logisitc regression algorithms, these processing techniques can be expanded to build a Neural Network. For the purposes of this paper the Linear Neural Network will be built with a Input Layer, Two Hidden Layers and the Final Output Layer. The structure of a Neural Network is something that can be tuned and tweaked to provide different results, that fell outside the scope of work for this paper, however provides an area of future work. The structure used for the Neural Network in this paper, has the number of nodes in each layer being equal to the number of features in the data set. In other words, the number of nodes in the hidden layers is equal to the domain of the data set. The neurons in each of the layers are connected by edges and those edges are tied to weight values. The algorithm explored in this paper is Back Propagation. The general idea behind Back Propagation is to model a pattern or model in the data set by modifying the weight of the internal network structure. This network is trained using supervised learning, where the error between the predicted value and the actual output value of an observation, is used to back propagate and update the weights of the edges inside the Network.\\
+An observation is fed forward through the network, using an initial set of weights. As each feature in the input data set passes through a Neuron the Neuron is activated, as in the input feature times the weight connecting the feature to that neuron is calculated and then passed through the Sigmoid function. The Sigmoid function is used for the activation function in the neurons for both Classification and Regression problems. The difference between the Classification and regression problems comes about in the output layer of the network. 
+
+\textbf{Linear Neural Networks Algorithm}\newline
+\hspace*{10mm} INSERT Algorithm  \\
+
+\newpage
+
+\hspace*{10mm} \textbf{AutoEncoded Linear Neural Networks}\\
+\hspace*{10mm} INSERT Description \\
+
+\textbf{AutoEncoded Linear Neural Networks Algorithm}\newline
+\hspace*{10mm} INSERT Algorithm  \\
 
 \newpage
 {\noindent}{\bf Data Sets}\newline
@@ -114,7 +140,7 @@ Tables 1-3 display the results from Classification Tasks: the Breast Cancer, Car
 		\centering
 		\caption{Breast Cancer: Linear Networks - Experimental Results}
 		\label{tab:table2}
-		%\includegraphics[scale=.7]{BC_Results}\newline
+		\includegraphics[scale=.7]{BC_All_Results}\newline
 \end{table}
 \newpage
 
@@ -122,7 +148,7 @@ Tables 1-3 display the results from Classification Tasks: the Breast Cancer, Car
 		\centering
 		\caption{Congressional Vote: Linear Networks - Experimental Results}
 		\label{tab:table3}
-		%\includegraphics[scale=.7]{CongVote_Results}\newline
+		\includegraphics[scale=.7]{CongVote_All_Results}\newline
 \end{table}
 
 \begin{table}[h]

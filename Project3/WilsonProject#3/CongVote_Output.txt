@@ -1,0 +1,31 @@
+MLPL - Machine Learning Pipeline - ID3 and CART
+Fold:0
+Running ID3 - Univariate
+Building Tree
+End of ID3 Tree Building
+Classification Error:
+0.04285714285714286
+Fold:1
+Running ID3 - Univariate
+Building Tree
+End of ID3 Tree Building
+Classification Error:
+0.05714285714285714
+Fold:2
+Running ID3 - Univariate
+Building Tree
+End of ID3 Tree Building
+Classification Error:
+0.02857142857142857
+Fold:3
+Running ID3 - Univariate
+Building Tree
+End of ID3 Tree Building
+Classification Error:
+0.08695652173913043
+Fold:4
+Running ID3 - Univariate
+Building Tree
+End of ID3 Tree Building
+Classification Error:
+0.10144927536231885

@@ -1,0 +1,120 @@
+MLPL - Machine Learning Pipeline - Linear Neural Networks
+---TUNE LINEAR AUTOENCODED NN---
+Tuning Learning Factor (N) On: Albalone
+Tuning Convergence Factor (EP) On: Albalone
+N:0.001
+EP:10
+Fold:0
+         Fold Results:9.585470428525683
+Fold:1
+         Fold Results:10.142624151083572
+Fold:2
+         Fold Results:10.233335267932459
+Fold:3
+         Fold Results:9.995469127304544
+Fold:4
+         Fold Results:9.752108259357163
+Folds Average:9.941801446840685
+EP:100
+Fold:0
+         Fold Results:9.579273870853626
+Fold:1
+         Fold Results:10.138674928328957
+Fold:2
+         Fold Results:10.236897892201597
+Fold:3
+         Fold Results:9.999585665423057
+Fold:4
+         Fold Results:9.756046882814847
+Folds Average:9.942095847924417
+N:0.01
+EP:10
+Fold:0
+         Fold Results:9.585924661392495
+Fold:1
+         Fold Results:10.142008384615071
+Fold:2
+         Fold Results:10.233914118297534
+Fold:3
+         Fold Results:9.995454545217024
+Fold:4
+         Fold Results:9.753424507832293
+Folds Average:9.942145243470883
+EP:100
+Fold:0
+         Fold Results:9.582960219061055
+Fold:1
+         Fold Results:10.142172624502821
+Fold:2
+         Fold Results:10.233102342118029
+Fold:3
+         Fold Results:10.001511444221114
+Fold:4
+         Fold Results:9.753564478866213
+Folds Average:9.942662221753846
+N:0.1
+EP:10
+Fold:0
+         Fold Results:9.578589965048481
+Fold:1
+         Fold Results:10.142022173492496
+Fold:2
+         Fold Results:10.235033825405587
+Fold:3
+         Fold Results:9.994918522727248
+Fold:4
+         Fold Results:9.750549072665857
+Folds Average:9.940222711867934
+EP:100
+Fold:0
+         Fold Results:9.57545740205848
+Fold:1
+         Fold Results:10.138066191433198
+Fold:2
+         Fold Results:10.233647137317183
+Fold:3
+         Fold Results:9.996086104583842
+Fold:4
+         Fold Results:9.748859710486375
+Folds Average:9.938423309175814
+N:1
+EP:10
+Fold:0
+         Fold Results:9.58268957279085
+Fold:1
+         Fold Results:10.138644593215382
+Fold:2
+         Fold Results:10.230911325768794
+Fold:3
+         Fold Results:9.997897025807692
+Fold:4
+         Fold Results:9.75379687722025
+Folds Average:9.940787878960595
+EP:100
+Fold:0
+         Fold Results:9.585726502684256
+Fold:1
+         Fold Results:10.141781465188975
+Fold:2
+         Fold Results:10.232724261625975
+Fold:3
+         Fold Results:10.001571695449682
+Fold:4
+         Fold Results:9.753588028422385
+Folds Average:9.943078390674255
+MLPL - Machine Learning Pipeline - Linear Neural Networks
+---LINEAR AUTOENCODED NN---
+DataSet: Albalone
+Learning Factor (N): 0.01
+Convergence Factor (EP): 100
+Fold:0
+         Fold Results:9.497540177297692
+Fold:1
+         Fold Results:10.353466308579666
+Fold:2
+         Fold Results:9.805532783283308
+Fold:3
+         Fold Results:10.052464353728693
+Fold:4
+         Fold Results:10.144272302042602
+Folds Average:9.970655184986391

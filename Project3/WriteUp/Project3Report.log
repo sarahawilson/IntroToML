@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.1.30)  13 MAR 2022 17:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.1.30)  13 MAR 2022 19:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -416,69 +416,115 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 122--124
+[3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 127--143
 
  []
 
-[4] [5] [6]
-Overfull \hbox (3.28027pt too wide) in paragraph at lines 141--178
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--143
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--143
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--162
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--162
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--162
+
+ []
+
+[5]
+Overfull \hbox (3.28027pt too wide) in paragraph at lines 167--204
 []$\OT1/cmtt/m/n/10.95 https : / / archive . ics . uci . edu / ml / datasets / 
 Breast + Cancer + Wisconsin + %28Original %
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--178
+Underfull \hbox (badness 10000) in paragraph at lines 167--204
 
  []
 
-[7]
-Underfull \hbox (badness 10000) in paragraph at lines 182--184
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 208--210
 
  []
 
-<./images//Albalone_Results.png, id=81, 433.62pt x 144.54pt>
+<./images//CarEval_Results.png, id=76, 446.41782pt x 143.03438pt>
+File: ./images//CarEval_Results.png Graphic file (type png)
+<use ./images//CarEval_Results.png>
+Package pdftex.def Info: ./images//CarEval_Results.png  used on input line 215.
+
+(pdftex.def)             Requested size: 312.49033pt x 100.12337pt.
+<./images//BC_Results.png, id=78, 447.92343pt x 143.03438pt>
+File: ./images//BC_Results.png Graphic file (type png)
+<use ./images//BC_Results.png>
+Package pdftex.def Info: ./images//BC_Results.png  used on input line 222.
+(pdftex.def)             Requested size: 313.54427pt x 100.12337pt.
+[7 <./images//CarEval_Results.png> <./images//BC_Results.png>]
+<./images//CongVote_Results.png, id=88, 444.15938pt x 145.29282pt>
+File: ./images//CongVote_Results.png Graphic file (type png)
+<use ./images//CongVote_Results.png>
+Package pdftex.def Info: ./images//CongVote_Results.png  used on input line 230
+.
+(pdftex.def)             Requested size: 310.90944pt x 101.70427pt.
+<./images//Albalone_Results.png, id=89, 433.62pt x 144.54pt>
 File: ./images//Albalone_Results.png Graphic file (type png)
 <use ./images//Albalone_Results.png>
-Package pdftex.def Info: ./images//Albalone_Results.png  used on input line 210
+Package pdftex.def Info: ./images//Albalone_Results.png  used on input line 237
 .
 (pdftex.def)             Requested size: 303.53192pt x 101.17729pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<./images//CompHardware_Results.png, id=83, 444.91219pt x 143.03438pt>
+<./images//CompHardware_Results.png, id=90, 444.91219pt x 143.03438pt>
 File: ./images//CompHardware_Results.png Graphic file (type png)
 <use ./images//CompHardware_Results.png>
 Package pdftex.def Info: ./images//CompHardware_Results.png  used on input line
- 217.
+ 244.
 (pdftex.def)             Requested size: 311.4364pt x 100.12337pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<./images//ForestFire_Results.png, id=84, 432.86719pt x 144.54pt>
+<./images//ForestFire_Results.png, id=91, 432.86719pt x 144.54pt>
 File: ./images//ForestFire_Results.png Graphic file (type png)
 <use ./images//ForestFire_Results.png>
 Package pdftex.def Info: ./images//ForestFire_Results.png  used on input line 2
-24.
+51.
 (pdftex.def)             Requested size: 303.00496pt x 101.17729pt.
+
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 232--235
+[8 <./images//CongVote_Results.png> <./images//Albalone_Results.png> <./images/
+/CompHardware_Results.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 259--262
 
  []
 
-[9 <./images//Albalone_Results.png> <./images//CompHardware_Results.png>]
-[10 <./images//ForestFire_Results.png>] (Project3Report.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 263--266
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9 <./images//ForestFire_Results.png>] [10] (Project3Report.aux)
 Package rerunfilecheck Info: File `Project3Report.out' has not changed.
 (rerunfilecheck)             Checksum: AABB3B6ECEB0C3E959497C1C9181927A;687.
  ) 
 Here is how much of TeX's memory you used:
- 9576 strings out of 478659
- 151768 string characters out of 2842566
- 449523 words of memory out of 3000000
- 27545 multiletter control sequences out of 15000+600000
+ 9609 strings out of 478659
+ 152720 string characters out of 2842566
+ 449522 words of memory out of 3000000
+ 27578 multiletter control sequences out of 15000+600000
  411065 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  85i,7n,90p,1687b,326s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -497,9 +543,9 @@ Wilson/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
 <C:/Users/Sarah Wilson/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
 s/cm/cmti10.pfb><C:/Users/Sarah Wilson/AppData/Local/Programs/MiKTeX/fonts/type
 1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Project3Report.pdf (10 pages, 209365 bytes).
+Output written on Project3Report.pdf (10 pages, 233375 bytes).
 PDF statistics:
- 164 PDF objects out of 1000 (max. 8388607)
+ 170 PDF objects out of 1000 (max. 8388607)
  28 named destinations out of 1000 (max. 500000)
- 64 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 79 words of extra memory for PDF output out of 10000 (max. 10000000)
 

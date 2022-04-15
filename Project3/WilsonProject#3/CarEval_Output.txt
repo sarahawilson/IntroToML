@@ -1,0 +1,44 @@
+MLPL - Machine Learning Pipeline - ID3 and CART
+Fold:0
+Running ID3 - Univariate
+Building Tree
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py:264: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py:264: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+Traceback (most recent call last):
+
+  File "<ipython-input-5-b3edda9ac013>", line 1, in <module>
+    runfile('C:/Users/Sarah Wilson/Desktop/JHU Classes/IntroToML/Project3/SourceCode/CleanUpMLPL.py')
+
+  File "E:\Anaconda3\lib\site-packages\spyder_kernels\customize\spydercustomize.py", line 786, in runfile
+    execfile(filename, namespace)
+
+  File "E:\Anaconda3\lib\site-packages\spyder_kernels\customize\spydercustomize.py", line 110, in execfile
+    exec(compile(f.read(), filename, 'exec'), namespace)
+
+  File "C:/Users/Sarah Wilson/Desktop/JHU Classes/IntroToML/Project3/SourceCode/CleanUpMLPL.py", line 273, in <module>
+    myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Car Eval', 'Car Acceptability', 4, None)
+
+  File "C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\KCrossValHelperModule.py", line 117, in runKFoldCrossVal_ID3_Univariate
+    curFoldID3Tree = id3_Helper.runID3Algo(testDF, trainDF)
+
+  File "C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py", line 44, in runID3Algo
+    self.generateTree(trainDF, self.ID3DecTreeRoot)
+
+  File "C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py", line 102, in generateTree
+    maxGRFeatureName = self._determineMaxGainRatioFeature(currentPartition)
+
+  File "C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py", line 167, in _determineMaxGainRatioFeature
+    expEnt = self._calcExpEntropyAllFeaturesInCurrentParition(currentPartition)
+
+  File "C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py", line 301, in _calcExpEntropyAllFeaturesInCurrentParition
+    curEntrop = curFeatOptionsEntropy[index]
+
+IndexError: list index out of range

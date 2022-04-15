@@ -1,0 +1,120 @@
+---TUNE LINEAR AUTOENCODED NN---
+Tuning Learning Factor (N) On: Breast Cancer
+Tuning Convergence Factor (EP) On: Breast Cancer
+N:0.001
+EP:10
+Fold:0
+         Fold Results:0.6071428571428571
+Fold:1
+         Fold Results:0.35714285714285715
+Fold:2
+         Fold Results:0.7142857142857143
+Fold:3
+         Fold Results:0.6785714285714286
+Fold:4
+         Fold Results:0.35714285714285715
+Folds Average:0.5428571428571428
+EP:100
+Fold:0
+         Fold Results:0.6071428571428571
+Fold:1
+         Fold Results:0.35714285714285715
+Fold:2
+         Fold Results:0.2857142857142857
+Fold:3
+         Fold Results:0.6785714285714286
+Fold:4
+         Fold Results:0.6428571428571429
+Folds Average:0.5142857142857143
+N:0.01
+EP:10
+Fold:0
+         Fold Results:0.39285714285714285
+Fold:1
+         Fold Results:0.6428571428571429
+Fold:2
+         Fold Results:0.2857142857142857
+Fold:3
+         Fold Results:0.32142857142857145
+Fold:4
+         Fold Results:0.6428571428571429
+Folds Average:0.4571428571428572
+EP:100
+Fold:0
+         Fold Results:0.6071428571428571
+Fold:1
+         Fold Results:0.35714285714285715
+Fold:2
+         Fold Results:0.2857142857142857
+Fold:3
+         Fold Results:0.6785714285714286
+Fold:4
+         Fold Results:0.6428571428571429
+Folds Average:0.5142857142857143
+N:0.1
+EP:10
+Fold:0
+         Fold Results:0.39285714285714285
+Fold:1
+         Fold Results:0.35714285714285715
+Fold:2
+         Fold Results:0.7142857142857143
+Fold:3
+         Fold Results:0.32142857142857145
+Fold:4
+         Fold Results:0.35714285714285715
+Folds Average:0.42857142857142855
+EP:100
+Fold:0
+         Fold Results:0.6071428571428571
+Fold:1
+         Fold Results:0.35714285714285715
+Fold:2
+         Fold Results:0.2857142857142857
+Fold:3
+         Fold Results:0.32142857142857145
+Fold:4
+         Fold Results:0.35714285714285715
+Folds Average:0.38571428571428573
+N:1
+EP:10
+Fold:0
+         Fold Results:0.6071428571428571
+Fold:1
+         Fold Results:0.6428571428571429
+Fold:2
+         Fold Results:0.2857142857142857
+Fold:3
+         Fold Results:0.6785714285714286
+Fold:4
+         Fold Results:0.6428571428571429
+Folds Average:0.5714285714285714
+EP:100
+Fold:0
+         Fold Results:0.6071428571428571
+Fold:1
+         Fold Results:0.6428571428571429
+Fold:2
+         Fold Results:0.2857142857142857
+Fold:3
+         Fold Results:0.32142857142857145
+Fold:4
+         Fold Results:0.35714285714285715
+Folds Average:0.4428571428571428
+
+MLPL - Machine Learning Pipeline - Linear Neural Networks
+---LINEAR AUTOENCODED NN---
+DataSet: Breast Cancer
+Learning Factor (N): 0.1
+Convergence Factor (EP): 100
+Fold:0
+         Fold Results:0.6756152125279642
+Fold:1
+         Fold Results:0.6868008948545862
+Fold:2
+         Fold Results:0.3400447427293065
+Fold:3
+         Fold Results:0.378076062639821
+Fold:4
+         Fold Results:0.6294642857142857
+Folds Average:0.5420002396931928

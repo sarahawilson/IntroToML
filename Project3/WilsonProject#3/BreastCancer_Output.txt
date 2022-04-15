@@ -1,0 +1,46 @@
+MLPL - Machine Learning Pipeline - ID3 and CART
+Fold:0
+Running ID3 - Univariate
+Building Tree
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py:264: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py:264: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py:264: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py:264: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py:264: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py:264: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py:264: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py:264: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  sortedPartition['Before Change Occured'][:-1] = sortedPartition['Change Occured'][1:]
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project3\SourceCode\ID3HelperModule.py:264: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame

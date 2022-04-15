@@ -21,8 +21,6 @@ class KCrossValHelper:
         self.allDataSets = allDataSets
         
         #self._createValidation_TuneAndExperimentSets()
-        self.ID3TreeFoldDict = {}
-        self.CARTTreeFoldDict = {}
         
         
     def _createValidation_TuneAndExperimentSets(self, runOn = "AllDataSets"):
@@ -38,15 +36,6 @@ class KCrossValHelper:
                 #Create the 80% Set 
                 self.allDataSets[dataSetName].finalData_ExperimentSet = tempCurDataSet.drop(self.allDataSets[dataSetName].finalData_Validation20PercentSet.index)
             
-    def _createValidation_TuneAndExperimentSetsAfterDropUnique(self, dataSetName, dropedDF):
-        # Splits the overall data sets into the 20% that is needed for Validation
-       # The other 80% is left for the full algorithm experiment 
-    
-        #Create the 20% Set
-        self.allDataSets[dataSetName].finalData_Validation20PercentSet = dropedDF.sample(frac=0.2, random_state=1)
-            
-        #Create the 80% Set 
-        self.allDataSets[dataSetName].finalData_ExperimentSet = dropedDF.drop(self.allDataSets[dataSetName].finalData_Validation20PercentSet.index)
             
     def _create_folds(self, inputDataFrame):
         # Input data frame
@@ -121,42 +110,6 @@ class KCrossValHelper:
             self.ID3TreeFoldDict[foldName] = curFoldID3Tree
             #Clear the Tree for the Next time through
             id3_Helper.clearTree()
-    
-    def runKFoldCrossVal_CART_Univariate(self, dataSetName, predictorName, dropLabel = None):
-        cart_Helper = CARTHelperModule.CARTHelper(self.allDataSets[dataSetName].name, predictorName, dropLabel, self.allDataSets)
-            
-        if(dataSetName == 'Albalone'):
-            self.allDataSets[dataSetName].applyOneHotEncoding(['Sex'])
-        elif (dataSetName == 'Forest Fire'):
-            self.allDataSets[dataSetName].applyOneHotEncoding(['month', 'day'])
-            #self.allDataSets[dataSetName].finalData = self.allDataSets[dataSetName].finalData.drop(['month', 'day'], axis =1)
-        elif (dataSetName == 'Computer Hardware'):
-            self.allDataSets[dataSetName].applyOneHotEncoding(['Vendor Name', 'Model Name'])
-            #self.allDataSets[dataSetName].finalData = self.allDataSets[dataSetName].finalData.drop(['month', 'day'], axis =1)
-            
-        if(dropLabel != None):
-            finalCARTData = cart_Helper.dropUniqueIDs(self.allDataSets[dataSetName].finalData)
-        else:
-            finalCARTData = self.allDataSets[dataSetName].finalData
-        
-        #Sanity Check on Tree Building - For Simple Data Sets
-        #self.ID3Tree = id3_Helper.runID3Algo(None, finalID3Data)
-        
-        self._createValidation_TuneAndExperimentSetsAfterDropUnique(dataSetName, finalCARTData)
-        
-        curDataFrameFoldList = self._create_folds(self.allDataSets[dataSetName].finalData_ExperimentSet)
-        
-        for iFoldIndex in range(self.numFolds):
-            print('Fold:' + str(iFoldIndex))
-            loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
-            testDF = loopDataFrameFoldList.pop(iFoldIndex)
-            trainDF = pd.concat(loopDataFrameFoldList, axis=0)    
-            
-            curFoldID3Tree = cart_Helper.runCARTAlgo(testDF, trainDF)
-            foldName = 'Fold' + str(iFoldIndex)
-            self.CARTTreeFoldDict[foldName] = curFoldID3Tree
-            #Clear the Tree for the Next time through
-            cart_Helper.clearTree()
     
     
     

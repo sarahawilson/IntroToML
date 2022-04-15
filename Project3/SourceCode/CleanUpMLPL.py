@@ -181,77 +181,7 @@ def defineAllDataSets()->Dict:
     
     #Add to the Overall Data Set Dictonary 
     allDataSetObjects[forestFireDataSetName] = forestFireDS
-    
-    
-    ####################
-    # EXAMPLE DT DATA (Categorical)
-    ####################
-    #Day, Outlook, Temperature, Humidity, Wind, Play Tennis
-    tennisDataSetName = 'Tennis'
-    tennisDataSet_OverallType = 'Classification'
-    tennisDataSet_Predictor = 'Play Tennis'
-    tennisDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\DTreeExample.data"
-    tennisID3Types = {'Day': 'Num','Outlook': 'Cat','Temperature': 'Cat','Humidity': 'Cat','Wind': 'Cat','Play Tennis': 'Cat'}
-    
-    expDeTreeDS = DataSetHelper.DataSet(tennisDataSetName,
-                                         tennisDataSet_OverallType,
-                                         tennisDataSet_Predictor,
-                                         tennisDataSetPath,
-                                         None,
-                                         None,
-                                         None,
-                                         None,
-                                         tennisID3Types)
-    
-    #Add to the Overall Data Set Dictonary 
-    allDataSetObjects[tennisDataSetName] = expDeTreeDS
-    
-    ####################
-    # EXAMPLE DT DATA (Numeric)
-    ####################
-    #Day, Temp, Humd, Wind, Play Tennis
-    numTennisDataSetName = 'NumberTennis'
-    numTennisDataSet_OverallType = 'Classification'
-    numTennisDataSet_Predictor = 'Play Tennis'
-    numTennisDataSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\DTreeExample_Numeric.data"
-    numTennisID3Types = {'Day': 'Num','Temp': 'Num','Humd': 'Num','Play Tennis': 'Cat'}
-    
-    expDeTreeDS2 = DataSetHelper.DataSet(numTennisDataSetName,
-                                         numTennisDataSet_OverallType,
-                                         numTennisDataSet_Predictor,
-                                         numTennisDataSetPath,
-                                         None,
-                                         None,
-                                         None,
-                                         None,
-                                         numTennisID3Types)
-    
-    #Add to the Overall Data Set Dictonary 
-    allDataSetObjects[numTennisDataSetName] = expDeTreeDS2
-    
-    
-    ####################
-    # EXAMPLE DT DATA (Regression)
-    ####################
-    #Day, Temp, Humd, Wind, Play Tennis
-    regWinDataSetname = 'SimpleRegression'
-    regWinDataSet_OverallType = 'Regression'
-    regWinDataSet_Predictor = 'Percentage Won'
-    regWinDataSetSetPath = r"C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\DataSets\simpleTestDataSets\DTreeExample_Regression.data"
-    
-    expDeTreeDS3 = DataSetHelper.DataSet(regWinDataSetname,
-                                         regWinDataSet_OverallType,
-                                         regWinDataSet_Predictor,
-                                         regWinDataSetSetPath,
-                                         None,
-                                         None,
-                                         None,
-                                         None,
-                                         None)
-    
-    #Add to the Overall Data Set Dictonary 
-    allDataSetObjects[regWinDataSetname] = expDeTreeDS3
-    
+        
     return allDataSetObjects
 
 if __name__ == "__main__":
@@ -262,33 +192,7 @@ if __name__ == "__main__":
     #Set up the KCross Val Helper 
     myKCrossValHelper = KCrossValHelperModule.KCrossValHelper(allDataSets)
     
-
     
-    #https://machinewithdata.com/2018/07/10/how-to-calculate-gain-ratio/
-    #https://www.cse.unsw.edu.au/~cs9417ml/DT1/decisiontreealgorithm.html
-    #https://machinewithdata.com/2020/06/17/deriving-decision-tree-using-entropy-id3-approach/
-    #https://beginningwithml.wordpress.com/2019/01/14/9-2-improving-the-id3-algorithm/
-    #https://stats.stackexchange.com/questions/49540/understanding-stratified-cross-validation#:~:text=Stratification%20is%20the%20process%20of,comprises%20around%20half%20the%20instances.
-    
-
-    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Tennis', 'Play Tennis', 2, 'Day')
-    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('NumberTennis', 'Play Tennis', 2, 'Day')
-    
-    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Breast Cancer', 'Class', 2, 'Sample Code Number')
-    
-    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Congressional Vote', 'Class Name', 2, None)
-    
-    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Car Eval', 'Car Acceptability', 4, None)
-    
-    #myKCrossValHelper.runKFoldCrossVal_CART_Univariate('SimpleRegression', 'Percentage Won')
-    #myKCrossValHelper.runKFoldCrossVal_CART_Univariate('Albalone', 'Rings')
-    #myKCrossValHelper.runKFoldCrossVal_CART_Univariate('Forest Fire', 'area')
-    #myKCrossValHelper.runKFoldCrossVal_CART_Univariate('Computer Hardware', 'PRP')
-    
-
-    #Video Section
-    myKCrossValHelper.runKFoldCrossVal_CART_Univariate('SimpleRegression', 'Percentage Won')
-    #myKCrossValHelper.runKFoldCrossVal_ID3_Univariate('Tennis', 'Play Tennis', 2, 'Day')
     
 
     

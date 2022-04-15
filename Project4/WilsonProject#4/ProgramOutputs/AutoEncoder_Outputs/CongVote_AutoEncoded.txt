@@ -1,0 +1,120 @@
+MLPL - Machine Learning Pipeline - Linear Neural Networks
+---TUNE LINEAR AUTOENCODED NN---
+Tuning Learning Factor (N) On: Congressional Vote
+Tuning Convergence Factor (EP) On: Congressional Vote
+N:0.001
+EP:10
+Fold:0
+         Fold Results:0.4444444444444444
+Fold:1
+         Fold Results:0.16666666666666666
+Fold:2
+         Fold Results:0.35294117647058826
+Fold:3
+         Fold Results:0.7058823529411765
+Fold:4
+         Fold Results:0.5294117647058824
+Folds Average:0.43986928104575157
+EP:100
+Fold:0
+         Fold Results:0.5555555555555556
+Fold:1
+         Fold Results:0.8333333333333334
+Fold:2
+         Fold Results:0.6470588235294118
+Fold:3
+         Fold Results:0.29411764705882354
+Fold:4
+         Fold Results:0.47058823529411764
+Folds Average:0.5601307189542484
+N:0.01
+EP:10
+Fold:0
+         Fold Results:0.5555555555555556
+Fold:1
+         Fold Results:0.16666666666666666
+Fold:2
+         Fold Results:0.35294117647058826
+Fold:3
+         Fold Results:0.29411764705882354
+Fold:4
+         Fold Results:0.5294117647058824
+Folds Average:0.37973856209150325
+EP:100
+Fold:0
+         Fold Results:0.4444444444444444
+Fold:1
+         Fold Results:0.8333333333333334
+Fold:2
+         Fold Results:0.35294117647058826
+Fold:3
+         Fold Results:0.7058823529411765
+Fold:4
+         Fold Results:0.47058823529411764
+Folds Average:0.561437908496732
+N:0.1
+EP:10
+Fold:0
+         Fold Results:0.5555555555555556
+Fold:1
+         Fold Results:0.8333333333333334
+Fold:2
+         Fold Results:0.6470588235294118
+Fold:3
+         Fold Results:0.29411764705882354
+Fold:4
+         Fold Results:0.47058823529411764
+Folds Average:0.5601307189542484
+EP:100
+Fold:0
+         Fold Results:0.4444444444444444
+Fold:1
+         Fold Results:0.8333333333333334
+Fold:2
+         Fold Results:0.6470588235294118
+Fold:3
+         Fold Results:0.29411764705882354
+Fold:4
+         Fold Results:0.47058823529411764
+Folds Average:0.5379084967320261
+N:1
+EP:10
+Fold:0
+         Fold Results:0.5555555555555556
+Fold:1
+         Fold Results:0.16666666666666666
+Fold:2
+         Fold Results:0.35294117647058826
+Fold:3
+         Fold Results:0.29411764705882354
+Fold:4
+         Fold Results:0.47058823529411764
+Folds Average:0.36797385620915035
+EP:100
+Fold:0
+         Fold Results:0.4444444444444444
+Fold:1
+         Fold Results:0.16666666666666666
+Fold:2
+         Fold Results:0.6470588235294118
+Fold:3
+         Fold Results:0.29411764705882354
+Fold:4
+         Fold Results:0.47058823529411764
+Folds Average:0.4045751633986928
+MLPL - Machine Learning Pipeline - Linear Neural Networks
+---LINEAR AUTOENCODED NN---
+DataSet: Congressional Vote
+Learning Factor (N): 1
+Convergence Factor (EP): 10
+Fold:0
+         Fold Results:0.6079136690647482
+Fold:1
+         Fold Results:0.6115107913669064
+Fold:2
+         Fold Results:0.41007194244604317
+Fold:3
+         Fold Results:0.3978494623655914
+Fold:4
+         Fold Results:0.37992831541218636
+Folds Average:0.48145483613109513

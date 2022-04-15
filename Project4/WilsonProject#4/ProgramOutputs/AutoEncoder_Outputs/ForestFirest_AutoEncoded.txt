@@ -1,0 +1,120 @@
+MLPL - Machine Learning Pipeline - Linear Neural Networks
+---TUNE LINEAR NN---
+Tuning Learning Factor (N) On: Forest Fire
+Tuning Convergence Factor (EP) On: Forest Fire
+N:0.001
+EP:10
+Fold:0
+         Fold Results:11.656487782165597
+Fold:1
+         Fold Results:24.710444100030713
+Fold:2
+         Fold Results:163.5496754470746
+Fold:3
+         Fold Results:47.44593835715204
+Fold:4
+         Fold Results:23.812612226083143
+Folds Average:54.23503158250122
+EP:20
+Fold:0
+         Fold Results:11.655792642698142
+Fold:1
+         Fold Results:24.713541988130714
+Fold:2
+         Fold Results:163.54810773091802
+Fold:3
+         Fold Results:47.44622678552927
+Fold:4
+         Fold Results:23.81467523251382
+Folds Average:54.23566887595799
+N:0.01
+EP:10
+Fold:0
+         Fold Results:11.657579388295696
+Fold:1
+         Fold Results:24.7106653775164
+Fold:2
+         Fold Results:163.54777811565438
+Fold:3
+         Fold Results:47.44545638560005
+Fold:4
+         Fold Results:23.814687792599468
+Folds Average:54.23523341193319
+EP:20
+Fold:0
+         Fold Results:11.656657373876829
+Fold:1
+         Fold Results:24.70767855664227
+Fold:2
+         Fold Results:163.54989216848458
+Fold:3
+         Fold Results:47.44801291751313
+Fold:4
+         Fold Results:23.814687682459247
+Folds Average:54.235385739795205
+N:0.1
+EP:10
+Fold:0
+         Fold Results:11.65768097338184
+Fold:1
+         Fold Results:24.709061882521528
+Fold:2
+         Fold Results:163.54876380124082
+Fold:3
+         Fold Results:47.44589371308349
+Fold:4
+         Fold Results:23.81505404708506
+Folds Average:54.235290883462554
+EP:20
+Fold:0
+         Fold Results:11.655763632297225
+Fold:1
+         Fold Results:24.710955924691916
+Fold:2
+         Fold Results:163.5494180533779
+Fold:3
+         Fold Results:47.44606640067268
+Fold:4
+         Fold Results:23.81451316828812
+Folds Average:54.23534343586557
+N:1
+EP:10
+Fold:0
+         Fold Results:11.65287992610157
+Fold:1
+         Fold Results:24.708051050889246
+Fold:2
+         Fold Results:163.54794429149834
+Fold:3
+         Fold Results:47.4480566397041
+Fold:4
+         Fold Results:23.81474004257232
+Folds Average:54.234334390153116
+EP:20
+Fold:0
+         Fold Results:11.657097296950676
+Fold:1
+         Fold Results:24.709921506546575
+Fold:2
+         Fold Results:163.54968980946126
+Fold:3
+         Fold Results:47.44404126016914
+Fold:4
+         Fold Results:23.81501584711001
+Folds Average:54.23515314404754
+MLPL - Machine Learning Pipeline - Linear Neural Networks
+---LINEAR AUTOENCODED NN---
+DataSet: Forest Fire
+Learning Factor (N): 1
+Convergence Factor (EP): 10
+Fold:0
+         Fold Results:68.1199319850911
+Fold:1
+         Fold Results:68.08953388793026
+Fold:2
+         Fold Results:20.97192424658377
+Fold:3
+         Fold Results:67.0092434029479
+Fold:4
+         Fold Results:65.89074405599595
+Folds Average:58.0162755157098

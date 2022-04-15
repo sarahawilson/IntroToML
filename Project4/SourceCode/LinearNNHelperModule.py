@@ -231,6 +231,9 @@ class Linear_NN_Helper:
     
     def makePrediction(self, curObservationTEST):
         prediction = self.feedforward_prop(curObservationTEST)
+        if(self.dataSetName == 'Car Eval'):
+            #Take the Prediction with the highest output (softmax)
+            prediction = prediction.index(max(prediction))
         return prediction
    
     
@@ -279,15 +282,16 @@ class Linear_NN_Helper:
         numberOfInputs = len(trainDF.columns) - 1
         
         if(self.probType == 'Classification'):
-            #TODO: Update for a multiple class problem
-            #OutputNodes of 1 means that it is a two class problem
-            outputNodes = 1
+            if(self.dataSetName == 'Car Eval'):
+                outputNodes = 4
+            else:
+                outputNodes = 1
         elif(self.probType == 'Regression'):
             #TODO: I think for regression the number of nodes is probably 1 
             # need to check with Shane
             outputNodes = 1
         
-        #Build the Inital Network 
+        #Build the Inital Network with 2 hidden layers
         self.build_template_network(numberOfInputs, 2, numberOfInputs, outputNodes)
         
         #Train the Weights until they Converge

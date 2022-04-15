@@ -1,0 +1,86 @@
+---TUNE LINEAR AUTOENCODED NN---
+Tuning Learning Factor (N) On: Computer Hardware
+Tuning Convergence Factor (EP) On: Computer Hardware
+N:0.001
+EP:10
+Fold:0
+         Fold Results:121.44503421520072
+Fold:1
+         Fold Results:103.4036235681096
+Fold:2
+         Fold Results:139.12175952749251
+Fold:3
+         Fold Results:91.61089719505743
+Fold:4
+         Fold Results:260.6127465978021
+Folds Average:143.23881222073246
+EP:20
+Fold:0
+         Fold Results:121.42053002307811
+Fold:1
+         Fold Results:103.41440840007422
+Fold:2
+         Fold Results:139.11388057643853
+Fold:3
+         Fold Results:91.60612165093195
+Fold:4
+         Fold Results:260.612210551262
+Folds Average:143.23343024035697
+N:0.01
+EP:10
+Fold:0
+         Fold Results:121.43561192211068
+Fold:1
+         Fold Results:103.39855321532625
+Fold:2
+         Fold Results:139.12848285725707
+Fold:3
+         Fold Results:91.61300942105984
+Fold:4
+         Fold Results:260.6035781216291
+Folds Average:143.23584710747656
+EP:20
+Fold:0
+         Fold Results:121.43770376100207
+Fold:1
+         Fold Results:103.39712047484095
+Fold:2
+         Fold Results:139.13283637656835
+Fold:3
+         Fold Results:91.60052271339586
+Fold:4
+         Fold Results:260.60449553102643
+Folds Average:143.23453577136675
+N:0.1
+EP:10
+Fold:0
+         Fold Results:121.43434018934236
+Fold:1
+         Fold Results:103.39687644291958
+Fold:2
+         Fold Results:139.13029013832127
+Fold:3
+         Fold Results:91.59554370164862
+Fold:4
+         Fold Results:260.5882869089029
+Folds Average:143.22906747622696
+EP:20
+Fold:0
+         Fold Results:121.446862817404
+
+MLPL - Machine Learning Pipeline - Linear Neural Networks
+---LINEAR AUTOENCODED NN---
+DataSet: Computer Hardware
+Learning Factor (N): 0.001
+Convergence Factor (EP): 10
+Fold:0
+         Fold Results:177.00400544360488
+Fold:1
+         Fold Results:221.35226917813057
+Fold:2
+         Fold Results:214.7398281100168
+Fold:3
+         Fold Results:209.84333386754238
+Fold:4
+         Fold Results:173.18362360502027
+Folds Average:199.22461204086298

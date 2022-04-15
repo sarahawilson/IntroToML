@@ -1,0 +1,31 @@
+MLPL - Machine Learning Pipeline - ID3 and CART
+Fold:0
+Running CART - Univariate
+Building Tree
+End of CART Tree Building
+Regression Error:
+750202.5294117647
+Fold:1
+Running CART - Univariate
+Building Tree
+End of CART Tree Building
+Regression Error:
+544719.5
+Fold:2
+Running CART - Univariate
+Building Tree
+End of CART Tree Building
+Regression Error:
+260921.36363636365
+Fold:3
+Running CART - Univariate
+Building Tree
+End of CART Tree Building
+Regression Error:
+899078.9696969697
+Fold:4
+Running CART - Univariate
+Building Tree
+End of CART Tree Building
+Regression Error:
+786715.6363636364

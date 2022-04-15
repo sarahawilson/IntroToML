@@ -337,10 +337,10 @@ class LinearAutoEncoded_NN_Helper:
             for neuron in layer[curLayerName]:
                 for weightIdx in range(len(currentInput)):
                     #print('PreUpdate')
-                    #zz_preUpdateWeight = (neuron['Weight'][weightIdx])
+                    zz_preUpdateWeight = (neuron['Weight'][weightIdx])
                     neuron['Weight'][weightIdx] = neuron['Weight'][weightIdx] + (NP_Val * neuron['Updated_Weight'] * currentInput[weightIdx])
                     #print('PreUpdate')
-                    #zz_postUpdateWeight = (neuron['Weight'][weightIdx])
+                    zz_postUpdateWeight = (neuron['Weight'][weightIdx])
                 #Adjust the Biast Weight
                 neuron['Weight'][(numActWeights-1)] = neuron['Weight'][(numActWeights-1)] + (NP_Val * neuron['Updated_Weight'])
                         
@@ -406,7 +406,7 @@ class LinearAutoEncoded_NN_Helper:
         self.run_Encoding_Decoding(trainDF, testDF, NP_Val, EP_Val)
 
         linNN_Test_Set_Predicitions = self.run_autoencoding_LinearNN_withBackProp(trainDF, testDF, NP_Val, EP_Val)
-        print(linNN_Test_Set_Predicitions)
+        #print(linNN_Test_Set_Predicitions)
         
         
         #Get the Actual Predictions
