@@ -1,0 +1,3 @@
+https://stackoverflow.com/questions/41071677/tkinter-how-to-display-a-2d-array-of-colors-as-an-image
+https://towardsdatascience.com/a-beginners-guide-to-q-learning-c3e2a30a653c
+https://papers.nips.cc/paper/2011/file/c51ce410c124a10e0db5e4b97fc2af39-Paper.pdf
