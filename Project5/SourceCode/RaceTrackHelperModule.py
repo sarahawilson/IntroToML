@@ -20,7 +20,6 @@ class RaceTrackHelper:
     
     def displayRaceTrack(self):
         
-        
         #Make a Map for Plotting based on the Track 
         colorTrackData = []
         rowSpaceColorList = []

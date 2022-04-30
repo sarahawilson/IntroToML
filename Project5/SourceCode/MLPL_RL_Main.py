@@ -2,11 +2,17 @@
 # Project 5 - Renforcment Learning 
 # Race Track - Zoom Zoom
 
-import RaceTrackHelperModule
+import ImportHelperModule
+import ValueIterationHelperModule
 
 # User Defined Varaibles 
-trackName = 'O'
-algorithm = 'Q'
+trackName = 'T'
+
+#Defines Which Algorithm to Use
+# V = Value Iteration
+# Q = Q Values
+# S = SARSA
+algorithm = 'V'
 
  
 
@@ -17,10 +23,24 @@ elif(trackName == 'O'):
     raceTrackFile = r'C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project5\SourceCode\Tracks\O-track.txt'
 elif(trackName == 'R'):
     raceTrackFile = r'C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project5\SourceCode\Tracks\R-track.txt'
+elif(trackName == 'T'):
+    raceTrackFile = r'C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project5\SourceCode\Tracks\T-track.txt'
 
-# Load and Build the Track 
-rtHelper = RaceTrackHelperModule.RaceTrackHelper(raceTrackFile)
-rtHelper.makeRaceTrack()
-rtHelper.displayRaceTrack()
+#Load and Build the Track
+impHelper = ImportHelperModule.ImportHelper(raceTrackFile)
+curRaceTrack = impHelper.LoadRaceTrack()
 
-# Run the Algoirthm 
+# Run Value Iteration
+if(algorithm == 'V'):
+    tuneDiscountList = [.1,.5,.7]
+    tuneEpsilonList = [0.01,0.1,1]
+    timeToRunPerDiscount = []
+    valIterHelper = ValueIterationHelperModule.ValIterHelper(curRaceTrack)
+    valIterHelper.setInitialConditions()
+    
+    #Run the Value Iteration Based on the Best 
+    for epsilonVal in tuneEpsilonList:
+        for discountVal in tuneDiscountList:
+            timeForRun = valIterHelper.run(discountVal, epsilonVal)
+            timeToRunPerDiscount.append(timeForRun)
+            valIterHelper.clearAllAndResetInitialConditions()
