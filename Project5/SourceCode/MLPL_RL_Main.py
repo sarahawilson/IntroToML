@@ -3,7 +3,7 @@
 # Race Track - Zoom Zoom
 
 import ImportHelperModule
-import ValueIterationHelperModule
+import ValueIterationModule
 
 # User Defined Varaibles 
 trackName = 'T'
@@ -39,8 +39,10 @@ if(algorithm == 'V'):
     tuneDiscountList = [.1,.5,.7]
     tuneEpsilonList = [0.01,0.1,1]
     timeToRunPerDiscount = []
-    valIterHelper = ValueIterationHelperModule.ValIterHelper(curRaceTrack, harshCrash)
-    valIterHelper.setInitialConditions()
+    #valIterHelper = ValueIterationHelperModule.ValIterHelper(curRaceTrack, harshCrash)
+    #valIterHelper.setInitialConditions()
+    
+    valIterHeler = ValueIterationModule.ValIterHelper(curRaceTrack, harshCrash)
     
 #    #Run the Value Iteration Based on the Best 
 #    for epsilonVal in tuneEpsilonList:

@@ -51,6 +51,7 @@ class ValIterHelper:
                 #For all a in A
                 for action_a in self.actions.actionMap:
                     curReward = self.rewards.rewardMap[position_s]
+                    statePrime = _genNextState(position_s, )
             
             
             #Ensure the While Loop Exits

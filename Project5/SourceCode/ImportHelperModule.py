@@ -3,6 +3,7 @@
 # Race Track - Zoom Zoom
 
 from typing import Tuple, Dict
+from RaceTrackModule import RaceTrack
 
 
 class ImportHelper:
@@ -35,19 +36,3 @@ class ImportHelper:
         genRaceTrack = RaceTrack(raceTrackDict, height, width)
         
         return genRaceTrack
-    
-    
-class RaceTrack:
-    def __init__(self, race_track : Dict, height : int, width : int):
-        self.race_track = race_track
-        self.height = height
-        self.width = width
-        
-    def findStartPosition(self):
-        startPos = None
-        for pos in self.race_track:
-            spaceChar = self.race_track[pos]
-            if(spaceChar == 'S'):
-                startPos = pos
-                break
-        return startPos
