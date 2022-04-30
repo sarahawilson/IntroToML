@@ -8,6 +8,7 @@
 
 from typing import Tuple, Dict
 from itertools import product
+import copy
 
 import RaceTrackModule
 import CarModule
@@ -88,6 +89,8 @@ class ValIterHelper:
         reachedConvergance = False
         while ((not reachedConvergance) and (loopIterations < iterations)):
             
+            prev_ValueTable = copy.deepcopy(self.value_table)
+            
             #For all s in S
             for pos_vel_state in self.stateSpace.states_S:
                 #For all a in A
@@ -103,7 +106,31 @@ class ValIterHelper:
                     curCar.applyAcceleartion(cur_acc_a)
                     #Then Apply the Velocity (changes position) 
                     reachedFinishLine = curCar.applyVelocity()
-         
+                    
+                    
+                    # Based on the Exploration the Car did
+                    # get the s' values
+                    pos_s_prime = curCar.curPosition
+                    vel_s_prime = curCar.curVelocity
+                    
+                    # Calcaulte V_(t-1)
+                    v_t_mOne = 0  #Set to Zero so on the first pass we have a value
+                    if(not reachedFinishLine):
+                        accessKey = (pos_s_prime, vel_s_prime)
+                        v_t_mOne = prev_ValueTable[accessKey]
+                    
+                    #Calculate the Reward
+                    if(reachedFinishLine):
+                        reward = 0
+                    else:
+                        reward = -1
+                        
+                        
+                    #TODO: Figure out how to apply the right probability
+                    curProb = self.actionSpace.propApplied
+                    
+                    #Calcualte the new Q_t
+                    Q_t = reward + discount*(curProb*v_t_mOne)
 
 
 
