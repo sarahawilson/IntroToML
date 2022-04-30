@@ -42,3 +42,12 @@ class RaceTrack:
         self.race_track = race_track
         self.height = height
         self.width = width
+        
+    def findStartPosition(self):
+        startPos = None
+        for pos in self.race_track:
+            spaceChar = self.race_track[pos]
+            if(spaceChar == 'S'):
+                startPos = pos
+                break
+        return startPos

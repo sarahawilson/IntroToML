@@ -14,6 +14,10 @@ trackName = 'T'
 # S = SARSA
 algorithm = 'V'
 
+#Define the Crash Logic 
+#True = Car goes back to start position with zero'd velocity
+harshCrash = True 
+
  
 
 # Init based on the user defined varaibles 
@@ -35,12 +39,12 @@ if(algorithm == 'V'):
     tuneDiscountList = [.1,.5,.7]
     tuneEpsilonList = [0.01,0.1,1]
     timeToRunPerDiscount = []
-    valIterHelper = ValueIterationHelperModule.ValIterHelper(curRaceTrack)
+    valIterHelper = ValueIterationHelperModule.ValIterHelper(curRaceTrack, harshCrash)
     valIterHelper.setInitialConditions()
     
-    #Run the Value Iteration Based on the Best 
-    for epsilonVal in tuneEpsilonList:
-        for discountVal in tuneDiscountList:
-            timeForRun = valIterHelper.run(discountVal, epsilonVal)
-            timeToRunPerDiscount.append(timeForRun)
-            valIterHelper.clearAllAndResetInitialConditions()
+#    #Run the Value Iteration Based on the Best 
+#    for epsilonVal in tuneEpsilonList:
+#        for discountVal in tuneDiscountList:
+#            timeForRun = valIterHelper.run(discountVal, epsilonVal)
+#            timeToRunPerDiscount.append(timeForRun)
+#            valIterHelper.clearAllAndResetInitialConditions()
