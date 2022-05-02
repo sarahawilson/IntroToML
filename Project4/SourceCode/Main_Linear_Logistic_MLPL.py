@@ -6,7 +6,7 @@
 from typing import List, Tuple, Dict;
 import DataSetHelper 
 import KCrossValHelperModule
-import LinearRegHelperModule
+import LinearRegHelperModule_REWRITE
 
 
 def defineAllDataSets()->Dict:
@@ -205,29 +205,28 @@ if __name__ == "__main__":
     
     ##TUNING!!!!!
     learningRateN = [0.001, 0.01, 0.1, 1]
-    convergeFactorEP = [10,100,1000]
+    convergeFactorEP = [10,100]
     
     #Linear Regression - Regression Problems TUNING
-    myKCrossValHelper.DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune('Computer Hardware', learningRateN, convergeFactorEP, None, None, None)
+    #myKCrossValHelper.DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune('Computer Hardware', learningRateN, convergeFactorEP, None, None, None)
     #myKCrossValHelper.DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune('Albalone', learningRateN, convergeFactorEP, None, None, None)
     #myKCrossValHelper.DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune('Forest Fire', learningRateN, convergeFactorEP, None, None, None)
     
     #Linear Regression - Classification Problems TUNING
     #myKCrossValHelper.DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune('Congressional Vote', learningRateN, convergeFactorEP, 2, 'republican', 'democrat')
-    #myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Congressional Vote', learningRateN, convergeFactorEP, 2, 'republican', 'democrat')
-    #myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Car Eval', learningRateN, convergeFactorEP)
-    #myKCrossValHelper.runKFoldCrossVal_Linear_Regression_Tune('Breast Cancer', learningRateN, convergeFactorEP, 2, 2, 4)
-    #myKCrossValHelper.DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune('Breast Cancer', learningRateN, convergeFactorEP, 2, 2, 4)
+    #myKCrossValHelper.DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune('Congressional Vote', learningRateN, convergeFactorEP, 2, 'republican', 'democrat')
+    #myKCrossValHelper.DEADSIMPLE_runKFoldCrossVal_Linear_Regression_Tune('Car Eval', learningRateN, convergeFactorEP, 4, 'unacc', 'acc')
+
     
 #    #Optimal Values Gathered from the Tuning
     compHW_N = 0.001 
-    compHW_EP = 100
+    compHW_EP = 10
 #    
-#    albalone_N = 0
-#    albalone_EP = 0
+    albalone_N = 0.001 
+    albalone_EP = 10
 #    
-#    forestFire_N = 0
-#    forestFie_EP = 0
+    forestFire_N = 0.001 
+    forestFie_EP = 10
 #    
     congVote_N = 0.001  
     congVote_EP = 100
@@ -235,17 +234,17 @@ if __name__ == "__main__":
     bc_N = 0.001
     bc_EP = 10
 #    
-#    carEval_N = 0
-#    carEval_EP = 0
+    carEval_N = 0.001
+    carEval_EP = 10
 #    
 #    #Linear Regression - Regression Problems Post Tune
     #myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Computer Hardware', compHW_N, compHW_EP, None, None, None)
-#    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Albalone', albalone_N, albalone_EP)
-#    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Forest Fire', forestFire_N, forestFie_EP)
+    #myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Albalone', albalone_N, albalone_EP, None, None, None)
+    #myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Forest Fire', forestFire_N, forestFie_EP, None, None, None)
 #    
 #    #Linear Regression - Classification Problems Post Tune
     #myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Congressional Vote', congVote_N, congVote_EP, 2, 'republican', 'democrat')
-#    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Car Eval', carEval_N, carEval_EP)
+    myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Car Eval', carEval_N, carEval_EP, 4, 'unacc', 'acc')
 
     #myKCrossValHelper.runKFoldCrossVal_Linear_Regression('Breast Cancer', bc_N, bc_EP, 2, 2, 4)
     

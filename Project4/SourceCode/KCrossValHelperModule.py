@@ -8,7 +8,6 @@ from typing import List, Tuple, Dict
 import numpy as np
 import pandas as pd
 import copy
-import LinearRegHelperModule
 import LinearRegHelperModule_REWRITE
 import LinearNNHelperModule
 import LinearAutoEncodedNNHelperModule
@@ -103,7 +102,10 @@ class KCrossValHelper:
                     loopDataFrameFoldList = copy.deepcopy(curDataFrameFoldList)
                     testDF = loopDataFrameFoldList.pop(iFoldIndex)
                     trainDF = pd.concat(loopDataFrameFoldList, axis=0)
-                    error = linRegHelper.deadSimple_LinReg(testDF, trainDF, nVal, epVal)
+                    if(dataSetName == 'Car Eval'):
+                        error = linRegHelper.MultiClass_LinReg(testDF, trainDF, nVal, epVal)
+                    else:
+                        error = linRegHelper.deadSimple_LinReg(testDF, trainDF, nVal, epVal)
                     curFoldResultList.append(error)
                     print('\t Fold Results:' + str(error))
                 

@@ -1,0 +1,138 @@
+MLPL - Machine Learning Pipeline - Linear and Logistic Regression
+---TUNE LINEAR REGRESSION---
+Tuning Learning Factor (N) On: Forest Fire
+Tuning Convergence Factor (EP) On: Forest Fire
+N:0.001
+EP:10
+Fold:0
+         Fold Results:183.03941550936648
+Fold:1
+         Fold Results:178.1501432422736
+Fold:2
+         Fold Results:205.6484411811249
+Fold:3
+         Fold Results:175.91873508319117
+Fold:4
+         Fold Results:182.06642759952143
+Folds Average:184.9646325230955
+EP:100
+Fold:0
+         Fold Results:61958703590.357956
+Fold:1
+         Fold Results:71789005263.86148
+Fold:2
+         Fold Results:23168761053.034145
+Fold:3
+         Fold Results:93572070568.80634
+Fold:4
+         Fold Results:131313958604.69786
+Folds Average:76360499816.15155
+N:0.01
+EP:10
+Fold:0
+         Fold Results:5101488.448522269
+Fold:1
+         Fold Results:5081035.576781196
+Fold:2
+         Fold Results:2265667.2373335604
+Fold:3
+         Fold Results:5034104.45582137
+Fold:4
+         Fold Results:6146958.735294143
+Folds Average:4725850.890750508
+EP:100
+Fold:0
+         Fold Results:6.805647238821712e+54
+Fold:1
+         Fold Results:1.4694812640232392e+55
+Fold:2
+         Fold Results:1.2427238174752708e+54
+Fold:3
+         Fold Results:5.790897756913258e+55
+Fold:4
+         Fold Results:1.408717922243388e+56
+Folds Average:4.430479069800015e+55
+N:0.1
+EP:10
+Fold:0
+         Fold Results:2422740293923316.5
+Fold:1
+         Fold Results:2486399793334876.0
+Fold:2
+         Fold Results:1040185290708995.2
+Fold:3
+         Fold Results:2595116044476569.0
+Fold:4
+         Fold Results:3256971303559334.5
+Folds Average:2360282545200618.0
+EP:100
+Fold:0
+         Fold Results:3.9324525914875326e+141
+Fold:1
+         Fold Results:1.1531539277833403e+142
+Fold:2
+         Fold Results:5.034108297108892e+140
+Fold:3
+         Fold Results:7.761383821367414e+142
+Fold:4
+         Fold Results:2.4518836011612857e+143
+Folds Average:6.775392020576691e+142
+N:1
+EP:10
+Fold:0
+         Fold Results:1.6846193780191903e+25
+Fold:1
+         Fold Results:1.7356953107743915e+25
+Fold:2
+         Fold Results:7.186474421528114e+24
+Fold:3
+         Fold Results:1.8278197361600064e+25
+Fold:4
+         Fold Results:2.30129211611949e+25
+Folds Average:1.6536147966451779e+25
+EP:100
+Fold:0
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project4\SourceCode\LinearRegHelperModule_REWRITE.py:153: RuntimeWarning: overflow encountered in double_scalars
+  difSqred = (cur_act_class - cur_algo_pred)**2
+         Fold Results:inf
+Fold:1
+         Fold Results:inf
+Fold:2
+         Fold Results:inf
+Fold:3
+         Fold Results:inf
+Fold:4
+         Fold Results:inf
+Folds Average:inf
+---LINEAR REGRESSION---
+DataSet: Computer Hardware
+Learning Factor (N): 0.001
+Convergence Factor (EP): 10
+Fold:0
+         Fold Results:320.27213137577036
+Fold:1
+         Fold Results:100.04465202394614
+Fold:2
+         Fold Results:162.87230785522044
+Fold:3
+         Fold Results:201.2334822157617
+Fold:4
+         Fold Results:331.5789112077645
+Folds Average:223.20029693569262
+
+MLPL - Machine Learning Pipeline - Linear and Logistic Regression
+---LINEAR REGRESSION---
+DataSet: Forest Fire
+Learning Factor (N): 0.001
+Convergence Factor (EP): 10
+Fold:0
+         Fold Results:10445.553829150193
+Fold:1
+         Fold Results:10070.43491141497
+Fold:2
+         Fold Results:3836.1856953118736
+Fold:3
+         Fold Results:7845.002087578736
+Fold:4
+         Fold Results:8248.552193909114
+Folds Average:8089.145743472976

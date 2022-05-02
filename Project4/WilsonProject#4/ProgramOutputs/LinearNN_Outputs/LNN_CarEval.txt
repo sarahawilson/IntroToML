@@ -1,0 +1,120 @@
+MLPL - Machine Learning Pipeline - Linear Neural Networks
+---TUNE LINEAR NN---
+Tuning Learning Factor (N) On: Car Eval
+Tuning Convergence Factor (EP) On: Car Eval
+N:0.001
+EP:10
+Fold:0
+         Fold Results:0.8142857142857143
+Fold:1
+         Fold Results:0.7101449275362319
+Fold:2
+         Fold Results:0.043478260869565216
+Fold:3
+         Fold Results:0.6811594202898551
+Fold:4
+         Fold Results:0.028985507246376812
+Folds Average:0.4556107660455487
+EP:100
+Fold:0
+         Fold Results:0.12857142857142856
+Fold:1
+         Fold Results:0.7101449275362319
+Fold:2
+         Fold Results:0.014492753623188406
+Fold:3
+         Fold Results:0.028985507246376812
+Fold:4
+         Fold Results:0.17391304347826086
+Folds Average:0.21122153209109734
+N:0.01
+EP:10
+Fold:0
+         Fold Results:0.014285714285714285
+Fold:1
+         Fold Results:0.057971014492753624
+Fold:2
+         Fold Results:0.014492753623188406
+Fold:3
+         Fold Results:0.6811594202898551
+Fold:4
+         Fold Results:0.17391304347826086
+Folds Average:0.18836438923395443
+EP:100
+Fold:0
+         Fold Results:0.04285714285714286
+Fold:1
+         Fold Results:0.7101449275362319
+Fold:2
+         Fold Results:0.014492753623188406
+Fold:3
+         Fold Results:0.21739130434782608
+Fold:4
+         Fold Results:0.17391304347826086
+Folds Average:0.23175983436853
+N:0.1
+EP:10
+Fold:0
+         Fold Results:0.014285714285714285
+Fold:1
+         Fold Results:0.18840579710144928
+Fold:2
+         Fold Results:0.014492753623188406
+Fold:3
+         Fold Results:0.028985507246376812
+Fold:4
+         Fold Results:0.17391304347826086
+Folds Average:0.08401656314699793
+EP:100
+Fold:0
+         Fold Results:0.014285714285714285
+Fold:1
+         Fold Results:0.043478260869565216
+Fold:2
+         Fold Results:0.7971014492753623
+Fold:3
+         Fold Results:0.6811594202898551
+Fold:4
+         Fold Results:0.043478260869565216
+Folds Average:0.3159006211180124
+N:1
+EP:10
+Fold:0
+         Fold Results:0.04285714285714286
+Fold:1
+         Fold Results:0.043478260869565216
+Fold:2
+         Fold Results:0.043478260869565216
+Fold:3
+         Fold Results:0.07246376811594203
+Fold:4
+         Fold Results:0.028985507246376812
+Folds Average:0.04625258799171843
+EP:100
+Fold:0
+         Fold Results:0.12857142857142856
+Fold:1
+         Fold Results:0.057971014492753624
+Fold:2
+         Fold Results:0.014492753623188406
+Fold:3
+         Fold Results:0.21739130434782608
+Fold:4
+         Fold Results:0.17391304347826086
+Folds Average:0.11846790890269152
+
+---LINEAR NN---
+DataSet: Car Eval
+Learning Factor (N): 0.1
+Convergence Factor (EP): 10
+Fold:0
+         Fold Results:0.049773755656108594
+Fold:1
+         Fold Results:0.2425339366515837
+Fold:2
+         Fold Results:0.701627486437613
+Fold:3
+         Fold Results:0.02802893309222423
+Fold:4
+         Fold Results:0.244122965641953
+Folds Average:0.2532174154958965

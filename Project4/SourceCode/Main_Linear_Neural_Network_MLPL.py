@@ -210,19 +210,20 @@ if __name__ == "__main__":
     
     #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Breast Cancer', learningRateN, convergeFactorEP, 2, 2, 4)
     #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Congressional Vote', learningRateN, convergeFactorEP, 2, 'republican', 'democrat')
+    #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Car Eval', learningRateN, convergeFactorEP, 4, 'unacc', 'acc')
     #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Computer Hardware', learningRateN, convergeFactorEP, None, None, None)
     #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Albalone', learningRateN, convergeFactorEP, None, None, None)
-    myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Forest Fire', learningRateN, convergeFactorEP, None, None, None)
+    #myKCrossValHelper.runKFoldCrossVal_Linear_NN_Tune('Forest Fire', learningRateN, convergeFactorEP, None, None, None)
     
     #    #Optimal Values Gathered from the Tuning
-    #compHW_N = 0.001 
-    #compHW_EP = 100
+    compHW_N = 0.001 
+    compHW_EP = 10
 #    
     albalone_N = 0.001
     albalone_EP = 100
 #    
-#    forestFire_N = 0
-#    forestFie_EP = 0
+    forestFire_N = 1
+    forestFie_EP = 100
 #    
     congVote_N = 0.001  
     congVote_EP = 100
@@ -230,12 +231,15 @@ if __name__ == "__main__":
     bc_N = 1
     bc_EP = 10
 #    
-#    carEval_N = 0
-#    carEval_EP = 0
+    carEval_N = 0.1
+    carEval_EP = 10
     
+    myKCrossValHelper.runKFoldCrossVal_Linear_NN('Car Eval', carEval_N, carEval_EP, 4, 'unacc', 'acc')
     #myKCrossValHelper.runKFoldCrossVal_Linear_NN('Breast Cancer', bc_N, bc_EP, 2, 2, 4)
     #myKCrossValHelper.runKFoldCrossVal_Linear_NN('Congressional Vote', congVote_N, congVote_EP, 2, 'republican', 'democrat')
     #myKCrossValHelper.runKFoldCrossVal_Linear_NN('Albalone', albalone_N, albalone_EP, None, None, None)
+    #myKCrossValHelper.runKFoldCrossVal_Linear_NN('Forest Fire', forestFire_N, forestFie_EP, None, None, None)
+    #myKCrossValHelper.runKFoldCrossVal_Linear_NN('Computer Hardware', compHW_N, compHW_EP, None, None, None)
     
 
     

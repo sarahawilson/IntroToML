@@ -1,6 +1,6 @@
 # Sarah Wilson 
 # 303 - 921 - 7225
-# Project 2
+# Project 4
 # Introduction to Machine Learning
 
 from typing import List, Tuple, Dict;

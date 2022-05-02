@@ -1,0 +1,123 @@
+MLPL - Machine Learning Pipeline - Linear and Logistic Regression
+---TUNE LINEAR REGRESSION---
+Tuning Learning Factor (N) On: Albalone
+Tuning Convergence Factor (EP) On: Albalone
+N:0.001
+EP:10
+Fold:0
+         Fold Results:8078.37855217017
+Fold:1
+         Fold Results:8270.762662061206
+Fold:2
+         Fold Results:8507.225665025628
+Fold:3
+         Fold Results:8050.192977026668
+Fold:4
+         Fold Results:8357.882566133252
+Folds Average:8252.888484483385
+EP:100
+Fold:0
+         Fold Results:8.576743823442774e+29
+Fold:1
+         Fold Results:1.670045034393685e+30
+Fold:2
+         Fold Results:2.9850311371528234e+30
+Fold:3
+         Fold Results:9.099857494919739e+29
+Fold:4
+         Fold Results:1.7165886158474452e+30
+Folds Average:1.627864983846041e+30
+N:0.01
+EP:10
+Fold:0
+         Fold Results:162901346078.7607
+Fold:1
+         Fold Results:177063404016.7501
+Fold:2
+         Fold Results:191653647388.8407
+Fold:3
+         Fold Results:163445305048.7219
+Fold:4
+         Fold Results:179344714924.37067
+Folds Average:174881683491.48883
+EP:100
+Fold:0
+         Fold Results:9.440758411798027e+102
+Fold:1
+         Fold Results:3.3848103875409734e+103
+Fold:2
+         Fold Results:1.0161715171342395e+104
+Fold:3
+         Fold Results:1.0651619429050939e+103
+Fold:4
+         Fold Results:3.539301994202882e+103
+Folds Average:3.81901306743423e+103
+N:0.1
+EP:10
+Fold:0
+         Fold Results:6.624286961975477e+20
+Fold:1
+         Fold Results:7.288087063191678e+20
+Fold:2
+         Fold Results:7.97394335285752e+20
+Fold:3
+         Fold Results:6.645956299577362e+20
+Fold:4
+         Fold Results:7.388107519247167e+20
+Folds Average:7.184076239369841e+20
+EP:100
+Fold:0
+C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project4\SourceCode\LinearRegHelperModule_REWRITE.py:153: RuntimeWarning: overflow encountered in double_scalars
+  difSqred = (cur_act_class - cur_algo_pred)**2
+         Fold Results:inf
+Fold:1
+         Fold Results:inf
+Fold:2
+         Fold Results:inf
+Fold:3
+         Fold Results:inf
+Fold:4
+         Fold Results:inf
+Folds Average:inf
+N:1
+EP:10
+Fold:0
+         Fold Results:6.021359877048153e+30
+Fold:1
+         Fold Results:6.640793095200725e+30
+Fold:2
+         Fold Results:7.269703592972648e+30
+Fold:3
+         Fold Results:6.046731680082672e+30
+Fold:4
+         Fold Results:6.729453032507068e+30
+Folds Average:6.541608255562253e+30
+EP:100
+Fold:0
+         Fold Results:inf
+Fold:1
+         Fold Results:inf
+Fold:2
+         Fold Results:inf
+Fold:3
+         Fold Results:inf
+Fold:4
+         Fold Results:inf
+Folds Average:inf
+
+MLPL - Machine Learning Pipeline - Linear and Logistic Regression
+---LINEAR REGRESSION---
+DataSet: Albalone
+Learning Factor (N): 0.001
+Convergence Factor (EP): 10
+Fold:0
+         Fold Results:77309556.62968402
+Fold:1
+         Fold Results:69631230.30524948
+Fold:2
+         Fold Results:64130632.1376957
+Fold:3
+         Fold Results:65199456.86874809
+Fold:4
+         Fold Results:69210809.90347417
+Folds Average:69096337.16897029

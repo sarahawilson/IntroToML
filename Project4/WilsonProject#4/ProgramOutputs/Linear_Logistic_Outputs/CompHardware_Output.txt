@@ -1,0 +1,121 @@
+MLPL - Machine Learning Pipeline - Linear and Logistic Regression
+---TUNE LINEAR REGRESSION---
+Tuning Learning Factor (N) On: Computer Hardware
+Tuning Convergence Factor (EP) On: Computer Hardware
+N:0.001
+EP:10
+Fold:0
+         Fold Results:131.48661193272358
+Fold:1
+         Fold Results:110.66914031492813
+Fold:2
+         Fold Results:144.9679838561074
+Fold:3
+         Fold Results:99.00724531119364
+Fold:4
+         Fold Results:268.23821509050407
+Folds Average:150.87383930109135
+EP:100
+Fold:0
+         Fold Results:262.5577956019616
+Fold:1
+         Fold Results:208.699576905163
+Fold:2
+         Fold Results:230.59945330214057
+Fold:3
+         Fold Results:204.48492751001305
+Fold:4
+         Fold Results:362.40646195075624
+Folds Average:253.7496430540069
+N:0.01
+EP:10
+Fold:0
+         Fold Results:256.20876678357996
+Fold:1
+         Fold Results:203.16749897588105
+Fold:2
+         Fold Results:225.5985459924285
+Fold:3
+         Fold Results:198.25459800960274
+Fold:4
+         Fold Results:358.38447331742594
+Folds Average:248.32277661578365
+EP:100
+Fold:0
+         Fold Results:178580.21968839562
+Fold:1
+         Fold Results:340951.5924482653
+Fold:2
+         Fold Results:292497.7766526344
+Fold:3
+         Fold Results:375364.99748221383
+Fold:4
+         Fold Results:88620.27030037715
+Folds Average:255202.97131437724
+N:0.1
+EP:10
+Fold:0
+         Fold Results:34508.602694241425
+Fold:1
+         Fold Results:39510.53759402659
+Fold:2
+         Fold Results:36584.109889467676
+Fold:3
+         Fold Results:44947.37959881233
+Fold:4
+         Fold Results:20046.05146108152
+Folds Average:35119.336247525905
+EP:100
+Fold:0
+         Fold Results:3.207181532653905e+26
+Fold:1
+         Fold Results:3.7489774592493216e+29
+Fold:2
+         Fold Results:1.2884675955312537e+29
+Fold:3
+         Fold Results:2.483607421407256e+29
+Fold:4
+         Fold Results:3.679803352605581e+25
+Folds Average:1.5049255276111494e+29
+N:1
+EP:10
+Fold:0
+         Fold Results:255897105299.92834
+Fold:1
+         Fold Results:610156968627.6818
+Fold:2
+         Fold Results:513367156277.02997
+Fold:3
+         Fold Results:666302522765.6168
+Fold:4
+         Fold Results:113971319980.58311
+Folds Average:431939014590.16797
+EP:100
+Fold:0
+         Fold Results:1.830836031710925e+95
+Fold:1
+         Fold Results:4.0057419870385325e+101
+Fold:2
+         Fold Results:5.008674226005494e+100
+Fold:3
+         Fold Results:1.513750541405838e+101
+Fold:4
+         Fold Results:3.426323428852938e+93
+Folds Average:1.2040723632288372e+101
+
+MLPL - Machine Learning Pipeline - Linear and Logistic Regression
+---LINEAR REGRESSION---
+DataSet: Computer Hardware
+Learning Factor (N): 0.001
+Convergence Factor (EP): 10
+Fold:0
+         Fold Results:320.2713391737236
+Fold:1
+         Fold Results:100.04383331069289
+Fold:2
+         Fold Results:162.87214672302386
+Fold:3
+         Fold Results:201.23571588754453
+Fold:4
+         Fold Results:331.585493333118
+Folds Average:223.20170568562057

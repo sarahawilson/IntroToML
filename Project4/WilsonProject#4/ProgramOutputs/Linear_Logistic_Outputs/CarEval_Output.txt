@@ -1,0 +1,96 @@
+MLPL - Machine Learning Pipeline - Linear and Logistic Regression
+---TUNE LINEAR REGRESSION---
+Tuning Learning Factor (N) On: Car Eval
+Tuning Convergence Factor (EP) On: Car Eval
+N:0.001
+EP:10
+Fold:0
+         Fold Results:0.38571428571428573
+Fold:1
+         Fold Results:0.11594202898550725
+Fold:2
+         Fold Results:0.028985507246376812
+Fold:3
+         Fold Results:0.057971014492753624
+Fold:4
+         Fold Results:0.17391304347826086
+Folds Average:0.15250517598343688
+EP:100
+Fold:0
+         Fold Results:0.37142857142857144
+Fold:1
+         Fold Results:0.10144927536231885
+Fold:2
+         Fold Results:0.42028985507246375
+Fold:3
+         Fold Results:0.4492753623188406
+Fold:4
+         Fold Results:0.4782608695652174
+Folds Average:0.36414078674948236
+N:0.01
+EP:10
+Fold:0
+         Fold Results:0.4
+Fold:1
+         Fold Results:0.463768115942029
+Fold:2
+         Fold Results:0.2028985507246377
+Fold:3
+         Fold Results:0.37681159420289856
+Fold:4
+         Fold Results:0.2028985507246377
+Folds Average:0.3292753623188406
+EP:100
+Fold:0
+         Fold Results:0.7714285714285715
+Fold:1
+         Fold Results:0.6956521739130435
+Fold:2
+         Fold Results:0.7971014492753623
+Fold:3
+         Fold Results:0.6666666666666666
+Fold:4
+         Fold Results:0.7246376811594203
+Folds Average:0.7310973084886128
+N:0.1
+EP:10
+Fold:0
+         Fold Results:0.7714285714285715
+Fold:1
+         Fold Results:0.6956521739130435
+Fold:2
+         Fold Results:0.7971014492753623
+Fold:3
+         Fold Results:0.6666666666666666
+Fold:4
+         Fold Results:0.7246376811594203
+Folds Average:0.7310973084886128
+EP:100
+Fold:0
+         Fold Results:0.7714285714285715
+Fold:1
+         Fold Results:0.6956521739130435
+Fold:2
+         Fold Results:0.7971014492753623
+Fold:3
+         Fold Results:0.6666666666666666
+Fold:4
+         Fold Results:0.7246376811594203
+Folds Average:0.7310973084886128
+
+MLPL - Machine Learning Pipeline - Linear and Logistic Regression
+---LINEAR REGRESSION---
+DataSet: Car Eval
+Learning Factor (N): 0.001
+Convergence Factor (EP): 10
+Fold:0
+         Fold Results:0.13357400722021662
+Fold:1
+         Fold Results:0.20577617328519857
+Fold:2
+         Fold Results:0.3695652173913043
+Fold:3
+         Fold Results:0.26811594202898553
+Fold:4
+         Fold Results:0.19927536231884058
+Folds Average:0.23526134044890915

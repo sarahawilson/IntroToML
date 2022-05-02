@@ -18,6 +18,8 @@ class Linear_NN_Helper:
         self.numClassProb = numClassProblem
         self.zeroClass = classA
         self.oneClass = classB
+        self.twoClass = "good"
+        self.threeClass = "vgood" 
         self.NN_Network = []
         
         
@@ -132,7 +134,10 @@ class Linear_NN_Helper:
                             actual_Predictor = 0
                         elif (actualObservationOutput == self.oneClass):
                             actual_Predictor = 1
-                    
+                        elif (actualObservationOutput == self.twoClass):
+                            actual_Predictor = 2
+                        elif (actualObservationOutput == self.threeClass):
+                            actual_Predictor = 3
                     #TODO: Ask Shane how to calcuate the Error for the Output Layer
                     curOutNode_Error = (neuron['Output'] - actual_Predictor)
                     errorList.append(curOutNode_Error)
@@ -222,8 +227,6 @@ class Linear_NN_Helper:
                 curObservation = curObservationDF_Array[0]
                 
                 outputOfUntrainedNN = self.feedforward_prop(curObservation)
-                #TODO: This will return a vector of outptus for a multiple class problem
-                # figure out how to handle this
                 
                 actual_Y_Class = trainDF[self.predictor].values[observationIdx]
                 self.backwards_prop(actual_Y_Class)
@@ -259,18 +262,37 @@ class Linear_NN_Helper:
             precentCorrect = np.sqrt(sumDiffsSqrd / (len(linNN_Test_Set_Predicitions)))
             
         elif (self.probType == 'Classification'):
-            numCorrect = 0
-            for predictionIdx in range(len(linNN_Test_Set_Predicitions)):
-                cur_algo_pred = linNN_Test_Set_Predicitions[predictionIdx]
-                cur_act_class = actual_Test_Set_Values[predictionIdx]
+            if(self.dataSetName == 'Car Eval'):
+                numCorrect = 0
+                for predictionIdx in range(len(linNN_Test_Set_Predicitions)):
+                    cur_algo_pred = linNN_Test_Set_Predicitions[predictionIdx]
+                    cur_act_class = actual_Test_Set_Values[predictionIdx]
                 
-                if(cur_algo_pred > 0.5):
-                    cur_algo_pred_class = self.oneClass
-                else:
-                    cur_algo_pred_class = self.zeroClass
+                    if(cur_algo_pred == 0):
+                        cur_algo_pred_class = self.zeroClass
+                    elif(cur_algo_pred == 1):
+                        cur_algo_pred_class = self.oneClass
+                    elif(cur_algo_pred == 2):
+                        cur_algo_pred_class = self.twoClass
+                    elif(cur_algo_pred == 3):
+                        cur_algo_pred_class = self.threeClass
                     
-                if(cur_algo_pred_class == cur_act_class):
-                    numCorrect = numCorrect + 1
+                    if(cur_algo_pred_class == cur_act_class):
+                        numCorrect = numCorrect + 1
+                
+            else:
+                numCorrect = 0
+                for predictionIdx in range(len(linNN_Test_Set_Predicitions)):
+                    cur_algo_pred = linNN_Test_Set_Predicitions[predictionIdx]
+                    cur_act_class = actual_Test_Set_Values[predictionIdx]
+                
+                    if(cur_algo_pred > 0.5):
+                        cur_algo_pred_class = self.oneClass
+                    else:
+                        cur_algo_pred_class = self.zeroClass
+                    
+                    if(cur_algo_pred_class == cur_act_class):
+                        numCorrect = numCorrect + 1
                     
             precentCorrect = numCorrect / (len(linNN_Test_Set_Predicitions))
             
@@ -310,7 +332,10 @@ class Linear_NN_Helper:
             curObservationIn_TestDF_Array = curObservationIn_TestDF.to_numpy()
             curObservationTEST = curObservationIn_TestDF_Array[0]
             cur_algo_pred = self.makePrediction(curObservationTEST)
-            cur_algo_pred = cur_algo_pred[0]
+            if(self.dataSetName == 'Car Eval'):
+                cur_algo_pred = cur_algo_pred
+            else:
+                cur_algo_pred = cur_algo_pred[0]
             algoPredictions.append(cur_algo_pred)
             
         return algoPredictions
