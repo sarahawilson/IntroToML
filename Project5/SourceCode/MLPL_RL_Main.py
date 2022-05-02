@@ -6,7 +6,7 @@ import ImportHelperModule
 import ValueIterationModule
 
 # User Defined Varaibles 
-trackName = 'T'
+trackName = 'O'
 
 #Defines Which Algorithm to Use
 # V = Value Iteration
@@ -36,17 +36,20 @@ curRaceTrack = impHelper.LoadRaceTrack()
 
 # Run Value Iteration
 if(algorithm == 'V'):
-    tuneDiscountList = [.1,.5,.7]
-    tuneEpsilonList = [0.01,0.1,1]
-    timeToRunPerDiscount = []
-    #valIterHelper = ValueIterationHelperModule.ValIterHelper(curRaceTrack, harshCrash)
-    #valIterHelper.setInitialConditions()
+    #tuneDiscountList = [.1,.5,.7]
+    tuneDiscountList = [.7]
+    #tuneEpsilonList = [0.01,0.1,1]
+    tuneEpsilonList = [0.01]
+    numIterations = 10000
+    metricForRuns = []
+
+    valIterHelper = ValueIterationModule.ValIterHelper(curRaceTrack, harshCrash)
     
-    valIterHeler = ValueIterationModule.ValIterHelper(curRaceTrack, harshCrash)
-    
-#    #Run the Value Iteration Based on the Best 
-#    for epsilonVal in tuneEpsilonList:
-#        for discountVal in tuneDiscountList:
-#            timeForRun = valIterHelper.run(discountVal, epsilonVal)
-#            timeToRunPerDiscount.append(timeForRun)
-#            valIterHelper.clearAllAndResetInitialConditions()
+    #Run the Value Iteration Based on the Best 
+    for epsilonVal in tuneEpsilonList:
+        for discountVal in tuneDiscountList:
+            valIterHelper.runTrain(epsilonVal, numIterations, discountVal)
+            timeTaken = valIterHelper.runTest()
+            print(timeTaken)
+            curMetric = (epsilonVal, discountVal, timeTaken)
+            metricForRuns.append(curMetric)

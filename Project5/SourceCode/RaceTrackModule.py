@@ -7,7 +7,7 @@ from typing import Tuple, Dict
 class RaceTrack:
     def __init__(self, raceTrackLayout : Dict, height : int, width : int):
         self.raceTrackLayout = raceTrackLayout
-        self.startPosition = self._findStartPosition
+        self.startPosition = self._findStartPosition()
         self.height = height
         self.width = width
         

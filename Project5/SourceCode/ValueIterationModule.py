@@ -76,13 +76,9 @@ class ValIterHelper:
                 policyTable[pos_vel_tupleKey] = 0
         return policyTable
         
-    
-    
-    
-    
     def runTrain(self, epsilon, iterations, discount):
         
-        curCar = CarModule.Car(self.harshCrashLogic, self.raceTrack.raceTrackLayout)
+        curCar = CarModule.Car(self.harshCrashLogic, self.raceTrack.raceTrackLayout, self.raceTrack.width, self.raceTrack.height)
         curCar.init_car_kinematics(self.raceTrack.startPosition)
         
         loopIterations = 0
@@ -90,10 +86,15 @@ class ValIterHelper:
         while ((not reachedConvergance) and (loopIterations < iterations)):
             
             prev_ValueTable = copy.deepcopy(self.value_table)
+            overall_delta_v = 0
             
             #For all s in S
             for pos_vel_state in self.stateSpace.states_S:
                 #For all a in A
+                
+                max_q_val = -10000
+                policy_pi = (0,0) # Policy here is the acceeleration (acc_x, acc_y)
+                
                 for acceleariton_action in self.actionSpace.actions_A:
                     cur_pos_s = pos_vel_state[0]
                     cur_vel_s = pos_vel_state[1]
@@ -131,11 +132,75 @@ class ValIterHelper:
                     
                     #Calcualte the new Q_t
                     Q_t = reward + discount*(curProb*v_t_mOne)
-
-
-
-
+                    
+                    #Update the Q table entires 
+                    accessPosition = pos_vel_state[0]
+                    accessVelocity = pos_vel_state[1]
+                    accessAcceleration = acceleariton_action
+                    qtableAccessKey = (accessPosition, accessVelocity,accessAcceleration)
+                    self.q_table[qtableAccessKey] = Q_t
+                    
+                    #Update the Policy (pi) and the maximum Q
+                    if (Q_t > max_q_val):
+                        policy_pi = acceleariton_action
+                        max_q_val = Q_t
+                    
+                #Update the Tables to show the best action and policy
+                prev_v_val = self.value_table[pos_vel_state]
+                self.value_table[pos_vel_state] = max_q_val
+                self.policy_table[pos_vel_state] = policy_pi
+                    
+                # Calcualte the difference bewtween the current
+                # and previous v values
+                delta_v_val = prev_v_val - max_q_val
+                if(delta_v_val > overall_delta_v):
+                    overall_delta_v = delta_v_val
+                        
+            #Check the Convergance Status
+            if (overall_delta_v <= epsilon):
+                reachedConvergance = True
             
+            loopIterations = loopIterations + 1
+        
+        print('Reached Convergance')
+        print('Asked for Iterations:' + str(iterations))
+        print('Ran Iterations:'  + str(loopIterations))
+        print('Reached Convergance by Epsilon:' +str(reachedConvergance))
+        
+        
+    def runTest(self):
+        
+        curCar = CarModule.Car(self.harshCrashLogic, self.raceTrack.raceTrackLayout, self.raceTrack.width, self.raceTrack.height)
+        curCar.init_car_kinematics(self.raceTrack.startPosition)
+        print('Car Position' + str(curCar.curPosition))
+        print('Car Velocity' + str(curCar.curVelocity))
+        
+        
+        reachedFinish = False
+        elapsedTime = 0 
+        while (not reachedFinish):
+            #Get Car's Current Position
+            curPos = curCar.curPosition
+            curVel = curCar.curVelocity
+            
+            #Use position and velocity key to look up the policy given it's state
+            policyTableAccessKey = (curPos, curVel)
+            bestPolicyAction = self.policy_table[policyTableAccessKey]
+            
+            #Have the car perfrom the aciton given the policy
+            curCar.applyAcceleartion(bestPolicyAction)
+            print('Car Position' + str(curCar.curPosition))
+            print('Car Velocity' + str(curCar.curVelocity))
+            elapsedTime = elapsedTime + 1
+            reachedFinish = curCar.applyVelocity()
+        
+        return elapsedTime
+            
+            
+            
+            
+        
+        
 class ActionSpace_A:
     def __init__(self):
         self.actions_A = self.defineActionSpace()
