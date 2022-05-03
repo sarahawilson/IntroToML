@@ -53,3 +53,11 @@ if(algorithm == 'V'):
             print(timeTaken)
             curMetric = (epsilonVal, discountVal, timeTaken)
             metricForRuns.append(curMetric)
+            
+elif(algorithm == 'Q'):
+    #tuneDiscountList = [.1,.5,.7]
+    tuneDiscountList = [.7]
+    #tuneEpsilonList = [0.01,0.1,1]
+    tuneEpsilonList = [0.000001]
+    numIterations = 10000
+    metricForRuns = []

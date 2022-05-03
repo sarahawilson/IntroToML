@@ -2,10 +2,6 @@
 # Project 5 - Renforcment Learning 
 # Race Track - Zoom Zoom
 
-# Sarah Wilson
-# Project 5 - Renforcment Learning 
-# Race Track - Zoom Zoom
-
 from typing import Tuple, Dict
 from itertools import product
 import copy
