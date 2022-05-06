@@ -105,10 +105,17 @@ class ValIterHelper:
                     reachedFinishLine = curCar.applyVelocity()
                     
                     
-                    # Based on the Exploration the Car did
-                    # get the s' values
+                    # Get the s_prime 
+                    # When the acceleration asked for gets applied
                     pos_s_prime = curCar.curPosition
                     vel_s_prime = curCar.curVelocity
+                    s_prime_AccessKey_accApplied = (pos_s_prime, vel_s_prime)
+                    
+                    # Get the s_prime
+                    # When the accelration is NOT applied (acc_x =0, acc_y =0)
+                    
+                    s_prime_AccessKey_accApplied = (pos_s_prime, vel_s_prime)
+                    
                     
                     # Calcaulte V_(t-1)
                     v_t_mOne = 0  #Set to Zero so on the first pass we have a value
@@ -125,6 +132,14 @@ class ValIterHelper:
                         
                     #TODO: Figure out how to apply the right probability
                     curProb = self.actionSpace.propApplied
+                    
+                    ##
+                    # New Stuff that can be deleted if it hits the fan...
+                    value_s_prime_accApplied = prev_ValueTable[]
+                    
+                    value_s_prime_accNOTApplied = prev_ValueTable[]
+                    ##
+                    
                     
                     #Calcualte the new Q_t
                     Q_t = reward + discount*(curProb*v_t_mOne)

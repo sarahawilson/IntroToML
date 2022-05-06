@@ -6,7 +6,7 @@ import ImportHelperModule
 import ValueIterationModule
 
 # User Defined Varaibles 
-trackName = 'O'
+trackName = 'T'
 
 #Defines Which Algorithm to Use
 # V = Value Iteration
@@ -40,6 +40,7 @@ if(algorithm == 'V'):
     tuneDiscountList = [.7]
     #tuneEpsilonList = [0.01,0.1,1]
     tuneEpsilonList = [0.000001]
+    #tuneEpsilonList = [0.00000000000001]
     numIterations = 10000
     metricForRuns = []
 
