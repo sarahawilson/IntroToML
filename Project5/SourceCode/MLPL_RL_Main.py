@@ -60,7 +60,7 @@ elif(algorithm == 'Q'):
     #tuneDiscountList = [.1,.5,.7]
     tuneDiscountList = [.9]
     #tuneEpsilonList = [0.01,0.1,1]
-    tuneEpsilonList = [0.1]
+    tuneEpsilonList = [0.5]
     tuneLearnRate = [0.7]
     numIterations = 10000
     metricForRuns = []
@@ -71,6 +71,7 @@ elif(algorithm == 'Q'):
         for discountVal in tuneDiscountList:
             for learnVal in tuneLearnRate:
                 qLearnHelper.runTrain(epsilonVal, learnVal, discountVal, numIterations)
+                print(qLearnHelper.q_table[(1,1), (0,0)])
                 timeTaken = qLearnHelper.runTest(0, 10)
                 print(timeTaken)
                 curMetric = (epsilonVal, discountVal, timeTaken)

@@ -42,7 +42,8 @@ class QLearnHelper:
                 
                 #Now build the q table related to accerelation
                 for acceleration in accCombos:
-                    qTable_of_A[acceleration] = -100000
+                    qTable_of_A[acceleration] = -1000
+                    #qTable_of_A[acceleration] = random.random()
                 #append to overall q table
                 qTable_of_SA[pos_vel_tupleKey] = qTable_of_A
         return qTable_of_SA
@@ -70,17 +71,22 @@ class QLearnHelper:
     
     
     def runTrain(self, epsilon, learningRate, discount, iterations):
-        
+       
         # Set up the Car
         # In Q-Learning the Car Explores the Space to determine the policy
         curCar = CarModule.Car(self.harshCrashLogic, self.raceTrack.raceTrackLayout, self.raceTrack.width, self.raceTrack.height)
         curCar.init_car_kinematics(self.raceTrack.startPosition)
+        
+        zz_curPos = curCar.curPosition
+        zz_curVel = curCar.curVelocity
         
         # Training Process runs until the car reaches the finish line
         # or number of iterations has been reached
         reachedFinishLine = False
         loopIterations = 0
         while ((not reachedFinishLine) and (loopIterations < iterations)):
+            zz_curPos = curCar.curPosition
+            zz_curVel = curCar.curVelocity
             
             q_s_AccessKey = (curCar.curPosition, curCar.curVelocity)
             cur_q_a_values_basedOnCarState = self.q_table[q_s_AccessKey]
@@ -97,12 +103,17 @@ class QLearnHelper:
             else:
                 accToApply = (0,0)
                 q_s_a_value = cur_q_a_values_basedOnCarState[accToApply]
+               
                 
+            zza_accToApply = accToApply
             # Apply Acceleration to Car
             #Apply Acceleariton First (changes velocity)
             curCar.applyAcceleartion(accToApply)
             #Then Apply the Velocity (changes position) 
-            reachedFinishLine = curCar.applyVelocity()
+            reachedFinishLine = curCar.applyVelocity_QTry()
+            
+            zzn_curPos = curCar.curPosition
+            zzn_curVel = curCar.curVelocity
             
             if (not reachedFinishLine):
                 curPos = curCar.curPosition
@@ -115,6 +126,7 @@ class QLearnHelper:
                 # Determine Max a' based on Q(s')
                 #max_q_acc_prime = np.max(q_s_prime)
                 max_q_acc_prime_AccessKey = max(q_s_prime, key=q_s_prime.get)
+                #print(max_q_acc_prime_AccessKey)
                 max_q_acc_prime = q_s_prime[max_q_acc_prime_AccessKey]
                 
                 # Update the q_s_a values
@@ -122,11 +134,12 @@ class QLearnHelper:
                 cur_q_a_values_basedOnCarState[accToApply] = cur_q_a_values_basedOnCarState[accToApply] + (learningRate *(reward + (discount * max_q_acc_prime) - q_s_a_value))
             
             loopIterations = loopIterations + 1
+            epsilon = epsilon * 0.999999
             
         # Vary the Learning Rate (Variable Learning)
-        epsilon = epsilon * 0.8
-        if (learningRate > 0.01):
-            learningRate = learningRate * 0.8
+#        epsilon = epsilon * 0.999999
+#        if (learningRate > 0.01):
+#            learningRate = learningRate * 0.8
             
                 
     def runTest(self, epsilon, iterations):
@@ -168,7 +181,7 @@ class QLearnHelper:
             elapsedTime = elapsedTime + 1
             loopIterations = loopIterations + 1
             #Then Apply the Velocity (changes position) 
-            reachedFinishLine = curCar.applyVelocity()
+            reachedFinishLine = curCar.applyVelocity_QTry()
             
         return elapsedTime    
         

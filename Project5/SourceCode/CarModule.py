@@ -51,6 +51,100 @@ class Car:
             
         self.curVelocity = (updated_vel_x, updated_vel_y)
         
+    def applyVelocity_QTry(self):
+        # Applies the Velocity 
+        # and returns if we have 
+        # Velocity is taken from the car's current velocity
+        
+        #Position 1
+        curPosition = self.curPosition
+        curVelocity = self.curVelocity
+        zz_pos1 = curPosition
+        zz_vel2 = curVelocity
+        
+        if (curPosition == (4,2)):
+            test = 2
+        
+        wallHitOccured = False
+        
+        
+        # Check that you're not currently occuping a wall space
+        # Used in Value Iteration
+        quickCheckOnWallChar = self.raceTrackLayout[curPosition]
+        if ( quickCheckOnWallChar == '#'):
+            wallHitOccured = True
+        
+        
+        nextPosition_x = curPosition[0] + curVelocity[0]
+        nextPosition_y = curPosition[1] + curVelocity[1]
+        
+        #Position 2
+        nextPosition = (nextPosition_x, nextPosition_y)
+        
+    
+        
+        stationaryMove = False
+        if(not wallHitOccured):
+            if (curPosition == nextPosition):
+                stationaryMove = True
+        
+        if(not stationaryMove):
+            positionsBetween = self._bresenhamPoints(curPosition, nextPosition)
+            positionsBetween.append(nextPosition)
+            
+            if(len(positionsBetween) == 1):
+                if((nextPosition[0] >= self.raceTrackWidth) or ((nextPosition[1] >= self.raceTrackHeight))):
+                    test =1
+                if((nextPosition[0] < 0) or ((nextPosition[1] < 0))):
+                    test =1 
+                else:
+                    nextPossibeSpaceChar1 = self.raceTrackLayout[nextPosition]
+                    if ( nextPossibeSpaceChar1 == '#'):
+                        wallHitOccured = True
+                    
+            if(not wallHitOccured):
+                for linePos in positionsBetween:
+                    #Add logic for if the position between is not on the race track
+                    if((linePos[0] >= self.raceTrackWidth) or ((linePos[1] >= self.raceTrackHeight))):
+                        continue
+                    if((linePos[0] < 0) or ((linePos[1] < 0))):
+                        continue
+                    
+                    nextPossibeSpaceChar = self.raceTrackLayout[linePos]
+                    if ( nextPossibeSpaceChar == 'F'):
+                        zz_pos2 = linePos
+                        return True
+                        
+                    if ( nextPossibeSpaceChar == '#'):
+                        wallHitOccured = True
+                        break
+                
+        
+        if (wallHitOccured):
+            if (self.harshCrashLogic):
+                self.curPosition = self.startPosition
+                self.curVelocity = self.startVelocity
+            else:
+                #TODO: Figure out simple logic 
+                self.curPosition = self.startPosition
+                self.curVelocity = self.startVelocity
+        else:
+            self.curPosition = nextPosition
+            zz_pos2 = self.curPosition
+            test =1 
+            
+        
+
+            
+            
+        
+        
+        
+        
+        
+        
+        
+        
     def applyVelocity(self):
         # Applies the Velocity 
         # and returns if we have 
