@@ -47,6 +47,27 @@ class QLearnHelper:
                 qTable_of_SA[pos_vel_tupleKey] = qTable_of_A
         return qTable_of_SA
     
+    def _greedy_epsilon(self, cur_q_a_valueInS, epsilon):
+        # Implements the greedy epsilon algorithm
+        # for if exploration or execution will be used for the next 
+        # action
+        
+        ep_acceleration = None
+        #Generate a random number (like a dice roll)
+        diceRoll = np.random.random()
+        if (diceRoll < epsilon):
+            # Randomly pick acceleration x and y
+            acc_x = random.randint(-1,1)
+            acc_y = random.randint(-1,1)
+            ep_acceleration = (acc_x, acc_y)
+        else:
+            # Pick the best action based on the argMax of the current q values
+            maxAccessKey = max(cur_q_a_valueInS, key=cur_q_a_valueInS.get)
+
+            ep_acceleration = maxAccessKey
+        
+        return ep_acceleration
+    
     
     def runTrain(self, epsilon, learningRate, discount, iterations):
         
@@ -92,40 +113,65 @@ class QLearnHelper:
                 q_s_prime = self.q_table[q_s_primeAccessKey]
                 
                 # Determine Max a' based on Q(s')
-                max_q_acc_prime = np.max(q_s_prime)
+                #max_q_acc_prime = np.max(q_s_prime)
+                max_q_acc_prime_AccessKey = max(q_s_prime, key=q_s_prime.get)
+                max_q_acc_prime = q_s_prime[max_q_acc_prime_AccessKey]
                 
                 # Update the q_s_a values
                 reward = -1
                 cur_q_a_values_basedOnCarState[accToApply] = cur_q_a_values_basedOnCarState[accToApply] + (learningRate *(reward + (discount * max_q_acc_prime) - q_s_a_value))
             
             loopIterations = loopIterations + 1
+            
+        # Vary the Learning Rate (Variable Learning)
+        epsilon = epsilon * 0.8
+        if (learningRate > 0.01):
+            learningRate = learningRate * 0.8
+            
                 
-            
-    def _greedy_epsilon(self, cur_q_a_valueInS, epsilon):
-        # Implements the greedy epsilon algorithm
-        # for if exploration or execution will be used for the next 
-        # action
-        
-        ep_acceleration = None
-        #Generate a random number (like a dice roll)
-        diceRoll = np.random.random()
-        if (diceRoll < epsilon):
-            # Randomly pick acceleration x and y
-            acc_x = random.randint(-1,1)
-            acc_y = random.randint(-1,1)
-            ep_acceleration = (acc_x, acc_y)
+    def runTest(self, epsilon, iterations):
+        # Runs the Test on the Car in the Race Track based on the results learned in the training
+         
+        #Set up the Car 
+        curCar = CarModule.Car(self.harshCrashLogic, self.raceTrack.raceTrackLayout, self.raceTrack.width, self.raceTrack.height)
+        curCar.init_car_kinematics(self.raceTrack.startPosition)
+        print('--Testing the Race Car--')
+        if(self.harshCrashLogic):
+            print('Bad Crash')
         else:
-            # Pick the best action based on the argMax of the current q values
-            maxAccessKey = max(cur_q_a_valueInS, key=cur_q_a_valueInS.get)
-
-            ep_acceleration = maxAccessKey
+            print('Simple Crash')
+        print('Car Starting Position:')
+        print('Car Position' + str(curCar.curPosition))
+        print('Car Velocity' + str(curCar.curVelocity))
         
-        return ep_acceleration
+        # Let the car run around the track until it has reached the finish line
+        reachedFinishLine = False
+        
+        elapsedTime = 0 
+        loopIterations = 0
+        while ((not reachedFinishLine) and (loopIterations < iterations)):
+            q_s_AccessKey = (curCar.curPosition, curCar.curVelocity)
+            cur_q_a_values_basedOnCarState = self.q_table[q_s_AccessKey]
             
+            #Let the greedy epsilon algorithm pick the acceleration to use
+            ep_picked_acceleration = self._greedy_epsilon(cur_q_a_values_basedOnCarState, epsilon)
             
+            print('Car Acceleration:' + str(ep_picked_acceleration))
             
-
-
+            # Apply Acceleration to Car
+            #Apply Acceleariton First (changes velocity)
+            curCar.applyAcceleartion(ep_picked_acceleration)
+            print('Car Next State:')
+            print('Car Position' + str(curCar.curPosition))
+            print('Car Velocity' + str(curCar.curVelocity))
+            
+            elapsedTime = elapsedTime + 1
+            loopIterations = loopIterations + 1
+            #Then Apply the Velocity (changes position) 
+            reachedFinishLine = curCar.applyVelocity()
+            
+        return elapsedTime    
+        
 class ActionSpace_A:
     def __init__(self):
         self.actions_A = self.defineActionSpace()

@@ -13,11 +13,11 @@ trackName = 'T'
 # V = Value Iteration
 # Q = Q Values
 # S = SARSA
-algorithm = 'V'
+algorithm = 'Q'
 
 #Define the Crash Logic 
 #True = Car goes back to start position with zero'd velocity
-harshCrash = False 
+harshCrash = True 
 
  
 
@@ -58,10 +58,10 @@ if(algorithm == 'V'):
             
 elif(algorithm == 'Q'):
     #tuneDiscountList = [.1,.5,.7]
-    tuneDiscountList = [.7]
+    tuneDiscountList = [.9]
     #tuneEpsilonList = [0.01,0.1,1]
-    tuneEpsilonList = [0.000001]
-    tuneLearnRate = [0.2]
+    tuneEpsilonList = [0.1]
+    tuneLearnRate = [0.7]
     numIterations = 10000
     metricForRuns = []
     
@@ -71,7 +71,7 @@ elif(algorithm == 'Q'):
         for discountVal in tuneDiscountList:
             for learnVal in tuneLearnRate:
                 qLearnHelper.runTrain(epsilonVal, learnVal, discountVal, numIterations)
-                timeTaken = valIterHelper.runTest()
+                timeTaken = qLearnHelper.runTest(0, 10)
                 print(timeTaken)
                 curMetric = (epsilonVal, discountVal, timeTaken)
                 metricForRuns.append(curMetric)
