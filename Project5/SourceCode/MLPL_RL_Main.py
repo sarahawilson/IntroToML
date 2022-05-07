@@ -4,6 +4,7 @@
 
 import ImportHelperModule
 import ValueIterationModule
+import QLearningModule
 
 # User Defined Varaibles 
 trackName = 'T'
@@ -16,7 +17,7 @@ algorithm = 'V'
 
 #Define the Crash Logic 
 #True = Car goes back to start position with zero'd velocity
-harshCrash = True 
+harshCrash = False 
 
  
 
@@ -60,5 +61,35 @@ elif(algorithm == 'Q'):
     tuneDiscountList = [.7]
     #tuneEpsilonList = [0.01,0.1,1]
     tuneEpsilonList = [0.000001]
+    tuneLearnRate = [0.2]
     numIterations = 10000
     metricForRuns = []
+    
+    qLearnHelper = QLearningModule.QLearnHelper(curRaceTrack, harshCrash)
+    #Run the Q Learning Over the Tuning Parameters
+    for epsilonVal in tuneEpsilonList:
+        for discountVal in tuneDiscountList:
+            for learnVal in tuneLearnRate:
+                qLearnHelper.runTrain(epsilonVal, learnVal, discountVal, numIterations)
+                timeTaken = valIterHelper.runTest()
+                print(timeTaken)
+                curMetric = (epsilonVal, discountVal, timeTaken)
+                metricForRuns.append(curMetric)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

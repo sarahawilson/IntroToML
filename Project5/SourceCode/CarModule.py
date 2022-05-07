@@ -67,6 +67,7 @@ class Car:
         nextPosition = (nextPosition_x, nextPosition_y)
         
         wallHitOccured = False
+        lastNonWallPosition = None
         quickCheckOnWallChar = self.raceTrackLayout[curPosition]
         if ( quickCheckOnWallChar == '#'):
             wallHitOccured = True
@@ -74,12 +75,13 @@ class Car:
                 nextPosition = self.startPosition
             else:
                 #TODO: Implement logic for starting at square closest to crash site
+                lastNonWallPosition = self.startPosition
                 nextPosition= self.startPosition
 
         #Only Run Bresenhams if there is a chagne in position, in order to check if along the line we hit a wall
         if((curPosition != nextPosition) and (wallHitOccured != True)):
             positionsBetween = self._bresenhamPoints(curPosition, nextPosition)
-                
+            
             for linePos in positionsBetween:
                 #Add logic for if the position between is not on the race track
                 if((linePos[0] >= self.raceTrackWidth) or ((linePos[1] >= self.raceTrackHeight))):
@@ -88,22 +90,21 @@ class Car:
                     continue
                 
                 nextPossibeSpaceChar = self.raceTrackLayout[linePos]
+                lastNonWallPosition = linePos
                 if ( nextPossibeSpaceChar == '#'):
                     wallHitOccured = True
                     break
-            
-        
-        
-        
+                        
         #We hit a wall
         if (wallHitOccured):
             if (self.harshCrashLogic):
                 self.curPosition = self.startPosition
                 self.curVelocity = self.startVelocity
             else:
-                #TODO: Implement logic for starting at square closest to crash site
-                self.curPosition = self.startPosition
-                self.curVelocity = self.startVelocity
+                if(lastNonWallPosition == None):
+                    test = 1
+                self.curPosition = lastNonWallPosition
+                self.curVelocity = (0,0)
                 
         #Did not hit a wall
         else:
@@ -120,10 +121,6 @@ class Car:
         
         return False
         
-        
-    
-
-
     def _bresenhamPoints(self, position_1, position_2):
         x1 = position_1[0]
         y1 = position_1[1]
@@ -186,58 +183,3 @@ class Car:
             else:
                 D = D + (2*dx)
         return pointsBetween
-        
-        
-#    def _bresenhamPoints(self, position_1, position_2):
-#        pointsBetween = []
-#        x_between = []
-#        y_between = []
-#        
-#        x1 = position_1[0]
-#        y1 = position_1[1]
-#        x2 = position_2[0]
-#        y2 = position_2[1]
-#        
-#        x, y = x1,y1
-#        dx = abs(x2 - x1)
-#        dy = abs(y2 - y1)
-#        if(dx == 0):
-#            if(y2 < 1):
-#                scale = -1
-#            else:
-#                scale = 1
-#            for val_y in range(dy+1):
-#                y_update_val = val_y * scale
-#                postionBetween = (x,y_update_val)
-#                pointsBetween.append(postionBetween)
-#        
-#        else:
-#            grad = dy/float(dx)
-#        
-#            if grad > 1:
-#                dx, dy = dy, dx
-#                x, y = y, x
-#                x1, y1 = y1, x1
-#                x2, y2 = y2, x2
-#        
-#            p = 2 * dy - dx
-#        
-#            x_between.append(x)
-#            y_between.append(y)
-#            postionBetween = (x,y)
-#            pointsBetween.append(postionBetween)
-#        
-#            for val in range(dx):
-#                if p > 0:
-#                    y = y + 1 if y < y2 else y -1
-#                    p = p + 2*(dy - dx)
-#                else:
-#                    p = p + 2*dy
-#            
-#                x = x + 1 if x < x2 else x -1
-#                x_between.append(x)
-#                y_between.append(y)
-#                postionBetween = (x,y)
-#                pointsBetween.append(postionBetween)
-#        
-#        return pointsBetween

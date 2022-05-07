@@ -67,9 +67,39 @@ class QLearnHelper:
             #Let the greedy epsilon algorithm pick the acceleration to use
             ep_picked_acceleration = self._greedy_epsilon(cur_q_a_values_basedOnCarState, epsilon)
             
+            # Non Deterministic Car Motion
+            # Roll dice 
+            if (random.random() < 0.8):
+                # Acceleration is applied
+                q_s_a_value =  cur_q_a_values_basedOnCarState[ep_picked_acceleration]
+                accToApply = ep_picked_acceleration
+            else:
+                accToApply = (0,0)
+                q_s_a_value = cur_q_a_values_basedOnCarState[accToApply]
+                
+            # Apply Acceleration to Car
+            #Apply Acceleariton First (changes velocity)
+            curCar.applyAcceleartion(accToApply)
+            #Then Apply the Velocity (changes position) 
+            reachedFinishLine = curCar.applyVelocity()
             
+            if (not reachedFinishLine):
+                curPos = curCar.curPosition
+                curVel = curCar.curVelocity
+                
+                # Get Q(s')
+                q_s_primeAccessKey = (curPos, curVel)
+                q_s_prime = self.q_table[q_s_primeAccessKey]
+                
+                # Determine Max a' based on Q(s')
+                max_q_acc_prime = np.max(q_s_prime)
+                
+                # Update the q_s_a values
+                reward = -1
+                cur_q_a_values_basedOnCarState[accToApply] = cur_q_a_values_basedOnCarState[accToApply] + (learningRate *(reward + (discount * max_q_acc_prime) - q_s_a_value))
             
-            
+            loopIterations = loopIterations + 1
+                
             
     def _greedy_epsilon(self, cur_q_a_valueInS, epsilon):
         # Implements the greedy epsilon algorithm

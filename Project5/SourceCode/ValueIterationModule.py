@@ -5,6 +5,7 @@
 from typing import Tuple, Dict
 from itertools import product
 import copy
+import random
 
 import RaceTrackModule
 import CarModule
@@ -113,42 +114,39 @@ class ValIterHelper:
                     
                     # Get the s_prime
                     # When the accelration is NOT applied (acc_x =0, acc_y =0)
+                    acc_a_none = (0,0)
+                    #Set the Car back 
+                    curCar.curPosition = cur_pos_s
+                    curCar.curVelocity = cur_vel_s
+                    curCar.applyAcceleartion(acc_a_none)
+                    curCar.applyVelocity()
+                    pos_s_prime_noAcc = curCar.curPosition
+                    vel_s_prime_noAcc = curCar.curVelocity
                     
-                    s_prime_AccessKey_accApplied = (pos_s_prime, vel_s_prime)
+                    s_prime_AccessKey_accNotApplied = (pos_s_prime_noAcc, vel_s_prime_noAcc)
                     
-                    
-                    # Calcaulte V_(t-1)
-                    v_t_mOne = 0  #Set to Zero so on the first pass we have a value
-                    if(not reachedFinishLine):
-                        accessKey = (pos_s_prime, vel_s_prime)
-                        v_t_mOne = prev_ValueTable[accessKey]
-                    
+
                     #Calculate the Reward
                     if(reachedFinishLine):
                         reward = 0
                     else:
                         reward = -1
                         
-                        
-                    #TODO: Figure out how to apply the right probability
-                    curProb = self.actionSpace.propApplied
+                    value_s_prime_accApplied = prev_ValueTable[s_prime_AccessKey_accApplied]
+                    value_s_prime_accNOTApplied = prev_ValueTable[s_prime_AccessKey_accNotApplied]
                     
-                    ##
-                    # New Stuff that can be deleted if it hits the fan...
-                    value_s_prime_accApplied = prev_ValueTable[]
-                    
-                    value_s_prime_accNOTApplied = prev_ValueTable[]
-                    ##
-                    
-                    
+                    # Calcualte the Probability or the Expected Value
+                    curProb = (self.actionSpace.propApplied * value_s_prime_accApplied) + (self.actionSpace.propNotApplied * value_s_prime_accNOTApplied)
+
                     #Calcualte the new Q_t
-                    Q_t = reward + discount*(curProb*v_t_mOne)
+                    Q_t = reward + discount*(curProb)
                     
                     #Update the Q table entires 
                     accessPosition = pos_vel_state[0]
                     accessVelocity = pos_vel_state[1]
                     accessAcceleration = acceleariton_action
                     qtableAccessKey = (accessPosition, accessVelocity,accessAcceleration)
+                    
                     self.q_table[qtableAccessKey] = Q_t
                     
                     #Update the Policy (pi) and the maximum Q
@@ -173,16 +171,28 @@ class ValIterHelper:
             
             loopIterations = loopIterations + 1
         
+        print('--Training the Race Car--')
+        if(self.harshCrashLogic):
+            print('Bad Crash')
+        else:
+            print('Simple Crash')
         print('Reached Convergance')
         print('Asked for Iterations:' + str(iterations))
         print('Ran Iterations:'  + str(loopIterations))
         print('Reached Convergance by Epsilon:' +str(reachedConvergance))
+        print('-------------------------')
         
         
     def runTest(self):
         
         curCar = CarModule.Car(self.harshCrashLogic, self.raceTrack.raceTrackLayout, self.raceTrack.width, self.raceTrack.height)
         curCar.init_car_kinematics(self.raceTrack.startPosition)
+        print('--Testing the Race Car--')
+        if(self.harshCrashLogic):
+            print('Bad Crash')
+        else:
+            print('Simple Crash')
+        print('Car Starting Position:')
         print('Car Position' + str(curCar.curPosition))
         print('Car Velocity' + str(curCar.curVelocity))
         
@@ -194,14 +204,23 @@ class ValIterHelper:
             curPos = curCar.curPosition
             curVel = curCar.curVelocity
             
-            #Use position and velocity key to look up the policy given it's state
-            policyTableAccessKey = (curPos, curVel)
-            bestPolicyAction = self.policy_table[policyTableAccessKey]
+            # 80% of the Time the Acceleration is Applied
+            if (random.random() < 0.8):
+                # Apply the intented Accelration
+                #Use position and velocity key to look up the policy given it's state
+                policyTableAccessKey = (curPos, curVel)
+                bestPolicyAction = self.policy_table[policyTableAccessKey]
+            else:
+                # 20% of the Time NO Acceleration is Applied
+                bestPolicyAction = (0,0)
+            print('Car Acceleration:' + str(bestPolicyAction))
             
             #Have the car perfrom the aciton given the policy
             curCar.applyAcceleartion(bestPolicyAction)
+            print('Car Next State:')
             print('Car Position' + str(curCar.curPosition))
             print('Car Velocity' + str(curCar.curVelocity))
+            
             elapsedTime = elapsedTime + 1
             reachedFinish = curCar.applyVelocity()
         
@@ -209,8 +228,6 @@ class ValIterHelper:
             
             
             
-            
-        
         
 class ActionSpace_A:
     def __init__(self):
