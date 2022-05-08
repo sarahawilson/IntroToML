@@ -3,6 +3,7 @@
 # Race Track - Zoom Zoom
 
 from typing import Tuple, Dict
+import random
 
 class Car:
     def __init__(self, harshCrashLogic, raceTrackLayout, raceTrackWidth, raceTrackHegiht):
@@ -21,6 +22,15 @@ class Car:
         self.curVelocity = (0,0)
         self.startPosition = self.curPosition
         self.startVelocity = self.curVelocity
+        
+    def init_car_rando(self, raceTrackStartPos):
+        rand_x = random.randint(0,(self.raceTrackWidth-1))
+        rand_y = random.randint(0,(self.raceTrackHeight-1))
+        self.curPosition = (rand_x,rand_y)
+        self.curVelocity = (0,0)
+        self.startPosition = raceTrackStartPos
+        self.startVelocity = self.curVelocity
+        
                 
     
     def resetOnHarshCrash(self):
@@ -81,8 +91,6 @@ class Car:
         #Position 2
         nextPosition = (nextPosition_x, nextPosition_y)
         
-    
-        
         stationaryMove = False
         if(not wallHitOccured):
             if (curPosition == nextPosition):
@@ -133,16 +141,6 @@ class Car:
             zz_pos2 = self.curPosition
             test =1 
             
-        
-
-            
-            
-        
-        
-        
-        
-        
-        
         
         
     def applyVelocity(self):
@@ -216,6 +214,9 @@ class Car:
         return False
         
     def _bresenhamPoints(self, position_1, position_2):
+        # Note this is the Bresenahms Points taken directly from 
+        # Wiki-Pedia, the following code was sourced from:
+        # https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
         x1 = position_1[0]
         y1 = position_1[1]
         x2 = position_2[0]
@@ -237,6 +238,9 @@ class Car:
                 
         
     def _handleSlopeLow(self, x1, y1, x2, y2):
+        # Note this is the Bresenahms Points taken directly from 
+        # Wiki-Pedia, the following code was sourced from:
+        # https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
         dx = x2 - x1 
         dy = y2 - y1
         y_increment = 1
@@ -258,6 +262,9 @@ class Car:
         return pointsBetween
       
     def _handleSlopeHigh(self, x1, y1, x2, y2):
+        # Note this is the Bresenahms Points taken directly from 
+        # Wiki-Pedia, the following code was sourced from:
+        # https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
         dx = x2 - x1
         dy = y2 - y1
         x_increment = 1

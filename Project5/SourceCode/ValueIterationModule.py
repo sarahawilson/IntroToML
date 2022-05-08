@@ -6,12 +6,14 @@ from typing import Tuple, Dict
 from itertools import product
 import copy
 import random
+import matplotlib.pyplot as plt
 
 import RaceTrackModule
 import CarModule
 
 
 class ValIterHelper:
+    # Helper Module to run the Value Iteration Algorihtm
     def __init__(self, RaceTrack, harshCrashLogic):
         self.raceTrack = RaceTrack
         self.actionSpace = ActionSpace_A()
@@ -20,6 +22,7 @@ class ValIterHelper:
         self.value_table = self._init_value_table()
         self.policy_table = self._init_policy_table()
         self.harshCrashLogic = harshCrashLogic
+        self.fileContentsToWrite = []
         
     def _init_q_table(self):
         #Q table has the same Shape as stateSpace
@@ -72,11 +75,73 @@ class ValIterHelper:
                 pos_vel_tupleKey = (position, velocity)
                 policyTable[pos_vel_tupleKey] = 0
         return policyTable
+    
+    
+    def plotLearningCurve(self, epsilon, metricsList, trackName):
+        # Plots the Learning Curve for the Value Iteration Algorithm
+        iterations = []
+        iterNum = 1
+        for metric in metricsList:
+            iterations.append(iterNum)
+            iterNum = iterNum + 1
+            
+        plt.plot(iterations, metricsList)
+        #plt.axhline(y=epsilon, color='r', linestyle='-')
+        
+        plt.xlabel('Number of Iterations')
+        plt.ylabel('Delta Max Value')
+        
+        if(trackName == 'T'):
+            nameTrack = 'T-Track'
+        elif(trackName == 'R'):
+            nameTrack = 'R-Track'
+        elif(trackName == 'O'):
+            nameTrack = 'O-Track'
+        elif(trackName == 'L'):
+            nameTrack = 'L-Track'
+        
+        if(self.harshCrashLogic):
+            crashType = 'Crash Type 2 (Start)'
+        else:
+            crashType = 'Crash Type 1 (Nearest)'
+        
+        plotTitle = 'Value Iteration: ' + nameTrack + crashType
+        plt.title(plotTitle)
+        
+        plt.show()
+        
+    def dumpResultsToFile(self, trackName):
+        #Write the run results to a .txt file
+        filePath = r'C:\Users\Sarah Wilson\Desktop\JHU Classes\IntroToML\Project5\WilsonProject#5\SourceOutput'
+        if(trackName == 'T'):
+            nameTrack = '_T-Track'
+        elif(trackName == 'R'):
+            nameTrack = '_R-Track'
+        elif(trackName == 'O'):
+            nameTrack = '_O-Track'
+        elif(trackName == 'L'):
+            nameTrack = '_L-Track'
+        
+        if(self.harshCrashLogic):
+            crashType = '_Crash_2_Start'
+        else:
+            crashType = '_Crash_1_Nearest'
+        
+        fileName = '\ValIter' + crashType + nameTrack + '.txt'
+        
+        fullPath = filePath + fileName
+        textfile = open(fullPath, "w")
+        for item in self.fileContentsToWrite:
+            textfile. write(item + "\n")
+        textfile. close()
+        
         
     def runTrain(self, epsilon, iterations, discount):
-        
+        # Runs the training for the value iteration algorithm
         curCar = CarModule.Car(self.harshCrashLogic, self.raceTrack.raceTrackLayout, self.raceTrack.width, self.raceTrack.height)
         curCar.init_car_kinematics(self.raceTrack.startPosition)
+        
+        metricForLearningPlot = []
         
         loopIterations = 0
         reachedConvergance = False
@@ -88,8 +153,7 @@ class ValIterHelper:
             #For all s in S
             for pos_vel_state in self.stateSpace.states_S:
                 #For all a in A
-                
-                max_q_val = -10000
+                max_q_val = -5
                 policy_pi = (0,0) # Policy here is the acceeleration (acc_x, acc_y)
                 
                 for acceleariton_action in self.actionSpace.actions_A:
@@ -169,32 +233,50 @@ class ValIterHelper:
             if (overall_delta_v <= epsilon):
                 reachedConvergance = True
             
+            
             loopIterations = loopIterations + 1
+            metricForLearningPlot.append(overall_delta_v)
         
         print('--Training the Race Car--')
+        self.fileContentsToWrite.append('--Training the Race Car--')
         if(self.harshCrashLogic):
             print('Bad Crash')
+            self.fileContentsToWrite.append('Bad Crash')
         else:
             print('Simple Crash')
+            self.fileContentsToWrite.append('Simple Crash')
         print('Reached Convergance')
+        self.fileContentsToWrite.append('Reached Convergance')
         print('Asked for Iterations:' + str(iterations))
+        self.fileContentsToWrite.append('Asked for Iterations:' + str(iterations))
         print('Ran Iterations:'  + str(loopIterations))
+        self.fileContentsToWrite.append('Ran Iterations:'  + str(loopIterations))
         print('Reached Convergance by Epsilon:' +str(reachedConvergance))
+        self.fileContentsToWrite.append('Reached Convergance by Epsilon:' +str(reachedConvergance))
         print('-------------------------')
+        self.fileContentsToWrite.append('-------------------------')
+        
+        return metricForLearningPlot
         
         
     def runTest(self):
-        
+        # Runs the Test on the Car using the policy that was obtained during the training
         curCar = CarModule.Car(self.harshCrashLogic, self.raceTrack.raceTrackLayout, self.raceTrack.width, self.raceTrack.height)
         curCar.init_car_kinematics(self.raceTrack.startPosition)
         print('--Testing the Race Car--')
+        self.fileContentsToWrite.append('--Testing the Race Car--')
         if(self.harshCrashLogic):
             print('Bad Crash')
+            self.fileContentsToWrite.append('Bad Crash')
         else:
             print('Simple Crash')
+            self.fileContentsToWrite.append('Simple Crash')
         print('Car Starting Position:')
+        self.fileContentsToWrite.append('Car Starting Position:')
         print('Car Position' + str(curCar.curPosition))
+        self.fileContentsToWrite.append('Car Position' + str(curCar.curPosition))
         print('Car Velocity' + str(curCar.curVelocity))
+        self.fileContentsToWrite.append('Car Velocity' + str(curCar.curVelocity))
         
         
         reachedFinish = False
@@ -214,12 +296,16 @@ class ValIterHelper:
                 # 20% of the Time NO Acceleration is Applied
                 bestPolicyAction = (0,0)
             print('Car Acceleration:' + str(bestPolicyAction))
+            self.fileContentsToWrite.append('Car Acceleration:' + str(bestPolicyAction))
             
             #Have the car perfrom the aciton given the policy
             curCar.applyAcceleartion(bestPolicyAction)
             print('Car Next State:')
+            self.fileContentsToWrite.append('Car Next State:')
             print('Car Position' + str(curCar.curPosition))
+            self.fileContentsToWrite.append('Car Position' + str(curCar.curPosition))
             print('Car Velocity' + str(curCar.curVelocity))
+            self.fileContentsToWrite.append('Car Velocity' + str(curCar.curVelocity))
             
             elapsedTime = elapsedTime + 1
             reachedFinish = curCar.applyVelocity()
@@ -230,6 +316,7 @@ class ValIterHelper:
             
         
 class ActionSpace_A:
+    #Build the aciton spaced based on the accelerations
     def __init__(self):
         self.actions_A = self.defineActionSpace()
         self.propApplied = 0.8
@@ -247,6 +334,8 @@ class ActionSpace_A:
         
         
 class StateSpace_S:
+    #Builds the state space based on how many possible poisition and veloicty 
+    #combinations there are 
     def __init__ (self, raceTrackLayout):
         self.states_S = self.defineStateSpace(raceTrackLayout)
 

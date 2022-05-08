@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.1.30)  24 APR 2022 10:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.1.30)  8 MAY 2022 16:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -341,88 +341,182 @@ LaTeX Info: Redefining \nameref on input line 26.
 \openout3 = `Project5Report.out'.
 
 
-! Undefined control sequence.
-<recently read> \phone 
-                       
-l.37 \maketitle
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 41--42
 
  []
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 45.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 44.
 
 
 (C:\Users\Sarah Wilson\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 45.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 44.
 
 
 (C:\Users\Sarah Wilson\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 45--49
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
 
  []
 
-[1
+
+Underfull \hbox (badness 10000) in paragraph at lines 46--47
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 48--49
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1
 
 {C:/Users/Sarah Wilson/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-[2] [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 63--64
+Underfull \hbox (badness 10000) in paragraph at lines 50--51
+
+ []
+
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 55--81
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 66--67
+Underfull \hbox (badness 10000) in paragraph at lines 55--81
 
+ []
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 83--86
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--114
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--114
+
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 116--118
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--143
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--143
+
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--155
+
+ []
+
+<./images//RunTimeComp_All.png, id=61, 539.01375pt x 99.37125pt>
+File: ./images//RunTimeComp_All.png Graphic file (type png)
+<use ./images//RunTimeComp_All.png>
+Package pdftex.def Info: ./images//RunTimeComp_All.png  used on input line 160.
+
+(pdftex.def)             Requested size: 431.21158pt x 79.4971pt.
+[6 <./images//RunTimeComp_All.png>]
+<./images//ValIter_All_TrainCurve.png, id=69, 471.26062pt x 539.76656pt>
+File: ./images//ValIter_All_TrainCurve.png Graphic file (type png)
+<use ./images//ValIter_All_TrainCurve.png>
+Package pdftex.def Info: ./images//ValIter_All_TrainCurve.png  used on input li
+ne 169.
+(pdftex.def)             Requested size: 471.25948pt x 539.76524pt.
+
+Overfull \hbox (37.63948pt too wide) in paragraph at lines 169--170
+ [][]  
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 99--100
+<./images//Q_All_TrainCurve.png, id=70, 542.025pt x 536.75531pt>
+File: ./images//Q_All_TrainCurve.png Graphic file (type png)
+<use ./images//Q_All_TrainCurve.png>
+Package pdftex.def Info: ./images//Q_All_TrainCurve.png  used on input line 178
+.
+(pdftex.def)             Requested size: 487.81798pt x 483.0753pt.
+
+Overfull \hbox (54.19798pt too wide) in paragraph at lines 178--179
+ [][]  
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<./images//SARSA_All_TrainCurve.png, id=71, 558.58687pt x 531.48563pt>
+File: ./images//SARSA_All_TrainCurve.png Graphic file (type png)
+<use ./images//SARSA_All_TrainCurve.png>
+Package pdftex.def Info: ./images//SARSA_All_TrainCurve.png  used on input line
+ 187.
+(pdftex.def)             Requested size: 502.72354pt x 478.33264pt.
+
+Overfull \hbox (69.10355pt too wide) in paragraph at lines 187--188
+ [][]  
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 193--194
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 102--104
+Underfull \hbox (badness 10000) in paragraph at lines 196--198
 
  []
 
-[6] (Project5Report.aux)
+[7] [8 <./images//ValIter_All_TrainCurve.png>] [9 <./images//Q_All_TrainCurve.p
+ng>] [10 <./images//SARSA_All_TrainCurve.png>] (Project5Report.aux)
 Package rerunfilecheck Info: File `Project5Report.out' has not changed.
 (rerunfilecheck)             Checksum: 0A6B3DDD41BBE6C41A5741CC1520F2FC;778.
  ) 
 Here is how much of TeX's memory you used:
- 9524 strings out of 478659
- 150474 string characters out of 2842566
- 452523 words of memory out of 3000000
- 27507 multiletter control sequences out of 15000+600000
- 410551 words of font info for 53 fonts, out of 8000000 for 9000
+ 9566 strings out of 478659
+ 151887 string characters out of 2842566
+ 451435 words of memory out of 3000000
+ 27544 multiletter control sequences out of 15000+600000
+ 408991 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 85i,5n,90p,1313b,326s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 85i,7n,90p,1313b,326s stack positions out of 5000i,500n,10000p,200000b,80000s
 <C:/Users/Sarah Wilson/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
 nts/cm/cmbx10.pfb><C:/Users/Sarah Wilson/AppData/Local/Programs/MiKTeX/fonts/ty
 pe1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Sarah Wilson/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/Sarah Wilson/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Sa
-rah Wilson/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.p
-fb><C:/Users/Sarah Wilson/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
-onts/cm/cmr10.pfb><C:/Users/Sarah Wilson/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmti10.pfb>
-Output written on Project5Report.pdf (6 pages, 113006 bytes).
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Sarah Wilson/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Sara
+h Wilson/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb
+><C:/Users/Sarah Wilson/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmr8.pfb><C:/Users/Sarah Wilson/AppData/Local/Programs/MiKTeX/fonts/type1
+/public/amsfonts/cm/cmsy10.pfb><C:/Users/Sarah Wilson/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/Sarah Wilson/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on Project5Report.pdf (10 pages, 373134 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
- 18 named destinations out of 1000 (max. 500000)
- 57 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 140 PDF objects out of 1000 (max. 8388607)
+ 22 named destinations out of 1000 (max. 500000)
+ 77 words of extra memory for PDF output out of 10000 (max. 10000000)
 

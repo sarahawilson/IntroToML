@@ -7,6 +7,7 @@ from RaceTrackModule import RaceTrack
 
 
 class ImportHelper:
+    #Helper to help with the importing of the racetrack files
     def __init__(self, filePath):
         self.filePath = filePath
         

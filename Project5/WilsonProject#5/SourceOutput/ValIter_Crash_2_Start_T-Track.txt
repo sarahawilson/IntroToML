@@ -1,0 +1,201 @@
+--Training the Race Car--
+Bad Crash
+Reached Convergance
+Asked for Iterations:10000
+Ran Iterations:11
+Reached Convergance by Epsilon:True
+-------------------------
+--Testing the Race Car--
+Bad Crash
+Car Starting Position:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(2, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(3, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(4, 1)
+Car Velocity(1, 0)
+--Testing the Race Car--
+Bad Crash
+Car Starting Position:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(2, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(3, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(4, 1)
+Car Velocity(1, 0)
+--Testing the Race Car--
+Bad Crash
+Car Starting Position:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(2, 1)
+Car Velocity(1, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(3, 1)
+Car Velocity(2, 0)
+--Testing the Race Car--
+Bad Crash
+Car Starting Position:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(2, 1)
+Car Velocity(1, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(3, 1)
+Car Velocity(2, 0)
+--Testing the Race Car--
+Bad Crash
+Car Starting Position:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(2, 1)
+Car Velocity(1, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(3, 1)
+Car Velocity(2, 0)
+--Testing the Race Car--
+Bad Crash
+Car Starting Position:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(2, 1)
+Car Velocity(1, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(3, 1)
+Car Velocity(2, 0)
+--Testing the Race Car--
+Bad Crash
+Car Starting Position:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(2, 1)
+Car Velocity(1, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(3, 1)
+Car Velocity(2, 0)
+--Testing the Race Car--
+Bad Crash
+Car Starting Position:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(2, 1)
+Car Velocity(1, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(3, 1)
+Car Velocity(2, 0)
+--Testing the Race Car--
+Bad Crash
+Car Starting Position:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(2, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(3, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(4, 1)
+Car Velocity(1, 0)
+--Testing the Race Car--
+Bad Crash
+Car Starting Position:
+Car Position(1, 1)
+Car Velocity(0, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(1, 1)
+Car Velocity(1, 0)
+Car Acceleration:(0, 0)
+Car Next State:
+Car Position(2, 1)
+Car Velocity(1, 0)
+Car Acceleration:(1, 0)
+Car Next State:
+Car Position(3, 1)
+Car Velocity(2, 0)
